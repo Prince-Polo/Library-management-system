@@ -33,7 +33,7 @@ case class StudentLoginMessagePlanner(userName:String, password:String, override
   override def plan(using PlanContext): IO[String] = {
     // Attempt to validate the student by reading the rows from the database
     readDBRows(
-      s"SELECT user_name FROM $schemaName.student WHERE user_name = ? AND password = ?",
+      s"SELECT user_name FROM ${schemaName} WHERE user_name = ? AND password = ?",
       List(SqlParameter("String", userName), SqlParameter("String", password))
     ).map{
       case Nil => "Invalid user"
