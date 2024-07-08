@@ -33,6 +33,7 @@ export const sendPostRequest = async (
         });
         console.log('Response status:', response.status);
         console.log('Response body:', response.data);
+
         if (response.status === 200 && onSuccess) {
             onSuccess();
         }
@@ -43,7 +44,7 @@ export const sendPostRequest = async (
         if (isAxiosError(error)) {
             if (error.response && error.response.data) {
                 console.error('Error sending request:', error.response.data);
-                setError(`Error sending request: ${error.response.data}`);
+                setError(`Error sending request: ${error.response.data.error}`);
             } else {
                 console.error('Error sending request:', error.message);
                 setError(`Error sending request: ${error.message}`);

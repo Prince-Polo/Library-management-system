@@ -37,7 +37,7 @@ export function Main(){
                 <button className={'button button3'} onClick={handleRegisterClick1}>
                     I am an administrator.
                 </button>
-                <button className={'button button4'} onClick={() => history.push('/another')}>
+                <button className={'button button4'} onClick={() => history.push('/Admin')}>
                     About our library.
                 </button>
                 </div>

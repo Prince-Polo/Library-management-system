@@ -7,6 +7,7 @@ import {RegisterMessage} from 'Plugins/DoctorAPI/RegisterMessage'
 import {LoginMessage} from 'Plugins/DoctorAPI/LoginMessage'
 import {sendPostRequest,ErrorModal} from 'Pages/ErrorMessage'
 import './app.css'
+import { Email } from '@mui/icons-material'
 
 interface FormProps {
     title: string;
@@ -30,7 +31,9 @@ const GenericForm: React.FC<FormProps> = ({ title, fields, createMessage, onSucc
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const message = createMessage(formData);
+        console.log(message);
         sendPostRequest(message, setError, onSuccess);
+        //console.log(formData);
     };
 
     const closeModal = () => {
@@ -73,21 +76,21 @@ const GenericForm: React.FC<FormProps> = ({ title, fields, createMessage, onSucc
 const StudentRegisters: React.FC = () => {
     const fields = [
         { name: 'name', type: 'text', label: 'Name',required:true },
-        { name: 'email', type: 'email', label: 'Email' ,required:true},
-        { name: 'password', type: 'password', label: 'Password',required:true },
-        { name: 'number', type: 'textarea', label: 'Number',required:true }
+        { name: 'email', type: 'email', label: 'email' ,required:true},
+        { name: 'password', type: 'password', label: 'password',required:true },
+        { name: 'number', type: 'textarea', label: 'number',required:true }
     ];
 
-    const createMessage = (formData: any) => new PatientRegisterMessage(formData.name, formData.password);
+    const createMessage = (formData: any) => new PatientRegisterMessage(formData.name, formData.password,formData.email,formData.number);
 
     return <GenericForm title="Student Register" fields={fields} createMessage={createMessage} />;
 };
 const StudentLogins: React.FC = () => {
     const fields = [
-        { name: 'name', type: 'text', label: 'Name',required:true },
-        { name: 'email', type: 'email', label: 'Email', required: false },
-        { name: 'password', type: 'password', label: 'Password' ,required: true},
-        { name: 'number', type: 'textarea', label: 'Number',required: false }
+        { name: 'name', type: 'text', label: 'name',required:true },
+        { name: 'email', type: 'email', label: 'email', required: false },
+        { name: 'password', type: 'password', label: 'password' ,required: true},
+        { name: 'number', type: 'textarea', label: 'number',required: false }
     ];
     const history=useHistory()
     const createMessage = (formData: any) => new PatientLoginMessage(formData.name, formData.password);
@@ -98,13 +101,13 @@ const StudentLogins: React.FC = () => {
 };
 const AdminRegisters: React.FC = () => {
     const fields = [
-        { name: 'name', type: 'text', label: 'Name',required:true },
-        { name: 'email', type: 'email', label: 'Email',required: true },
-        { name: 'password', type: 'password', label: 'Password',required: true },
-        { name: 'number', type: 'textarea', label: 'Number',required: true}
+        { name: 'name', type: 'text', label: 'name',required:true },
+        { name: 'email', type: 'email', label: 'email',required: true },
+        { name: 'password', type: 'password', label: 'password',required: true },
+        { name: 'number', type: 'textarea', label: 'number',required: true}
     ];
 
-    const createMessage = (formData: any) => new RegisterMessage(formData.name, formData.password);
+    const createMessage = (formData: any) => new RegisterMessage(formData.name, formData.password, formData.email, formData.number);
     return <GenericForm title="Administrator Register" fields={fields} createMessage={createMessage} />;
 };
 
@@ -113,13 +116,13 @@ const AdminLogins: React.FC = () =>{
     const fields = [
         { name: 'name', type: 'text', label: 'Name',required:true },
         { name: 'email', type: 'email', label: 'Email',required: false },
-        { name: 'password', type: 'password', label: 'Password',required: true },
+        { name: 'password', type: 'password', label: 'password',required: true },
         { name: 'number', type: 'textarea', label: 'Number',required: false }
     ];
     const handleSuccess = () => {
         history.push('/admin');
     };
-    const createMessage = (formData: any) => new PatientRegisterMessage(formData.name, formData.password);
+    const createMessage = (formData: any) => new LoginMessage(formData.name, formData.password);
 
     return <GenericForm title="Administrator Login" fields={fields} createMessage={createMessage} onSuccess={handleSuccess}  />;
 };
