@@ -6,13 +6,12 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{writeDB, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import java.sql.Connection
 
 case class StudentUnregisterPlanner(userName: String, email: String, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     // Check if the student exists
     val checkStudentExists = readDBBoolean(
-      s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? AND email = ?)",
+      s"SELECT EXISTS(SELECT 1 FROM $schemaName.students WHERE user_name = ? AND email = ?)",
       List(SqlParameter("String", userName), SqlParameter("String", email))
     )
 
@@ -22,7 +21,7 @@ case class StudentUnregisterPlanner(userName: String, email: String, override va
       } else {
         // Delete the student from the database
         writeDB(
-          s"DELETE FROM ${schemaName}.students WHERE user_name = ? AND email = ?",
+          s"DELETE FROM $schemaName.students WHERE user_name = ? AND email = ?",
           List(SqlParameter("String", userName), SqlParameter("String", email))
         ).map { _ =>
           s"Unregistration successful for user: $userName"
