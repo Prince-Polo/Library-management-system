@@ -1,4 +1,4 @@
-/*package Common
+package Common
 
 import Common.API.{PlanContext, TraceID}
 import Common.Object.{ParameterList, SqlParameter}
@@ -112,7 +112,7 @@ package object DBAPI {
     }
   }
 }
-*/
+/*
 
 package Common
 
@@ -233,4 +233,4 @@ package object DBAPI {
       case Nil => ""
     }
   }
-}
+}*/

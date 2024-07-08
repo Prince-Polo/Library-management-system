@@ -8,7 +8,7 @@ import java.sql.{Connection, PreparedStatement, SQLException}
 
 case class WriteDBReturningIdMessage(sql: String, parameters: List[SqlParameter]) extends Message[Int] {
   def send(implicit connection: Connection): IO[Int] = IO.delay {
-    val preparedStatement: PreparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)
+    val preparedStatement: PreparedStatement = connection.prepareStatement(sql, 1)
     try {
       parameters.zipWithIndex.foreach { case (param, index) =>
         param.dataType.toLowerCase match {

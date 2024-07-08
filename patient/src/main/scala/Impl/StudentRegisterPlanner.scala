@@ -40,7 +40,7 @@ case class StudentRegisterPlanner(userName: String, password: String, email: Str
   override def plan(using PlanContext): IO[String] = {
     // Check if the student is already registered
     val checkStudentExists = readDBBoolean(
-      s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ?)",
+      s"SELECT EXISTS(SELECT 1 FROM $schemaName.students WHERE user_name = ?)",
       List(SqlParameter("String", userName))
     )
 
@@ -50,7 +50,7 @@ case class StudentRegisterPlanner(userName: String, password: String, email: Str
       } else {
         // Insert new student into the database
         writeDB(
-          s"INSERT INTO ${schemaName}.students (user_name, password, email) VALUES (?, ?, ?)",
+          s"INSERT INTO $schemaName.students (user_name, password, email) VALUES (?, ?, ?)",
           List(SqlParameter("String", userName), SqlParameter("String", password), SqlParameter("String", email))
         ).map(_ => "Registration successful")
       }
