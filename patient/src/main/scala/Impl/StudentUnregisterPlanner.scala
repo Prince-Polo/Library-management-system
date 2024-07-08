@@ -7,12 +7,12 @@ import Common.DBAPI.{writeDB, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 
-case class StudentUnregisterPlanner(userName: String, email: String, override val planContext: PlanContext) extends Planner[String] {
+case class StudentUnregisterPlanner(number: String, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     // Check if the student exists
     val checkStudentExists = readDBBoolean(
-      s"SELECT EXISTS(SELECT 1 FROM $schemaName.students WHERE user_name = ? AND email = ?)",
-      List(SqlParameter("String", userName), SqlParameter("String", email))
+      s"SELECT EXISTS(SELECT 1 FROM $schemaName.students WHERE number = ?)",
+      List(SqlParameter("String", number))
     )
 
     checkStudentExists.flatMap { exists =>
@@ -21,10 +21,10 @@ case class StudentUnregisterPlanner(userName: String, email: String, override va
       } else {
         // Delete the student from the database
         writeDB(
-          s"DELETE FROM $schemaName.students WHERE user_name = ? AND email = ?",
-          List(SqlParameter("String", userName), SqlParameter("String", email))
+          s"DELETE FROM $schemaName.students WHERE number = ?",
+          List(SqlParameter("String", number))
         ).map { _ =>
-          s"Unregistration successful for user: $userName"
+          s"Unregistration successful for student with number: $number"
         }
       }
     }
