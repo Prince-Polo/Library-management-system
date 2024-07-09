@@ -12,3 +12,10 @@ export abstract class API {
         return this.constructor.name
     }
 }
+
+export class StudentInfoMessage extends API {
+    constructor(public number: string) {
+        super();
+        this.serviceName = "studentService";
+    }
+}
