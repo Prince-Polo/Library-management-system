@@ -31,4 +31,3 @@ case class StudentRegisterPlanner(message: StudentRegisterMessage, override val 
     }
   }
 }
-
