@@ -57,7 +57,7 @@ object PortalService {
         response.as[Json].attempt.map(_.left.map(err => new Exception(s"JSON parsing error: ${err.getMessage}", err)))
       } else {
         response.bodyText.compile.string.map(bodyStr =>
-          Left(new Exception(s"Received a non-success response: ${response.status}, Body: $bodyStr"))
+          Left(new Exception(bodyStr))
         )
       }
     }.handleErrorWith(e => IO.pure(Left(new Exception(s"Error during request execution: ${e.getMessage}", e))))
