@@ -19,7 +19,6 @@ case class StudentRegisterPlanner(message: StudentRegisterMessage, override val 
         SqlParameter("String", message.number)
       )
     )
-
     checkStudentExists.flatMap { exists =>
       if (exists) {
         IO.raiseError(new Exception("Student already registered"))

@@ -13,7 +13,7 @@ case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val
   override def plan(using PlanContext): IO[String] = {
     // Attempt to validate the user by reading the rows from the database
     val checkUserExists = readDBBoolean(
-      s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? AND email = ? AND number = ?)",
+      s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? OR email = ? OR number = ?)",
       List(
         SqlParameter("String", message.userName),
         SqlParameter("String", message.email),
@@ -26,12 +26,10 @@ case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val
         IO.raiseError(new Exception("Invalid user"))
       } else {
         val checkPassword = readDBBoolean(
-          s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND email = ? AND number = ?)",
+          s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? AND password = ?)",
           List(
             SqlParameter("String", message.userName),
-            SqlParameter("String", message.password),
-            SqlParameter("String", message.email),
-            SqlParameter("String", message.number)
+            SqlParameter("String", message.password)
           )
         )
 

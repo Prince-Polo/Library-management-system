@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { API } from 'Plugins/CommonUtils/API'
 import { useHistory } from 'react-router'
-import { PatientLoginMessage } from 'Plugins/PatientAPI/PatientLoginMessage'
-import { PatientRegisterMessage } from 'Plugins/PatientAPI/PatientRegisterMessage'
+import { StudentLoginMessage } from 'Plugins/PatientAPI/StudentLoginMessage'
+import { StudentRegisterMessage } from 'Plugins/PatientAPI/StudentRegisterMessage'
 import {RegisterMessage} from 'Plugins/DoctorAPI/RegisterMessage'
 import {LoginMessage} from 'Plugins/DoctorAPI/LoginMessage'
 import {sendPostRequest,ErrorModal,SuccessModal} from 'Pages/ErrorMessage'
@@ -89,7 +89,7 @@ const StudentRegisters: React.FC = () => {
         { name: 'password', type: 'password', label: 'password',required:true },
         { name: 'number', type: 'textarea', label: 'number',required:true }
     ];
-    const createMessage = (formData: any) => new PatientRegisterMessage(formData.name, formData.password,formData.email,formData.number);
+    const createMessage = (formData: any) => new StudentRegisterMessage(formData.name, formData.password,formData.email,formData.number);
     return <GenericForm title="Student Register" fields={fields} createMessage={createMessage}/>;
 };
 const StudentLogins: React.FC = () => {
@@ -100,7 +100,7 @@ const StudentLogins: React.FC = () => {
         { name: 'number', type: 'textarea', label: 'number',required: false }
     ];
     const history=useHistory()
-    const createMessage = (formData: any) => new PatientLoginMessage(formData.name, formData.password);
+    const createMessage = (formData: any) => new StudentLoginMessage(formData.name, formData.password,formData.email,formData.number);
     const handleSuccess = () => {
         history.push('/library');
     };
