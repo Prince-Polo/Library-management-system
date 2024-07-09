@@ -7,7 +7,7 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{writeDB, *}
 import Common.Object.{ParameterList, SqlParameter}
 import Common.ServiceUtils.schemaName
-import APIs.PatientAPI.PatientQueryMessage
+import APIs.PatientAPI.StudentQueryMessage
 import cats.effect.IO
 import io.circe.generic.auto.*
 
