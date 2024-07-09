@@ -15,11 +15,27 @@ import io.circe.generic.auto.*
 case class LoginMessagePlanner(userName: String, password: String, override val planContext: PlanContext) extends Planner[String]:
   override def plan(using PlanContext): IO[String] = {
     // Attempt to validate the user by reading the rows from the database
-    readDBRows(
-      s"SELECT user_name FROM ${schemaName}.user_name WHERE user_name = ? AND password = ?",
-      List(SqlParameter("String", userName), SqlParameter("String", password))
-    ).map{
-      case Nil => "Invalid user"
-      case _ => "Valid user"
+    val checkUserExists=readDBBoolean(
+      s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.user_name WHERE user_name = ?)",
+      List(SqlParameter("String", userName))
+    )
+    checkUserExists.flatMap { exists =>
+      if (!exists) {
+        IO.raiseError(new Exception("Invalid user"))
+      }
+      else {
+        val checkPassword = readDBBoolean(
+          s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.user_name WHERE user_name = ? AND password = ?)",
+          List(SqlParameter("String", userName), SqlParameter("String", password))
+        )
+        checkPassword.flatMap { exists =>
+          if (!exists) {
+            IO.raiseError(new Exception("Wrong password"))
+          }
+          else {
+            IO.pure("Valid user")
+          }
+        }
+      }
     }
   }

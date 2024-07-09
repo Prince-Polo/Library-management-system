@@ -5,9 +5,8 @@ import { PatientLoginMessage } from 'Plugins/PatientAPI/PatientLoginMessage'
 import { PatientRegisterMessage } from 'Plugins/PatientAPI/PatientRegisterMessage'
 import {RegisterMessage} from 'Plugins/DoctorAPI/RegisterMessage'
 import {LoginMessage} from 'Plugins/DoctorAPI/LoginMessage'
-import {sendPostRequest,ErrorModal} from 'Pages/ErrorMessage'
+import {sendPostRequest,ErrorModal,SuccessModal} from 'Pages/ErrorMessage'
 import './app.css'
-import { Email } from '@mui/icons-material'
 
 interface FormProps {
     title: string;
@@ -19,6 +18,7 @@ interface FormProps {
 const GenericForm: React.FC<FormProps> = ({ title, fields, createMessage, onSuccess }) => {
     const [formData, setFormData] = useState<any>({});
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
     const history = useHistory();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,7 +32,10 @@ const GenericForm: React.FC<FormProps> = ({ title, fields, createMessage, onSucc
         e.preventDefault();
         const message = createMessage(formData);
         console.log(message);
-        sendPostRequest(message, setError, onSuccess);
+        sendPostRequest(message, setError, ()=>{
+            setSuccess("Operation(s) successful");
+            if (onSuccess) onSuccess();
+        })
         //console.log(formData);
     };
 
@@ -40,8 +43,12 @@ const GenericForm: React.FC<FormProps> = ({ title, fields, createMessage, onSucc
         setError(null);
     };
 
+    const closeSuccessModal = () => {
+        setSuccess(null);
+    };
+
     return (
-        <div className="form-container">
+        <div className="form-container" >
             <div className="form">
                 <h2>{title}</h2>
                 <form onSubmit={handleSubmit}>
@@ -69,21 +76,21 @@ const GenericForm: React.FC<FormProps> = ({ title, fields, createMessage, onSucc
                     </div>
                 </form>
             </div>
-            <ErrorModal message={error} onClose={closeModal} />
+            <ErrorModal message={error} onClose={closeModal}/>
+            <SuccessModal message={success} onClose={closeSuccessModal} />
         </div>
     );
 };
 const StudentRegisters: React.FC = () => {
+
     const fields = [
         { name: 'name', type: 'text', label: 'Name',required:true },
         { name: 'email', type: 'email', label: 'email' ,required:true},
         { name: 'password', type: 'password', label: 'password',required:true },
         { name: 'number', type: 'textarea', label: 'number',required:true }
     ];
-
     const createMessage = (formData: any) => new PatientRegisterMessage(formData.name, formData.password,formData.email,formData.number);
-
-    return <GenericForm title="Student Register" fields={fields} createMessage={createMessage} />;
+    return <GenericForm title="Student Register" fields={fields} createMessage={createMessage}/>;
 };
 const StudentLogins: React.FC = () => {
     const fields = [

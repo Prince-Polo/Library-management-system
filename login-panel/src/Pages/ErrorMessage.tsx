@@ -4,12 +4,9 @@ import { API } from 'Plugins/CommonUtils/API';
 import {useHistory} from 'react-router'
 import './app.css'
 
-interface ErrorModalProps {
-    message: string | null;
-    onClose: () => void;
-}
 
-export const ErrorModal:React.FC<ErrorModalProps> = ({ message, onClose }) => {
+
+export const ErrorModal:React.FC<{ message: string | null; onClose: () => void; }> = ({ message, onClose }) => {
     if (!message) return null;
 
     return (
@@ -18,6 +15,19 @@ export const ErrorModal:React.FC<ErrorModalProps> = ({ message, onClose }) => {
                 <span className="close" onClick={onClose}>&times;</span>
                 <p>{message}</p>
             </div>
+        </div>
+    );
+};
+export const SuccessModal: React.FC<{ message: string | null; onClose: () => void }> = ({ message, onClose }) => {
+    if (!message) return null;
+
+    return (
+        <div className="modal">
+            <div className={'overlay'}>
+                <div className="modal-content">
+                    <span className="close" onClick={onClose}>&times;</span>
+                    <p>{message}</p>
+            </div></div>
         </div>
     );
 };
