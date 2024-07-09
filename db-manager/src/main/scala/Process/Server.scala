@@ -35,6 +35,6 @@ object Server extends IOApp {
         }
       }
     }.handleErrorWith { e =>
-      IO(println(s"Server error: ${e.getMessage}")).as(ExitCode.Error) // Log the error and return an error exit code
+      IO(println("Server error: ${e.getMessage}")).as(ExitCode.Error) // Log the error and return an error exit code
     }
 }
