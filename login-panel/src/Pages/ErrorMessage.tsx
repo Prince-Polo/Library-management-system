@@ -33,7 +33,7 @@ export const SuccessModal: React.FC<{ message: string | null; onClose: () => voi
 };
 
 export const sendPostRequest = async (
-    message: API,
+    message:API,
     setError: (error: string | null) => void,
     onSuccess?: () => void
 ) => {
@@ -43,10 +43,6 @@ export const sendPostRequest = async (
         });
         console.log('Response status:', response.status);
         console.log('Response body:', response.data);
-
-        if (response.status === 200 && onSuccess) {
-            onSuccess();
-        }
         if (response.status === 200 && onSuccess) {
             onSuccess();
         }
