@@ -10,39 +10,15 @@ import org.http4s._
 import org.http4s.client.Client
 import org.http4s.dsl.io._
 import APIs.PatientAPI._
+import APIs.SeatAPI._  // 确保导入 SeatAPI
 
 object Routes:
   private def executePlan(messageType: String, str: String): IO[String] =
     messageType match {
-      case "StudentLoginMessage" =>
-        IO(decode[StudentLoginMessagePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentLoginMessage")))
+      case "SeatQueryMessage" =>
+        IO(decode[SeatQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for SeatQueryMessage")))
           .flatMap { m =>
-            m.fullPlan.map(_.asJson.toString)
-          }
-      case "StudentQueryMessage" =>
-        IO(decode[StudentReservationPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentQueryMessage")))
-          .flatMap { m =>
-            m.fullPlan.map(_.asJson.toString)
-          }
-      case "StudentRegisterMessage" =>
-        IO(decode[StudentRegisterPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentRegisterMessage")))
-          .flatMap { m =>
-            m.fullPlan.map(_.asJson.toString)
-          }
-      case "StudentInfoMessage" =>
-        IO(decode[StudentInfoPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentInfoMessage")))
-          .flatMap { m =>
-            m.fullPlan.map(_.asJson.toString)
-          }
-      case "StudentUnregisterMessage" =>
-        IO(decode[StudentUnregisterPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentUnregisterMessage")))
-          .flatMap { m =>
-            m.fullPlan.map(_.asJson.toString)
-          }
-      case "StudentUpdateMessage" =>
-        IO(decode[StudentUpdatePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentUpdateMessage")))
-          .flatMap { m =>
-            m.fullPlan.map(_.asJson.toString)
+            m.fullPlan.map(_.asJson.noSpaces)
           }
       case _ =>
         IO.raiseError(new Exception(s"Unknown type: $messageType"))
