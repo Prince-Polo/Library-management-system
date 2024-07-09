@@ -1,4 +1,4 @@
-package APIs.PatientAPI
+package APIs.StudentAPI
 
 import Common.API.API
 import Global.ServiceCenter.patientServiceCode
