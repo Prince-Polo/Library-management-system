@@ -6,7 +6,7 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{writeDB, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import _root_.APIs.StudentAPI.StudentRegisterMessage
+import _root_.APIs.PatientAPI.StudentRegisterMessage
 
 case class StudentRegisterPlanner(message: StudentRegisterMessage, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using PlanContext): IO[String] = {
