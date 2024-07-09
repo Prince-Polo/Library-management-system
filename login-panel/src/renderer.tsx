@@ -5,7 +5,7 @@ import { Main } from 'Pages/Main'
 import { AnotherPage } from 'Pages/AnotherPage'
 import { Library } from 'Pages/Library'
 import {StudentRegister,StudentLogin,AdminLogin,AdminRegister} from 'Pages/Register'
-import { Admin } from 'Pages/AdminPage'
+import  AdminPage  from 'Pages/AdminPage'
 const Layout = () => {
     return (
         <HashRouter>
@@ -14,7 +14,7 @@ const Layout = () => {
                 <Route path="/another" exact component={AnotherPage} />
                 <Route path={"/library"} exact component={Library}/>
                 <Route path={"/StudentRegister"} exact component={StudentRegister}/>
-                <Route path={"/Admin"}exact component={Admin}/>
+                <Route path={"/Admin"}exact component={AdminPage}/>
                 <Route path={"/StudentLogin"} exact component={StudentLogin}/>
                 <Route path={"/AdminRegister"} exact component={AdminRegister}/>
                 <Route path={"/AdminLogin"} exact component={AdminLogin}/>
