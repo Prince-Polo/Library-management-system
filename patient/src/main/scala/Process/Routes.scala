@@ -1,32 +1,47 @@
 package Process
 
 import Common.API.PlanContext
-import Impl.*
-import cats.effect.*
-import io.circe.generic.auto.*
+import Impl._
+import cats.effect._
+import io.circe.generic.auto._
 import io.circe.parser.decode
-import io.circe.syntax.*
-import org.http4s.*
+import io.circe.syntax._
+import org.http4s._
 import org.http4s.client.Client
-import org.http4s.dsl.io.*
-
+import org.http4s.dsl.io._
+import APIs.PatientAPI._
 
 object Routes:
-  private def executePlan(messageType:String, str: String): IO[String]=
+  private def executePlan(messageType: String, str: String): IO[String] =
     messageType match {
-      case "PatientLoginMessage" =>
-        IO(decode[StudentLoginMessagePlanner](str).getOrElse(throw new Exception("Invalid JSON for PatientLoginMessage")))
-          .flatMap{m=>
+      case "StudentLoginMessage" =>
+        IO(decode[StudentLoginMessagePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentLoginMessage")))
+          .flatMap { m =>
             m.fullPlan.map(_.asJson.toString)
           }
-      case "PatientQueryMessage" =>
-        IO(decode[StudentReservationPlanner](str).getOrElse(throw new Exception("Invalid JSON for PatientQueryMessage")))
-          .flatMap{m=>
+      case "StudentQueryMessage" =>
+        IO(decode[StudentReservationPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentQueryMessage")))
+          .flatMap { m =>
             m.fullPlan.map(_.asJson.toString)
           }
-      case "PatientRegisterMessage" =>
-        IO(decode[StudentRegisterPlanner](str).getOrElse(throw new Exception("Invalid JSON for PatientRegisterMessage")))
-          .flatMap{m=>
+      case "StudentRegisterMessage" =>
+        IO(decode[StudentRegisterPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentRegisterMessage")))
+          .flatMap { m =>
+            m.fullPlan.map(_.asJson.toString)
+          }
+      case "StudentInfoMessage" =>
+        IO(decode[StudentInfoPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentInfoMessage")))
+          .flatMap { m =>
+            m.fullPlan.map(_.asJson.toString)
+          }
+      case "StudentUnregisterMessage" =>
+        IO(decode[StudentUnregisterPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentUnregisterMessage")))
+          .flatMap { m =>
+            m.fullPlan.map(_.asJson.toString)
+          }
+      case "StudentUpdateMessage" =>
+        IO(decode[StudentUpdatePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentUpdateMessage")))
+          .flatMap { m =>
             m.fullPlan.map(_.asJson.toString)
           }
       case _ =>
@@ -35,9 +50,9 @@ object Routes:
 
   val service: HttpRoutes[IO] = HttpRoutes.of[IO]:
     case req @ POST -> Root / "api" / name =>
-        println("request received")
-        req.as[String].flatMap{executePlan(name, _)}.flatMap(Ok(_))
-        .handleErrorWith{e =>
+      println("request received")
+      req.as[String].flatMap { executePlan(name, _) }.flatMap(Ok(_))
+        .handleErrorWith { e =>
           println(e)
           BadRequest(e.getMessage)
         }
