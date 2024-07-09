@@ -6,17 +6,18 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{writeDB, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
+import _root_.APIs.StudentAPI.StudentUpdateMessage
 
-case class StudentUpdatePlanner(userName: String, password: String, email: String, number: String, newPassword: Option[String] = None, newEmail: Option[String] = None, override val planContext: PlanContext) extends Planner[String] {
-  override def plan(using planContext: PlanContext): IO[String] = {
+case class StudentUpdatePlanner(message: StudentUpdateMessage, override val planContext: PlanContext) extends Planner[String] {
+  override def plan(using PlanContext): IO[String] = {
     // Check if the student exists
     val checkStudentExists = readDBBoolean(
       s"SELECT EXISTS(SELECT 1 FROM $schemaName.students WHERE user_name = ? AND password = ? AND email = ? AND number = ?)",
       List(
-        SqlParameter("String", userName),
-        SqlParameter("String", password),
-        SqlParameter("String", email),
-        SqlParameter("String", number)
+        SqlParameter("String", message.userName),
+        SqlParameter("String", message.password),
+        SqlParameter("String", message.email),
+        SqlParameter("String", message.number)
       )
     )
 
@@ -26,18 +27,18 @@ case class StudentUpdatePlanner(userName: String, password: String, email: Strin
       } else {
         // Prepare the update statement
         val updateFields = List(
-          newPassword.map(_ => "password = ?"),
-          newEmail.map(_ => "email = ?")
+          message.newPassword.map(_ => "password = ?"),
+          message.newEmail.map(_ => "email = ?")
         ).flatten.mkString(", ")
 
         val updateParams = List(
-          newPassword.map(SqlParameter("String", _)),
-          newEmail.map(SqlParameter("String", _))
+          message.newPassword.map(SqlParameter("String", _)),
+          message.newEmail.map(SqlParameter("String", _))
         ).flatten ++ List(
-          SqlParameter("String", userName),
-          SqlParameter("String", password),
-          SqlParameter("String", email),
-          SqlParameter("String", number)
+          SqlParameter("String", message.userName),
+          SqlParameter("String", message.password),
+          SqlParameter("String", message.email),
+          SqlParameter("String", message.number)
         )
 
         // Update the student in the database
@@ -45,10 +46,9 @@ case class StudentUpdatePlanner(userName: String, password: String, email: Strin
           s"UPDATE $schemaName.students SET $updateFields WHERE user_name = ? AND password = ? AND email = ? AND number = ?",
           updateParams
         ).map { _ =>
-          s"Update successful for student with number: $number"
+          s"Update successful for student with number: ${message.number}"
         }
       }
     }
   }
 }
-
