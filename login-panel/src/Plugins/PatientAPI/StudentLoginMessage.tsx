@@ -1,16 +1,11 @@
 import { StudentMessage } from 'Plugins/PatientAPI/StudentMessage'
+import {Info} from 'Plugins/CommonUtils/Info'
 
 export class StudentLoginMessage extends StudentMessage {
-    userName: string;
-    password: string;
-    email: string;
-    number: string;
+    info: Info;
 
-    constructor(userName: string, password: string, email: string, number: string) {
+    constructor(info: Info) {
         super();
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.number = number;
+        this.info=info;
     }
 }
