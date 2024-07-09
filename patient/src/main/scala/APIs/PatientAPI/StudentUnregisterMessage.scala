@@ -1,3 +1,3 @@
-package APIs.StudentAPI
+package APIs.PatientAPI
 
 case class StudentUnregisterMessage(number: String)

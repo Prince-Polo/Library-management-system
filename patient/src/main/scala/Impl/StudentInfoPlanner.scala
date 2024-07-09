@@ -4,10 +4,10 @@ import cats.effect.IO
 import io.circe.generic.auto._
 import io.circe.syntax._
 import Common.API.{PlanContext, Planner}
-import Common.DBAPI.{readDBRows}
+import Common.DBAPI.readDBRows
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import _root_.APIs.StudentAPI.{StudentInfoMessage, StudentInfoResponse}
+import _root_.APIs.PatientAPI.{StudentInfoMessage, StudentInfoResponse}
 
 case class StudentInfoPlanner(message: StudentInfoMessage, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
