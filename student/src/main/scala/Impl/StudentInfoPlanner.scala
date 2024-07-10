@@ -13,7 +13,11 @@ case class StudentInfoPlanner(message: StudentInfoMessage, override val planCont
   override def plan(using planContext: PlanContext): IO[String] = {
     // 查询学生信息
     readDBRows(
-      s"SELECT user_name, email, number FROM $schemaName.students WHERE number = ?",
+      s"""
+         |SELECT user_name, number, volunteer_status, building_number, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids
+         |FROM $schemaName.students
+         |WHERE number = ?
+         |""".stripMargin,
       List(SqlParameter("String", message.number))
     ).map {
       case Nil =>
@@ -24,9 +28,26 @@ case class StudentInfoPlanner(message: StudentInfoMessage, override val planCont
         rows.headOption match {
           case Some(row) =>
             val userName = row.hcursor.get[String]("user_name").getOrElse("")
-            val email = row.hcursor.get[String]("email").getOrElse("")
             val number = row.hcursor.get[String]("number").getOrElse("")
-            StudentInfoResponse(userName, email, number).asJson.noSpaces
+            val volunteerStatus = row.hcursor.get[Boolean]("volunteer_status").getOrElse(false)
+            val buildingNumber = row.hcursor.get[Int]("building_number").getOrElse(0)
+            val sectionNumber = row.hcursor.get[Int]("section_number").getOrElse(0)
+            val seatNumber = row.hcursor.get[Int]("seat_number").getOrElse(0)
+            val violationCount = row.hcursor.get[Int]("violation_count").getOrElse(0)
+            val volunteerHours = row.hcursor.get[Int]("volunteer_hours").getOrElse(0)
+            val completedTaskIds = row.hcursor.get[List[Int]]("completed_task_ids").getOrElse(List())
+
+            StudentInfoResponse(
+              userName,
+              number,
+              volunteerStatus,
+              buildingNumber,
+              sectionNumber,
+              seatNumber,
+              violationCount,
+              volunteerHours,
+              completedTaskIds
+            ).asJson.noSpaces
           case None =>
             s"""{"error": "Student not found"}"""
         }

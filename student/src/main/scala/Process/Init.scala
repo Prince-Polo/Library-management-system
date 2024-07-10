@@ -22,7 +22,6 @@ object Init {
            |CREATE TABLE IF NOT EXISTS ${schemaName}.students (
            |  user_name TEXT,
            |  password TEXT,
-           |  email TEXT,
            |  number TEXT,
            |  volunteer_status BOOLEAN,
            |  building_number INT,

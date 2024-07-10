@@ -8,18 +8,17 @@ import Common.DBAPI.{readDBRows, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 import _root_.APIs.StudentAPI.{StudentLoginMessage, StudentLoginResponse}
-import Common.Info
+import Common.BasicInfo
 
 case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val planContext: PlanContext) extends Planner[String] {
-  override def plan(using PlanContext): IO[String] = {
+  override def plan(using planContext: PlanContext): IO[String] = {
     // Attempt to validate the user by reading the rows from the database
-    val messageinfo=message.info
+    val messageInfo = message.info
     val checkUserExists = readDBBoolean(
-      s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? OR email = ? OR number = ?)",
+      s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? OR number = ?)",
       List(
-        SqlParameter("String", messageinfo.name),
-        SqlParameter("String", messageinfo.email),
-        SqlParameter("String", messageinfo.number)
+        SqlParameter("String", messageInfo.userName),
+        SqlParameter("String", messageInfo.number)
       )
     )
 
@@ -30,8 +29,8 @@ case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val
         val checkPassword = readDBBoolean(
           s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? AND password = ?)",
           List(
-            SqlParameter("String", messageinfo.name),
-            SqlParameter("String", messageinfo.password)
+            SqlParameter("String", messageInfo.userName),
+            SqlParameter("String", messageInfo.password)
           )
         )
 
@@ -39,15 +38,13 @@ case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val
           if (!exists) {
             IO.raiseError(new Exception("Wrong password"))
           } else {
-            IO.pure("Valid user")
             // Retrieve additional information like id and authority if needed
-            /*readDBRows(
-              s"SELECT id, authority FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND email = ? AND number = ?",
+            readDBRows(
+              s"SELECT id, authority FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND number = ?",
               List(
-                SqlParameter("String", messageinfo.name),
-                SqlParameter("String", messageinfo.password),
-                SqlParameter("String", messageinfo.email),
-                SqlParameter("String", messageinfo.number)
+                SqlParameter("String", messageInfo.userName),
+                SqlParameter("String", messageInfo.password),
+                SqlParameter("String", messageInfo.number)
               )
             ).map { rows =>
               rows.headOption match {
@@ -58,7 +55,7 @@ case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val
                 case None =>
                   StudentLoginResponse(valid = true).asJson.noSpaces
               }
-            }*/
+            }
           }
         }
       }
