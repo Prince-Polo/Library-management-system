@@ -14,7 +14,7 @@ case class StudentInfoPlanner(message: StudentInfoMessage, override val planCont
     // 查询学生信息
     readDBRows(
       s"""
-         |SELECT user_name, number, volunteer_status, building_number, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids
+         |SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids
          |FROM $schemaName.students
          |WHERE number = ?
          |""".stripMargin,
@@ -30,7 +30,7 @@ case class StudentInfoPlanner(message: StudentInfoMessage, override val planCont
             val userName = row.hcursor.get[String]("user_name").getOrElse("")
             val number = row.hcursor.get[String]("number").getOrElse("")
             val volunteerStatus = row.hcursor.get[Boolean]("volunteer_status").getOrElse(false)
-            val buildingNumber = row.hcursor.get[Int]("building_number").getOrElse(0)
+            val floor = row.hcursor.get[Int]("floor").getOrElse(0)
             val sectionNumber = row.hcursor.get[Int]("section_number").getOrElse(0)
             val seatNumber = row.hcursor.get[Int]("seat_number").getOrElse(0)
             val violationCount = row.hcursor.get[Int]("violation_count").getOrElse(0)
@@ -41,7 +41,7 @@ case class StudentInfoPlanner(message: StudentInfoMessage, override val planCont
               userName,
               number,
               volunteerStatus,
-              buildingNumber,
+              floor,
               sectionNumber,
               seatNumber,
               violationCount,

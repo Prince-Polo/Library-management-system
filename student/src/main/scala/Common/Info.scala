@@ -8,7 +8,7 @@ case class Info(
                  password: String,
                  number: String,
                  volunteerStatus: Boolean,
-                 buildingNumber: Int,
+                 floor: Int,
                  sectionNumber: Int,
                  seatNumber: Int,
                  violationCount: Int,

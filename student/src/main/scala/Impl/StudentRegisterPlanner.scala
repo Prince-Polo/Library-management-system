@@ -28,20 +28,20 @@ case class StudentRegisterPlanner(message: StudentRegisterMessage, override val 
         writeDB(
           s"""
              |INSERT INTO $schemaName.students (
-             |  user_name, password, number, volunteer_status, building_number, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids
+             |  user_name, password, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids
              |) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
              |""".stripMargin,
           List(
             SqlParameter("String", messageInfo.userName),
             SqlParameter("String", messageInfo.password),
             SqlParameter("String", messageInfo.number),
-            SqlParameter("String", "false"), // 初始志愿者状态
-            SqlParameter("String", "0"),     // 初始楼号
-            SqlParameter("String", "0"),     // 初始区号
-            SqlParameter("String", "0"),     // 初始座位号
-            SqlParameter("String", "0"),     // 初始违约次数
-            SqlParameter("String", "0"),     // 初始志愿工时
-            SqlParameter("String", "{}")     // 初始已完成任务ID数组，作为空JSON数组字符串
+            SqlParameter("Boolean", "false"), // 初始志愿者状态
+            SqlParameter("Int", "0"),         // 初始楼层
+            SqlParameter("Int", "0"),         // 初始区号
+            SqlParameter("Int", "0"),         // 初始座位号
+            SqlParameter("Int", "0"),         // 初始违约次数
+            SqlParameter("Int", "0"),         // 初始志愿工时
+            SqlParameter("Array", "[]")       // 初始已完成任务ID数组，作为空JSON数组字符串
           )
         ).map(_ => "Registration successful")
       }

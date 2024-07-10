@@ -16,13 +16,29 @@ object Init {
     for {
       _ <- API.init(config.maximumClientConnection)
       _ <- initSchema(schemaName)
-      // 创建或更新 seats 表，包含分区和编号字段
+      // 创建座位状态的枚举类型
+      _ <- writeDB(
+        s"""
+           |DO $$
+           |BEGIN
+           |   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typename = 'seat_status') THEN
+           |      CREATE TYPE seat_status AS ENUM ('Normal', 'Reported', 'Confirmed');
+           |   END IF;
+           |END $$;
+           |""".stripMargin, List()
+      )
+      // 创建或更新 seats 表，包含所有必要的字段
       _ <- writeDB(
         s"""
            |CREATE TABLE IF NOT EXISTS ${schemaName}.seats (
-           |  section CHAR(1),
-           |  number CHAR(4),
-           |  PRIMARY KEY (section, number)
+           |  floor INT,
+           |  section INT,
+           |  seat_number INT,
+           |  status seat_status,
+           |  feedback TEXT,
+           |  occupied BOOLEAN,
+           |  student_number TEXT,
+           |  PRIMARY KEY (floor, section, seat_number)
            |)
            |""".stripMargin, List()
       )

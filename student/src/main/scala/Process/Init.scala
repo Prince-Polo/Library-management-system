@@ -16,15 +16,26 @@ object Init {
     for {
       _ <- API.init(config.maximumClientConnection)
       _ <- initSchema(schemaName)
+      // 创建座位状态的枚举类型
+      _ <- writeDB(
+        s"""
+           |DO $$
+           |BEGIN
+           |   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typename = 'seat_status') THEN
+           |      CREATE TYPE seat_status AS ENUM ('Normal', 'Reported', 'Confirmed');
+           |   END IF;
+           |END $$;
+           |""".stripMargin, List()
+      )
       // 创建或更新 students 表，包含所有必要的字段
       _ <- writeDB(
         s"""
-           |CREATE TABLE IF NOT EXISTS ${schemaName}.students (
+           |CREATE TABLE IF NOT EXISTS $schemaName.students (
            |  user_name TEXT,
            |  password TEXT,
            |  number TEXT,
            |  volunteer_status BOOLEAN,
-           |  building_number INT,
+           |  floor INT,
            |  section_number INT,
            |  seat_number INT,
            |  violation_count INT,
@@ -34,8 +45,21 @@ object Init {
            |)
            |""".stripMargin, List()
       )
-      _ <- writeDB(s"CREATE TABLE IF NOT EXISTS ${schemaName}.user_name (user_name TEXT, password TEXT)", List())
-      _ <- writeDB(s"CREATE TABLE IF NOT EXISTS ${schemaName}.doctor_rec (doctor_name TEXT, patient_name TEXT)", List())
+      // 创建或更新 seats 表，包含所有必要的字段
+      _ <- writeDB(
+        s"""
+           |CREATE TABLE IF NOT EXISTS $schemaName.seats (
+           |  floor INT,
+           |  section INT,
+           |  seat_number INT,
+           |  status seat_status,
+           |  feedback TEXT,
+           |  occupied BOOLEAN,
+           |  student_number TEXT,
+           |  PRIMARY KEY (floor, section, seat_number)
+           |)
+           |""".stripMargin, List()
+      )
     } yield ()
   }
 }

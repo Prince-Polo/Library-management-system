@@ -7,12 +7,12 @@ case class StudentInfoResponse(
                                 userName: String,
                                 number: String,
                                 volunteerStatus: Boolean,
-                                buildingNumber: Int,
+                                floor: Int,
                                 sectionNumber: Int,
                                 seatNumber: Int,
                                 violationCount: Int,
                                 volunteerHours: Int,
-                                completedTaskIds: List[Int] // 使用 List 替代 Array
+                                completedTaskIds: List[Int]
                               )
 
 object StudentInfoResponse {
