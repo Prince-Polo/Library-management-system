@@ -9,6 +9,7 @@ import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 import _root_.APIs.PatientAPI.{StudentLoginMessage, StudentLoginResponse}
 import Common.Info
+
 case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using PlanContext): IO[String] = {
     // Attempt to validate the user by reading the rows from the database
