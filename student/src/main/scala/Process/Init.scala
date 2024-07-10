@@ -21,25 +21,10 @@ object Init {
         s"""
            |DO $$
            |BEGIN
-           |   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'seat_status') THEN
+           |   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typename = 'seat_status') THEN
            |      CREATE TYPE seat_status AS ENUM ('Normal', 'Reported', 'Confirmed');
            |   END IF;
            |END $$;
-           |""".stripMargin, List()
-      )
-      // 创建或更新 seats 表，包含所有必要的字段
-      _ <- writeDB(
-        s"""
-           |CREATE TABLE IF NOT EXISTS ${schemaName}.seats (
-           |  floor INT,
-           |  section INT,
-           |  seat_number INT,
-           |  status seat_status,
-           |  feedback TEXT,
-           |  occupied BOOLEAN,
-           |  student_number TEXT,
-           |  PRIMARY KEY (floor, section, seat_number)
-           |)
            |""".stripMargin, List()
       )
       // 创建或更新 students 表，包含所有必要的字段
@@ -57,6 +42,21 @@ object Init {
            |  volunteer_hours INT,
            |  completed_task_ids INT[],
            |  PRIMARY KEY (number)
+           |)
+           |""".stripMargin, List()
+      )
+      // 创建或更新 seats 表，包含所有必要的字段
+      _ <- writeDB(
+        s"""
+           |CREATE TABLE IF NOT EXISTS $schemaName.seats (
+           |  floor INT,
+           |  section INT,
+           |  seat_number INT,
+           |  status seat_status,
+           |  feedback TEXT,
+           |  occupied BOOLEAN,
+           |  student_number TEXT,
+           |  PRIMARY KEY (floor, section, seat_number)
            |)
            |""".stripMargin, List()
       )
