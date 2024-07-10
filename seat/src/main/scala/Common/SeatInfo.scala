@@ -2,12 +2,13 @@ package Common
 
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import Common.SeatStatus.SeatStatus
 
 case class SeatInfo(
                      floor: Int,
                      section: Int,
                      seatNumber: Int,
-                     status: String,
+                     status: SeatStatus,
                      feedback: String,
                      occupied: Boolean,
                      studentNumber: String

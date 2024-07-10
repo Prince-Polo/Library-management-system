@@ -21,7 +21,7 @@ object Init {
         s"""
            |DO $$
            |BEGIN
-           |   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typename = 'seat_status') THEN
+           |   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'seat_status') THEN
            |      CREATE TYPE seat_status AS ENUM ('Normal', 'Reported', 'Confirmed');
            |   END IF;
            |END $$;
@@ -39,6 +39,24 @@ object Init {
            |  occupied BOOLEAN,
            |  student_number TEXT,
            |  PRIMARY KEY (floor, section, seat_number)
+           |)
+           |""".stripMargin, List()
+      )
+      // 创建或更新 students 表，包含所有必要的字段
+      _ <- writeDB(
+        s"""
+           |CREATE TABLE IF NOT EXISTS $schemaName.students (
+           |  user_name TEXT,
+           |  password TEXT,
+           |  number TEXT,
+           |  volunteer_status BOOLEAN,
+           |  floor INT,
+           |  section_number INT,
+           |  seat_number INT,
+           |  violation_count INT,
+           |  volunteer_hours INT,
+           |  completed_task_ids INT[],
+           |  PRIMARY KEY (number)
            |)
            |""".stripMargin, List()
       )

@@ -7,24 +7,39 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{readDBRows}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import APIs.SeatAPI.SeatQueryMessage
+import APIs.SeatAPI.{SeatQueryMessage, SeatQueryResponse}
+import Common.SeatInfo
+import Common.SeatStatus
+import Common.SeatStatus.SeatStatus // 导入 SeatStatus
 
 case class SeatQueryPlanner(message: SeatQueryMessage, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     // 查询座位信息
     readDBRows(
-      s"SELECT * FROM $schemaName.seats WHERE section = ? AND seat_number = ?",
+      s"SELECT floor, section, seat_number, status, feedback, occupied, student_number FROM $schemaName.seats WHERE floor = ? AND section = ? AND seat_number = ?",
       List(
-        SqlParameter("String", message.section),
-        SqlParameter("String", message.seatNumber)
+        SqlParameter("Int", message.floor.toString),
+        SqlParameter("Int", message.section.toString),
+        SqlParameter("Int", message.seatNumber.toString)
       )
     ).map {
       case Nil =>
-        s"""{"error": "Seat not found"}"""
+        SeatQueryResponse(None).asJson.noSpaces
       case rows =>
         rows.headOption.map { row =>
-          row.asJson.noSpaces
-        }.getOrElse(s"""{"error": "Seat not found"}""")
+          SeatInfo(
+            row.hcursor.get[Int]("floor").getOrElse(0),
+            row.hcursor.get[Int]("section").getOrElse(0),
+            row.hcursor.get[Int]("seat_number").getOrElse(0),
+            row.hcursor.get[SeatStatus]("status").getOrElse(SeatStatus.Normal),
+            row.hcursor.get[String]("feedback").getOrElse(""),
+            row.hcursor.get[Boolean]("occupied").getOrElse(false),
+            row.hcursor.get[String]("student_number").getOrElse("")
+          )
+        } match {
+          case Some(seatInfo) => SeatQueryResponse(Some(seatInfo)).asJson.noSpaces
+          case None => SeatQueryResponse(None).asJson.noSpaces
+        }
     }
   }
 }
