@@ -6,6 +6,7 @@ import { AnotherPage } from 'Pages/AnotherPage'
 import { Library } from 'Pages/Library'
 import {StudentRegister,StudentLogin,AdminLogin,AdminRegister} from 'Pages/Register'
 import  AdminPage  from 'Pages/AdminPage'
+import StudentPage from 'Pages/StudentPage'
 const Layout = () => {
     return (
         <HashRouter>
@@ -18,6 +19,7 @@ const Layout = () => {
                 <Route path={"/StudentLogin"} exact component={StudentLogin}/>
                 <Route path={"/AdminRegister"} exact component={AdminRegister}/>
                 <Route path={"/AdminLogin"} exact component={AdminLogin}/>
+                <Route path={"/Student"} exact component={StudentPage}/>
             </Switch>
         </HashRouter>
     )

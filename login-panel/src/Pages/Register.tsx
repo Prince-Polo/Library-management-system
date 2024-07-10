@@ -109,7 +109,8 @@ const StudentLogins: React.FC = () => {
         return new StudentLoginMessage(info);
     }
     const handleSuccess = () => {
-        history.push('/library');
+        setTimeout(()=>
+        history.push('/Student'),2000)
     };
     return <GenericForm title="Student Login" fields={fields} createMessage={createMessage} onSuccess={handleSuccess} />;
 };
@@ -134,7 +135,8 @@ const AdminLogins: React.FC = () =>{
         { name: 'number', type: 'textarea', label: 'Number',required: false }
     ];
     const handleSuccess = () => {
-        history.push('/admin');
+        setTimeout(()=>
+        history.push('/admin'),2000)
     };
     const createMessage = (formData: any) => new LoginMessage(formData.name, formData.password);
 
