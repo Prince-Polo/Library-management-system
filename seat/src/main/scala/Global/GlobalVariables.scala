@@ -1,6 +1,6 @@
 package Global
 
-import Global.ServiceCenter.patientServiceCode
+import Global.ServiceCenter.seatServiceCode
 
 object GlobalVariables:
-  val serviceCode:String=patientServiceCode
+  val serviceCode:String=seatServiceCode
