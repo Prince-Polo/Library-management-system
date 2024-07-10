@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Doctor:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="44682c4b-d975-4362-b8d9-e444643f1637" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Admin/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/build.sbt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/server_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/APIs/AdminAPI/AddJobMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/APIs/AdminAPI/AdminLoginMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/APIs/AdminAPI/AdminMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/APIs/AdminAPI/AdminRegisterMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/APIs/JobAPI/AddJobMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/APIs/JobAPI/AddJobResponse.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/APIs/JobAPI/JobMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/API/API.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/API/MessageSerializer.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/API/PlanContext.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/API/Planner.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/API/TraceID.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/DidRollbackException.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/EndTransactionMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/InitSchemaMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/ReadDBRowsMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/ReadDBValueMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/RollbackException.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/StartTransactionMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/WriteDBListMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/WriteDBMessage.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/DBAPI/package.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/IOUtils.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/Object/ParameterList.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/Object/SqlParameter.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/ServiceUtils.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Common/SqlUtils.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Global/GlobalVariables.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Global/ServerConfig.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Global/ServiceCenter.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Impl/AdminAddJobPlanner.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Impl/AdminLoginMessagePlanner.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Impl/AdminRegisterMessagePlanner.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Process/Init.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Process/Routes.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Process/Server.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Admin/src/main/scala/Process/Utils.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/build.sbt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/server_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/DoctorAPI/AddPatientMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/DoctorAPI/DoctorMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/DoctorAPI/LoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/DoctorAPI/RegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentInfoMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentInfoResponse.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentLoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentLoginResponse.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentQueryMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentRegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentUnregisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/PatientAPI/StudentUpdateMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/APIs/SeatAPI/SeatQueryMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/API/API.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/API/MessageSerializer.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/API/PlanContext.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/API/Planner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/API/TraceID.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/DidRollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/EndTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/InitSchemaMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/ReadDBRowsMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/ReadDBValueMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/RollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/StartTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/WriteDBListMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/WriteDBMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/DBAPI/package.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/IOUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/Object/ParameterList.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/Object/SqlParameter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/ServiceUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Common/SqlUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Global/GlobalVariables.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Global/ServerConfig.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Global/ServiceCenter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Impl/SeatQueryPlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Process/Init.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Process/Routes.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Process/Server.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../broken_seat/src/main/scala/Process/Utils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/DoctorAPI/AddPatientMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/DoctorAPI/DoctorMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/DoctorAPI/LoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/DoctorAPI/RegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/DoctorAPI/SeatMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/PatientAPI/PatientLoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/PatientAPI/PatientMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/PatientAPI/PatientQueryMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/APIs/PatientAPI/PatientRegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/API/API.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/API/MessageSerializer.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/API/PlanContext.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/API/Planner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/API/TraceID.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/DidRollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/EndTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/InitSchemaMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/ReadDBRowsMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/ReadDBValueMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/RollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/StartTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/WriteDBListMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/WriteDBMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/DBAPI/package.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/IOUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/Object/ParameterList.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/Object/SqlParameter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/ServiceUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Common/SqlUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Global/GlobalVariables.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Global/ServerConfig.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Global/ServiceCenter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/AddPatientMessagePlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/LoginMessagePlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/RegisterMessagePlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/TeacherAddSeatPlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/TeacherDeleteSeatPlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Process/Init.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Process/Routes.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Process/Server.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Process/Utils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/build.sbt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/server_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/DoctorAPI/AddPatientMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/DoctorAPI/DoctorMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/DoctorAPI/LoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/DoctorAPI/RegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentInfoMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentInfoResponse.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentLoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentLoginResponse.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentQueryMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentRegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentUnregisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/PatientAPI/StudentUpdateMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/APIs/SeatAPI/SeatQueryMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/API/API.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/API/MessageSerializer.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/API/PlanContext.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/API/Planner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/API/TraceID.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/DidRollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/EndTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/InitSchemaMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/ReadDBRowsMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/ReadDBValueMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/RollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/StartTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/WriteDBListMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/WriteDBMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/DBAPI/package.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/IOUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/Object/ParameterList.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/Object/SqlParameter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/ServiceUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Common/SqlUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Global/GlobalVariables.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Global/ServerConfig.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Global/ServiceCenter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Impl/SeatQueryPlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Process/Init.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Process/Routes.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Process/Server.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../occupied_seat/src/main/scala/Process/Utils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/build.sbt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/server_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/DoctorAPI/AddPatientMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/DoctorAPI/DoctorMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/DoctorAPI/LoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/DoctorAPI/RegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/DoctorAPI/SeatMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/PatientAPI/PatientLoginMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/PatientAPI/PatientMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/PatientAPI/PatientQueryMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/APIs/PatientAPI/PatientRegisterMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/API/API.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/API/MessageSerializer.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/API/PlanContext.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/API/Planner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/API/TraceID.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/DidRollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/EndTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/InitSchemaMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/ReadDBRowsMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/ReadDBValueMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/RollbackException.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/StartTransactionMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/WriteDBListMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/WriteDBMessage.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/DBAPI/package.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/IOUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/Object/ParameterList.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/Object/SqlParameter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/ServiceUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Common/SqlUtils.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Global/GlobalVariables.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Global/ServerConfig.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Global/ServiceCenter.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Impl/AddPatientMessagePlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Impl/LoginMessagePlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Impl/RegisterMessagePlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Impl/TeacherAddSeatPlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Impl/TeacherDeleteSeatPlanner.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Process/Init.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Process/Routes.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Process/Server.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../volunteer/src/main/scala/Process/Utils.scala" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="SBT">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Prince-Polo&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Prince-Polo/Library-management-system.git",
+    "accountId": "35910ac6-dfb8-4f7c-9112-23084c739e03"
+  }
+}]]></component>
+  <component name="PerforceDirect.Settings">
+    <option name="CHARSET" value="无" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2ieB096JCb7a1paiK2lyDGcPLJS" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Server.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "backend",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Documents/GitHub/Library-management-system/doctor",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true",
+    "应用程序.Server.executor": "Run"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Process.Server" />
+      <module name="Doctor" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Process.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Server" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ScalaProjectSettings">
+    <option name="migrateConfigurationsNotificationShown" value="true" />
+    <option name="scala3DisclaimerShown" value="true" />
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="44682c4b-d975-4362-b8d9-e444643f1637" name="Changes" comment="" />
+      <created>1719840936935</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1719840936935</updated>
+      <workItem from="1719840938036" duration="1514000" />
+      <workItem from="1719842648122" duration="1560000" />
+      <workItem from="1719848386997" duration="448000" />
+      <workItem from="1720062282971" duration="1334000" />
+      <workItem from="1720064888823" duration="1523000" />
+      <workItem from="1720071896182" duration="1485000" />
+      <workItem from="1720604542290" duration="2486000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
