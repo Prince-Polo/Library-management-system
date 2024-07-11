@@ -23,12 +23,12 @@ object Init {
            |  user_name TEXT,
            |  password TEXT,
            |  number TEXT,
-           |  volunteer_status BOOLEAN,
-           |  floor INT,
-           |  section_number INT,
-           |  seat_number INT,
-           |  violation_count INT,
-           |  volunteer_hours INT,
+           |  volunteer_status TEXT,  -- 改为字符串类型
+           |  floor TEXT,             -- 改为字符串类型
+           |  section_number TEXT,    -- 改为字符串类型
+           |  seat_number TEXT,       -- 改为字符串类型
+           |  violation_count TEXT,   -- 改为字符串类型
+           |  volunteer_hours TEXT,   -- 改为字符串类型
            |  PRIMARY KEY (number)
            |)
            |""".stripMargin, List()

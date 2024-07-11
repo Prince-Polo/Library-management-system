@@ -4,12 +4,12 @@ import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 case class SeatInfo(
-                     floor: Int,
-                     section: Int,
-                     seatNumber: Int,
-                     status: SeatStatus.SeatStatus, // 使用枚举类型
+                     floor: String,
+                     section: String,
+                     seatNumber: String,
+                     status: String, // 使用字符串类型
                      feedback: String,
-                     occupied: Boolean,
+                     occupied: String, // 使用字符串类型
                      studentNumber: String
                    )
 

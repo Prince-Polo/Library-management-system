@@ -27,12 +27,12 @@ case class StudentInfoPlanner(number: String, override val planContext: PlanCont
           case Some(row) =>
             val userName = row.hcursor.get[String]("user_name").getOrElse("")
             val number = row.hcursor.get[String]("number").getOrElse("")
-            val volunteerStatus = row.hcursor.get[Boolean]("volunteer_status").getOrElse(false)
-            val floor = row.hcursor.get[Int]("floor").getOrElse(0)
-            val sectionNumber = row.hcursor.get[Int]("section_number").getOrElse(0)
-            val seatNumber = row.hcursor.get[Int]("seat_number").getOrElse(0)
-            val violationCount = row.hcursor.get[Int]("violation_count").getOrElse(0)
-            val volunteerHours = row.hcursor.get[Int]("volunteer_hours").getOrElse(0)
+            val volunteerStatus = row.hcursor.get[String]("volunteer_status").getOrElse("false") // 保留字符串类型
+            val floor = row.hcursor.get[String]("floor").getOrElse("0") // 保留字符串类型
+            val sectionNumber = row.hcursor.get[String]("section_number").getOrElse("0") // 保留字符串类型
+            val seatNumber = row.hcursor.get[String]("seat_number").getOrElse("0") // 保留字符串类型
+            val violationCount = row.hcursor.get[String]("violation_count").getOrElse("0") // 保留字符串类型
+            val volunteerHours = row.hcursor.get[String]("volunteer_hours").getOrElse("0") // 保留字符串类型
 
             StudentInfoResponse(
               userName,

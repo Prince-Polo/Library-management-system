@@ -31,23 +31,23 @@ case class StudentRegisterPlanner(
             SqlParameter("String", userName),
             SqlParameter("String", password),
             SqlParameter("String", number),
-            SqlParameter("Boolean", "false"),  // initial volunteer status
-            SqlParameter("Int", "0"),  // initial floor
-            SqlParameter("Int", "0"),  // initial section_number
-            SqlParameter("Int", "0"),  // initial seat_number
-            SqlParameter("Int", "0"),  // initial violation_count
-            SqlParameter("Int", "0")  // initial volunteer_hours
+            SqlParameter("String", "false"),  // initial volunteer status as string
+            SqlParameter("String", "0"),  // initial floor as string
+            SqlParameter("String", "0"),  // initial section_number as string
+            SqlParameter("String", "0"),  // initial seat_number as string
+            SqlParameter("String", "0"),  // initial violation_count as string
+            SqlParameter("String", "0")  // initial volunteer_hours as string
           )
         ).map { _ =>
           StudentRegisterResponse(
             userName = userName,
             number = number,
-            volunteerStatus = false,
-            floor = 0,
-            sectionNumber = 0,
-            seatNumber = 0,
-            violationCount = 0,
-            volunteerHours = 0
+            volunteerStatus = "false",  // keeping boolean representation
+            floor = "0",
+            sectionNumber = "0",
+            seatNumber = "0",
+            violationCount = "0",
+            volunteerHours = "0"
           ).asJson.noSpaces
         }
       }

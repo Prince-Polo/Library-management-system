@@ -3,7 +3,7 @@ package Common
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
-case class SeatPosition(floor: Int, section: Int, seatNumber: Int)
+case class SeatPosition(floor: String, section: String, seatNumber: String)
 
 object SeatPosition {
   implicit val encoder: Encoder[SeatPosition] = deriveEncoder[SeatPosition]

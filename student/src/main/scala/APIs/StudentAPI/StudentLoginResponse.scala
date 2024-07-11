@@ -7,12 +7,12 @@ case class StudentLoginResponse(
                                  valid: Boolean,
                                  userName: Option[String] = None,
                                  number: Option[String] = None,
-                                 volunteerStatus: Option[Boolean] = None,
-                                 floor: Option[Int] = None,
-                                 sectionNumber: Option[Int] = None,
-                                 seatNumber: Option[Int] = None,
-                                 violationCount: Option[Int] = None,
-                                 volunteerHours: Option[Int] = None
+                                 volunteerStatus: Option[String] = None,  // 改为字符串类型
+                                 floor: Option[String] = None,            // 改为字符串类型
+                                 sectionNumber: Option[String] = None,    // 改为字符串类型
+                                 seatNumber: Option[String] = None,       // 改为字符串类型
+                                 violationCount: Option[String] = None,   // 改为字符串类型
+                                 volunteerHours: Option[String] = None    // 改为字符串类型
                                )
 
 object StudentLoginResponse {

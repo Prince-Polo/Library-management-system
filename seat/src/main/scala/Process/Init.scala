@@ -20,12 +20,12 @@ object Init {
       _ <- writeDB(
         s"""
            |CREATE TABLE IF NOT EXISTS $schemaName.seats (
-           |  floor INT,
-           |  section INT,
-           |  seat_number INT,
+           |  floor TEXT,  -- 存储字符串类型
+           |  section TEXT,  -- 存储字符串类型
+           |  seat_number TEXT,  -- 存储字符串类型
            |  status TEXT,  -- 存储字符串类型
            |  feedback TEXT,
-           |  occupied BOOLEAN,
+           |  occupied TEXT,  -- 存储字符串类型
            |  student_number TEXT,
            |  PRIMARY KEY (floor, section, seat_number)
            |)

@@ -2,9 +2,12 @@ package APIs.SeatAPI
 
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import Common.SeatPosition
 
-case class AddSeatMessage(position: SeatPosition) // 添加座位的请求信息
+case class AddSeatMessage(
+                           floor: String,
+                           section: String,
+                           seatNumber: String
+                         )
 
 object AddSeatMessage {
   implicit val encoder: Encoder[AddSeatMessage] = deriveEncoder[AddSeatMessage]

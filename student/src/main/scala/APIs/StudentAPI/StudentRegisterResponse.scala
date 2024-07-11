@@ -6,12 +6,12 @@ import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 case class StudentRegisterResponse(
                                     userName: String,
                                     number: String,
-                                    volunteerStatus: Boolean,
-                                    floor: Int,
-                                    sectionNumber: Int,
-                                    seatNumber: Int,
-                                    violationCount: Int,
-                                    volunteerHours: Int
+                                    volunteerStatus: String,
+                                    floor: String,
+                                    sectionNumber: String,
+                                    seatNumber: String,
+                                    violationCount: String,
+                                    volunteerHours: String
                                   )
 
 object StudentRegisterResponse {
