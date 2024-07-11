@@ -7,24 +7,22 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.readDBRows
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import _root_.APIs.StudentAPI.{StudentInfoMessage, StudentInfoResponse}
+import APIs.StudentAPI.{StudentInfoResponse}
+import Common.{BasicInfo, Info}
 
-case class StudentInfoPlanner(message: StudentInfoMessage, override val planContext: PlanContext) extends Planner[String] {
+case class StudentInfoPlanner(number: String, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
-    // 查询学生信息
     readDBRows(
       s"""
          |SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids
          |FROM $schemaName.students
          |WHERE number = ?
          |""".stripMargin,
-      List(SqlParameter("String", message.number))
+      List(SqlParameter("String", number))
     ).map {
       case Nil =>
-        // 如果没有找到学生信息，返回错误信息
         s"""{"error": "Student not found"}"""
       case rows =>
-        // 提取学生信息并返回 JSON 字符串
         rows.headOption match {
           case Some(row) =>
             val userName = row.hcursor.get[String]("user_name").getOrElse("")

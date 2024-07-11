@@ -7,18 +7,17 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{readDBRows, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import _root_.APIs.StudentAPI.{StudentLoginMessage, StudentLoginResponse}
 import Common.BasicInfo
+import APIs.StudentAPI.{StudentLoginResponse}
 
-case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val planContext: PlanContext) extends Planner[String] {
+case class StudentLoginMessagePlanner(info: BasicInfo, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     // Attempt to validate the user by reading the rows from the database
-    val messageInfo = message.info
     val checkUserExists = readDBBoolean(
       s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? OR number = ?)",
       List(
-        SqlParameter("String", messageInfo.userName),
-        SqlParameter("String", messageInfo.number)
+        SqlParameter("String", info.userName),
+        SqlParameter("String", info.number)
       )
     )
 
@@ -29,22 +28,22 @@ case class StudentLoginMessagePlanner(message: StudentLoginMessage, override val
         val checkPassword = readDBBoolean(
           s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? AND password = ?)",
           List(
-            SqlParameter("String", messageInfo.userName),
-            SqlParameter("String", messageInfo.password)
+            SqlParameter("String", info.userName),
+            SqlParameter("String", info.password)
           )
         )
 
-        checkPassword.flatMap { exists =>
-          if (!exists) {
+        checkPassword.flatMap { passwordValid =>
+          if (!passwordValid) {
             IO.raiseError(new Exception("Wrong password"))
           } else {
             // Retrieve additional information like id and authority if needed
             readDBRows(
               s"SELECT id, authority FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND number = ?",
               List(
-                SqlParameter("String", messageInfo.userName),
-                SqlParameter("String", messageInfo.password),
-                SqlParameter("String", messageInfo.number)
+                SqlParameter("String", info.userName),
+                SqlParameter("String", info.password),
+                SqlParameter("String", info.number)
               )
             ).map { rows =>
               rows.headOption match {

@@ -2,12 +2,10 @@ package APIs.StudentAPI
 
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import Common.Info
+import Common.BasicInfo
 
 case class StudentRegisterMessage(
-                                   serviceName: String,
-                                   `type`: String,
-                                   info: Info
+                                   info: BasicInfo
                                  )
 
 object StudentRegisterMessage {
