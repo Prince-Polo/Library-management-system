@@ -29,7 +29,6 @@ object Init {
            |  seat_number INT,
            |  violation_count INT,
            |  volunteer_hours INT,
-           |  completed_task_ids INT[],
            |  PRIMARY KEY (number)
            |)
            |""".stripMargin, List()

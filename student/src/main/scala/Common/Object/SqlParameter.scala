@@ -12,10 +12,7 @@ object SqlParameter {
   implicit val decodeSqlParameter: Decoder[SqlParameter] = new Decoder[SqlParameter] {
     final def apply(c: HCursor): Decoder.Result[SqlParameter] = for {
       dataType <- c.downField("dataType").as[String]
-      value <- dataType.toLowerCase match {
-        case "array" => c.downField("value").as[List[Int]].map(_.mkString(","))
-        case _ => c.downField("value").as[String]
-      }
+      value <- c.downField("value").as[String]
     } yield {
       dataType.toLowerCase match {
         case "string" => SqlParameter("String", value)

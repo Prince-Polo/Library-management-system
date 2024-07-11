@@ -11,8 +11,7 @@ case class StudentRegisterResponse(
                                     sectionNumber: Int,
                                     seatNumber: Int,
                                     violationCount: Int,
-                                    volunteerHours: Int,
-                                    completedTaskIds: List[Int]
+                                    volunteerHours: Int
                                   )
 
 object StudentRegisterResponse {

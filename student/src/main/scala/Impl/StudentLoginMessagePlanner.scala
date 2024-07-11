@@ -7,17 +7,21 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{readDBRows, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import Common.BasicInfo
 import APIs.StudentAPI.{StudentLoginResponse}
 
-case class StudentLoginMessagePlanner(info: BasicInfo, override val planContext: PlanContext) extends Planner[String] {
+case class StudentLoginMessagePlanner(
+                                       userName: String,
+                                       password: String,
+                                       number: String,
+                                       override val planContext: PlanContext
+                                     ) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     // Attempt to validate the user by reading the rows from the database
     val checkUserExists = readDBBoolean(
       s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? OR number = ?)",
       List(
-        SqlParameter("String", info.userName),
-        SqlParameter("String", info.number)
+        SqlParameter("String", userName),
+        SqlParameter("String", number)
       )
     )
 
@@ -28,8 +32,8 @@ case class StudentLoginMessagePlanner(info: BasicInfo, override val planContext:
         val checkPassword = readDBBoolean(
           s"SELECT EXISTS(SELECT 1 FROM ${schemaName}.students WHERE user_name = ? AND password = ?)",
           List(
-            SqlParameter("String", info.userName),
-            SqlParameter("String", info.password)
+            SqlParameter("String", userName),
+            SqlParameter("String", password)
           )
         )
 
@@ -37,13 +41,13 @@ case class StudentLoginMessagePlanner(info: BasicInfo, override val planContext:
           if (!passwordValid) {
             IO.raiseError(new Exception("Wrong password"))
           } else {
-            // Retrieve additional information like id and authority if needed
+            // Retrieve additional information
             readDBRows(
-              s"SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND number = ?",
+              s"SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND number = ?",
               List(
-                SqlParameter("String", info.userName),
-                SqlParameter("String", info.password),
-                SqlParameter("String", info.number)
+                SqlParameter("String", userName),
+                SqlParameter("String", password),
+                SqlParameter("String", number)
               )
             ).map { rows =>
               rows.headOption match {
@@ -56,8 +60,17 @@ case class StudentLoginMessagePlanner(info: BasicInfo, override val planContext:
                   val seatNumber = row.hcursor.get[Int]("seat_number").getOrElse(0)
                   val violationCount = row.hcursor.get[Int]("violation_count").getOrElse(0)
                   val volunteerHours = row.hcursor.get[Int]("volunteer_hours").getOrElse(0)
-                  val completedTaskIds = row.hcursor.get[List[Int]]("completed_task_ids").getOrElse(List.empty)
-                  StudentLoginResponse(valid = true, Some(userName), Some(number), Some(volunteerStatus), Some(floor), Some(sectionNumber), Some(seatNumber), Some(violationCount), Some(volunteerHours), Some(completedTaskIds)).asJson.noSpaces
+                  StudentLoginResponse(
+                    valid = true,
+                    Some(userName),
+                    Some(number),
+                    Some(volunteerStatus),
+                    Some(floor),
+                    Some(sectionNumber),
+                    Some(seatNumber),
+                    Some(violationCount),
+                    Some(volunteerHours)
+                  ).asJson.noSpaces
                 case None =>
                   StudentLoginResponse(valid = true).asJson.noSpaces
               }

@@ -14,7 +14,7 @@ case class StudentInfoPlanner(number: String, override val planContext: PlanCont
   override def plan(using planContext: PlanContext): IO[String] = {
     readDBRows(
       s"""
-         |SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids
+         |SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours
          |FROM $schemaName.students
          |WHERE number = ?
          |""".stripMargin,
@@ -33,7 +33,6 @@ case class StudentInfoPlanner(number: String, override val planContext: PlanCont
             val seatNumber = row.hcursor.get[Int]("seat_number").getOrElse(0)
             val violationCount = row.hcursor.get[Int]("violation_count").getOrElse(0)
             val volunteerHours = row.hcursor.get[Int]("volunteer_hours").getOrElse(0)
-            val completedTaskIds = row.hcursor.get[List[Int]]("completed_task_ids").getOrElse(List())
 
             StudentInfoResponse(
               userName,
@@ -43,8 +42,7 @@ case class StudentInfoPlanner(number: String, override val planContext: PlanCont
               sectionNumber,
               seatNumber,
               violationCount,
-              volunteerHours,
-              completedTaskIds
+              volunteerHours
             ).asJson.noSpaces
           case None =>
             s"""{"error": "Student not found"}"""

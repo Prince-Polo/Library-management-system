@@ -12,8 +12,7 @@ case class StudentLoginResponse(
                                  sectionNumber: Option[Int] = None,
                                  seatNumber: Option[Int] = None,
                                  violationCount: Option[Int] = None,
-                                 volunteerHours: Option[Int] = None,
-                                 completedTaskIds: Option[List[Int]] = None
+                                 volunteerHours: Option[Int] = None
                                )
 
 object StudentLoginResponse {

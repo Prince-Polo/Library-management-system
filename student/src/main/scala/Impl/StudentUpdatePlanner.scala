@@ -6,13 +6,18 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.{writeDB, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import Common.BasicInfo
 
-case class StudentUpdatePlanner(info: BasicInfo, newPassword: Option[String], override val planContext: PlanContext) extends Planner[String] {
+case class StudentUpdatePlanner(
+                                 userName: String,
+                                 password: String,
+                                 number: String,
+                                 newPassword: Option[String],
+                                 override val planContext: PlanContext
+                               ) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     val checkStudentExists = readDBBoolean(
       s"SELECT EXISTS(SELECT 1 FROM $schemaName.students WHERE user_name = ? AND password = ? AND number = ?)",
-      List(SqlParameter("String", info.userName), SqlParameter("String", info.password), SqlParameter("String", info.number))
+      List(SqlParameter("String", userName), SqlParameter("String", password), SqlParameter("String", number))
     )
 
     checkStudentExists.flatMap { exists =>
@@ -26,16 +31,16 @@ case class StudentUpdatePlanner(info: BasicInfo, newPassword: Option[String], ov
         val updateParams = List(
           newPassword.map(SqlParameter("String", _))
         ).flatten ++ List(
-          SqlParameter("String", info.userName),
-          SqlParameter("String", info.password),
-          SqlParameter("String", info.number)
+          SqlParameter("String", userName),
+          SqlParameter("String", password),
+          SqlParameter("String", number)
         )
 
         writeDB(
           s"UPDATE $schemaName.students SET $updateFields WHERE user_name = ? AND password = ? AND number = ?",
           updateParams
         ).map { _ =>
-          s"Update successful for student with number: ${info.number}"
+          s"Update successful for student with number: $number"
         }
       }
     }

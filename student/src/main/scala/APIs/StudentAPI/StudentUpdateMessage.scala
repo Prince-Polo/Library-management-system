@@ -2,10 +2,11 @@ package APIs.StudentAPI
 
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import Common.BasicInfo
 
 case class StudentUpdateMessage(
-                                 info: BasicInfo,
+                                 userName: String,
+                                 password: String,
+                                 number: String,
                                  newPassword: Option[String] = None
                                )
 
