@@ -5,14 +5,14 @@ import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 case class StudentLoginResponse(
                                  valid: Boolean,
-                                 userName: Option[String] = None,
-                                 number: Option[String] = None,
-                                 volunteerStatus: Option[String] = None,  // 改为字符串类型
-                                 floor: Option[String] = None,            // 改为字符串类型
-                                 sectionNumber: Option[String] = None,    // 改为字符串类型
-                                 seatNumber: Option[String] = None,       // 改为字符串类型
-                                 violationCount: Option[String] = None,   // 改为字符串类型
-                                 volunteerHours: Option[String] = None    // 改为字符串类型
+                                 userName: String,
+                                 number: String,
+                                 volunteerStatus: String,  // 改为字符串类型
+                                 floor: String,            // 改为字符串类型
+                                 sectionNumber: String,    // 改为字符串类型
+                                 seatNumber: String,       // 改为字符串类型
+                                 violationCount: String,   // 改为字符串类型
+                                 volunteerHours: String    // 改为字符串类型
                                )
 
 object StudentLoginResponse {

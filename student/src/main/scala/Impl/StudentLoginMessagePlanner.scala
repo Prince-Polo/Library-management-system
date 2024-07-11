@@ -62,17 +62,17 @@ case class StudentLoginMessagePlanner(
                   val volunteerHours = row.hcursor.get[String]("volunteer_hours").getOrElse("0")
                   StudentLoginResponse(
                     valid = true,
-                    Some(userName),
-                    Some(number),
-                    Some(volunteerStatus),
-                    Some(floor),
-                    Some(sectionNumber),
-                    Some(seatNumber),
-                    Some(violationCount),
-                    Some(volunteerHours)
+                    userName,
+                    number,
+                    volunteerStatus,
+                    floor,
+                    sectionNumber,
+                    seatNumber,
+                    violationCount,
+                    volunteerHours
                   ).asJson.noSpaces
                 case None =>
-                  StudentLoginResponse(valid = true).asJson.noSpaces
+                  StudentLoginResponse(valid = true, "", "", "false", "0", "0", "0", "0", "0").asJson.noSpaces
               }
             }
           }

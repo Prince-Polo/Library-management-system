@@ -7,7 +7,7 @@ case class StudentLoginMessage(
                                 userName: String,
                                 password: String,
                                 number: String
-                              ) extends StudentMessage[String]
+                              )
 
 object StudentLoginMessage {
   implicit val encoder: Encoder[StudentLoginMessage] = deriveEncoder[StudentLoginMessage]
