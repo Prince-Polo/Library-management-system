@@ -13,55 +13,37 @@ import _root_.APIs.StudentAPI._
 
 object Routes:
   private def executePlan(messageType: String, str: String): IO[String] = {
+    given PlanContext = PlanContext(traceID = TraceID(java.util.UUID.randomUUID().toString), transactionLevel = 1)
+
     messageType match {
       case "StudentLoginMessage" =>
-        IO(decode[StudentLoginMessage](str).getOrElse(throw new Exception("Invalid JSON for StudentLoginMessage")))
-          .flatMap { m =>
-            val traceID = TraceID(java.util.UUID.randomUUID().toString)
-            val transactionLevel = 2
-            val planContext = PlanContext(traceID, transactionLevel)
-            val planner = StudentLoginMessagePlanner(m, planContext)
+        IO(decode[StudentLoginMessagePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentLoginMessage")))
+          .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
       case "StudentQueryMessage" =>
         IO(decode[StudentReservationPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentQueryMessage")))
-          .flatMap { m =>
-            m.fullPlan.map(_.asJson.noSpaces)
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
           }
       case "StudentRegisterMessage" =>
-        IO(decode[StudentRegisterMessage](str).getOrElse(throw new Exception("Invalid JSON for StudentRegisterMessage")))
-          .flatMap { m =>
-            val traceID = TraceID(java.util.UUID.randomUUID().toString)
-            val transactionLevel = 1
-            val planContext = PlanContext(traceID, transactionLevel)
-            val planner = StudentRegisterPlanner(m, planContext)
+        IO(decode[StudentRegisterPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentRegisterMessage")))
+          .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
       case "StudentInfoMessage" =>
-        IO(decode[StudentInfoMessage](str).getOrElse(throw new Exception("Invalid JSON for StudentInfoMessage")))
-          .flatMap { m =>
-            val traceID = TraceID(java.util.UUID.randomUUID().toString)
-            val transactionLevel = 1
-            val planContext = PlanContext(traceID, transactionLevel)
-            val planner = StudentInfoPlanner(m, planContext)
+        IO(decode[StudentInfoPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentInfoMessage")))
+          .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
       case "StudentUnregisterMessage" =>
-        IO(decode[StudentUnregisterMessage](str).getOrElse(throw new Exception("Invalid JSON for StudentUnregisterMessage")))
-          .flatMap { m =>
-            val traceID = TraceID(java.util.UUID.randomUUID().toString)
-            val transactionLevel = 1
-            val planContext = PlanContext(traceID, transactionLevel)
-            val planner = StudentUnregisterPlanner(m, planContext)
+        IO(decode[StudentUnregisterPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentUnregisterMessage")))
+          .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
       case "StudentUpdateMessage" =>
-        IO(decode[StudentUpdateMessage](str).getOrElse(throw new Exception("Invalid JSON for StudentUpdateMessage")))
-          .flatMap { m =>
-            val traceID = TraceID(java.util.UUID.randomUUID().toString)
-            val transactionLevel = 1
-            val planContext = PlanContext(traceID, transactionLevel)
-            val planner = StudentUpdatePlanner(m, planContext)
+        IO(decode[StudentUpdatePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentUpdateMessage")))
+          .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
       case _ =>
