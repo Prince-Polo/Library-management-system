@@ -39,7 +39,7 @@ case class StudentLoginMessagePlanner(info: BasicInfo, override val planContext:
           } else {
             // Retrieve additional information like id and authority if needed
             readDBRows(
-              s"SELECT id, authority FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND number = ?",
+              s"SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours, completed_task_ids FROM ${schemaName}.students WHERE user_name = ? AND password = ? AND number = ?",
               List(
                 SqlParameter("String", info.userName),
                 SqlParameter("String", info.password),
@@ -48,9 +48,16 @@ case class StudentLoginMessagePlanner(info: BasicInfo, override val planContext:
             ).map { rows =>
               rows.headOption match {
                 case Some(row) =>
-                  val id = row.hcursor.get[Int]("id").getOrElse(-1)
-                  val authority = row.hcursor.get[Int]("authority").getOrElse(-1)
-                  StudentLoginResponse(valid = true, Some(id), Some(authority)).asJson.noSpaces
+                  val userName = row.hcursor.get[String]("user_name").getOrElse("")
+                  val number = row.hcursor.get[String]("number").getOrElse("")
+                  val volunteerStatus = row.hcursor.get[Boolean]("volunteer_status").getOrElse(false)
+                  val floor = row.hcursor.get[Int]("floor").getOrElse(0)
+                  val sectionNumber = row.hcursor.get[Int]("section_number").getOrElse(0)
+                  val seatNumber = row.hcursor.get[Int]("seat_number").getOrElse(0)
+                  val violationCount = row.hcursor.get[Int]("violation_count").getOrElse(0)
+                  val volunteerHours = row.hcursor.get[Int]("volunteer_hours").getOrElse(0)
+                  val completedTaskIds = row.hcursor.get[List[Int]]("completed_task_ids").getOrElse(List.empty)
+                  StudentLoginResponse(valid = true, Some(userName), Some(number), Some(volunteerStatus), Some(floor), Some(sectionNumber), Some(seatNumber), Some(violationCount), Some(volunteerHours), Some(completedTaskIds)).asJson.noSpaces
                 case None =>
                   StudentLoginResponse(valid = true).asJson.noSpaces
               }

@@ -5,8 +5,15 @@ import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 case class StudentLoginResponse(
                                  valid: Boolean,
-                                 id: Option[Int] = None,
-                                 authority: Option[Int] = None
+                                 userName: Option[String] = None,
+                                 number: Option[String] = None,
+                                 volunteerStatus: Option[Boolean] = None,
+                                 floor: Option[Int] = None,
+                                 sectionNumber: Option[Int] = None,
+                                 seatNumber: Option[Int] = None,
+                                 violationCount: Option[Int] = None,
+                                 volunteerHours: Option[Int] = None,
+                                 completedTaskIds: Option[List[Int]] = None
                                )
 
 object StudentLoginResponse {
