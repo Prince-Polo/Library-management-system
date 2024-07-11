@@ -7,7 +7,7 @@ case class AddJobMessage(
                           jobLongDescription: String,
                           jobHardness: BigInt,
                           jobCredit: BigInt,
-                          jobComplete: Boolean,
-                          jobBooked: Boolean,
-                          jobApproved: Boolean
+                          jobComplete: Boolean,//学生是否确认完成
+                          jobBooked: Boolean,//学生是否预约
+                          jobApproved: Boolean//教师是否确认完成
                         )

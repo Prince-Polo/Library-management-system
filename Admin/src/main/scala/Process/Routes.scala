@@ -19,11 +19,6 @@ object Routes:
         //  .flatMap{m=>
        //     m.fullPlan.map(_.asJson.toString)
         //  }
-      case "AddJobMessage" =>
-        IO(decode[AdminAddJobPlanner](str).getOrElse(throw new Exception("Invalid JSON for AdminLoginMessage")))
-          .flatMap{m=>
-            m.fullPlan.map(_.asJson.toString)
-          }
       case "AdminLoginMessage" =>
         IO(decode[AdminLoginMessagePlanner](str).getOrElse(throw new Exception("Invalid JSON for AdminLoginMessage")))
           .flatMap{m=>
