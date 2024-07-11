@@ -1,20 +1,21 @@
 package Common.Object
 
 import io.circe.generic.semiauto.deriveEncoder
-import io.circe.{Decoder, Encoder, HCursor}
+import io.circe.{Decoder, Encoder, HCursor, Json}
+import io.circe.syntax._
 
-// Define the SqlParam case class
 case class SqlParameter(dataType: String, value: String)
 
 object SqlParameter {
-  // Encoder for SqlParam
   implicit val encodeSqlParameter: Encoder[SqlParameter] = deriveEncoder[SqlParameter]
 
-  // Decoder for SqlParam
   implicit val decodeSqlParameter: Decoder[SqlParameter] = new Decoder[SqlParameter] {
     final def apply(c: HCursor): Decoder.Result[SqlParameter] = for {
       dataType <- c.downField("dataType").as[String]
-      value <- c.downField("value").as[String]
+      value <- dataType.toLowerCase match {
+        case "array" => c.downField("value").as[List[Int]].map(_.mkString(","))
+        case _ => c.downField("value").as[String]
+      }
     } yield {
       dataType.toLowerCase match {
         case "string" => SqlParameter("String", value)
@@ -23,7 +24,7 @@ object SqlParameter {
         case "datetime" => SqlParameter("DateTime", value)
         case "float" => SqlParameter("Float", value)
         case "double" => SqlParameter("Double", value)
-        // Add case for DateTime
+        case "array" => SqlParameter("Array", value)
         // Add more type cases as needed
         case _ => throw new Exception("Unsupported data type")
       }

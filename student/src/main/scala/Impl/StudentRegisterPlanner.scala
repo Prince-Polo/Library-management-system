@@ -33,7 +33,7 @@ case class StudentRegisterPlanner(info: BasicInfo, override val planContext: Pla
             SqlParameter("Int", "0"),  // initial seat_number
             SqlParameter("Int", "0"),  // initial violation_count
             SqlParameter("Int", "0"),  // initial volunteer_hours
-            SqlParameter("Array", "{}")  // initial completed_task_ids (empty array)
+            SqlParameter("Array", List.empty[Int].mkString(","))  // initial completed_task_ids (empty array)
           )
         ).map { _ =>
           StudentRegisterResponse(

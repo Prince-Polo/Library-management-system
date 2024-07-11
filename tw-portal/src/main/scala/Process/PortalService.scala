@@ -46,8 +46,8 @@ object PortalService {
     } yield response
   }
 
-  def sendRequest(client: Client[IO], uri: Uri, json: Json): IO[Either[Throwable, Json]] = {
-    val newReq = Request[IO](method = Method.POST, uri = uri).withEntity(json)
+  def sendRequest(client: Client[IO], requestUri: Uri, json: Json): IO[Either[Throwable, Json]] = {
+    val newReq = Request[IO](method = Method.POST, uri = requestUri).withEntity(json)
     println("running")
     client.run(newReq).use { response =>
       println("here")
