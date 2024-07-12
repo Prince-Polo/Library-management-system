@@ -44,6 +44,16 @@ object Routes:
           .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
+      case "StudentReservationMessage" =>
+        IO(decode[StudentReservationPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentReservationMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "StudentLeaveMessage" =>
+        IO(decode[StudentLeavePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentLeaveMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
       case _ =>
         IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }
