@@ -64,6 +64,21 @@ object Routes:
           .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
+      case "SeatReportMessage" =>
+        IO(decode[SeatReportPlanner](str).getOrElse(throw new Exception("Invalid JSON for SeatReportMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "SeatConfirmMessage" =>
+        IO(decode[SeatConfirmPlanner](str).getOrElse(throw new Exception("Invalid JSON for SeatConfirmMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "SeatRefreshMessage" =>
+        IO(decode[SeatRefreshPlanner](str).getOrElse(throw new Exception("Invalid JSON for SeatRefreshMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
       case _ =>
         IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }
