@@ -79,6 +79,21 @@ object Routes:
           .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
+      case "QueryAllFloorsMessage" =>
+        IO(decode[QueryAllFloorsPlanner](str).getOrElse(throw new Exception("Invalid JSON for QueryAllFloorsMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "QuerySectionsByFloorMessage" =>
+        IO(decode[QuerySectionsByFloorPlanner](str).getOrElse(throw new Exception("Invalid JSON for QuerySectionsByFloorMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "QuerySeatsInSectionMessage" =>
+        IO(decode[QuerySeatsInSectionPlanner](str).getOrElse(throw new Exception("Invalid JSON for QuerySeatsInSectionMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
       case _ =>
         IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }
