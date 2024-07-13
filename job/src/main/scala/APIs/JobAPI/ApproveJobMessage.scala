@@ -5,17 +5,20 @@ import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 case class ApproveJobMessage(
                               jobId: BigInt,
-                              jobStudentId: String,
+                              jobStudentId: Array[Array[String]], // 二维 TEXT 数组
                               jobShortDescription: String,
                               jobLongDescription: String,
-                              jobHardness: String,
-                              jobCredit: String,
-                              jobComplete: String,
-                              jobBooked: String,
-                              jobApproved: String
+                              jobHardness: Int, // 更改为 Int
+                              jobCredit: Int, // 更改为 Int
+                              jobComplete: Boolean,
+                              jobBooked: Boolean,
+                              jobApproved: Boolean,
+                              jobCurrent: Int, // 新增
+                              jobRequired: Int // 新增
                             )
 
 object ApproveJobMessage {
   implicit val encoder: Encoder[ApproveJobMessage] = deriveEncoder[ApproveJobMessage]
   implicit val decoder: Decoder[ApproveJobMessage] = deriveDecoder[ApproveJobMessage]
 }
+

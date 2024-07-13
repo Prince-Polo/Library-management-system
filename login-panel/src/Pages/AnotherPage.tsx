@@ -1,79 +1,93 @@
-import React from 'react'
-import { useHistory } from 'react-router'
-import myImage from './cracking.png'
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { ApprovedJobQueryMessage } from 'Plugins/JobAPI/ApprovedJobQueryMessage';
+import { sendPostRequest, ErrorModal, SuccessModal } from 'Pages/ErrorMessage';
+import './app.css';
 
-const products = [
-    { title: 'Banteng milk', isFruit: false, isVeg: false,id: 1 },
-    { title: 'Garlic', isFruit: false, isVeg: true,id: 2 },
-    { title: 'Apple', isFruit: true, isVeg: false, id: 3 },
-];
-function MyComponent(s: string) {
-    const titleStyle = {
-            color: s,
-            fontSize: '24px',
-            fontWeight: 'bold',
-    }
+interface JobInfo {
+    jobid: string;
+    jobstudentid: string;
+    jobshortdescription: string;
+    joblongdescription: string;
+    jobhardness: string;
+    jobcredit: string;
+    jobcomplete: boolean;
+    jobbooked: boolean;
+    jobapproved: boolean;
+}
+
+const ApprovedJobQuery: React.FC = () => {
+    const [jobs, setJobs] = useState<JobInfo[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    const history = useHistory();
+
+    const fetchJobs = () => {
+        const message = new ApprovedJobQueryMessage();
+        sendPostRequest(message, setError, (response: any) => {
+            console.log('Received response:', response);
+            try {
+                const jobs: JobInfo[] = JSON.parse(response); // 解析返回的字符串为JSON对象
+                setJobs(jobs);
+                setSuccess("Jobs fetched successfully");
+            } catch (err) {
+                setError("Failed to parse jobs data");
+            }
+        });
+    };
+
+    useEffect(() => {
+        fetchJobs();
+    }, []);
+
+    const closeModal = () => {
+        setError(null);
+    };
+
+    const closeSuccessModal = () => {
+        setSuccess(null);
+    };
+
     return (
-        <h1 style={titleStyle}>ga</h1>
+        <div className="job-query-container">
+            <div className="job-query">
+                <h2>Approved Job Query</h2>
+                <button className='button button-primary' onClick={fetchJobs}>Fetch Approved Jobs</button>
+                <div className="job-list">
+                    {jobs.map(job => (
+                        <div className="job-item" key={job.jobid}>
+                            <h3>{job.jobshortdescription}</h3>
+                            <p><strong>Student ID:</strong> {job.jobstudentid}</p>
+                            <p><strong>Description:</strong> {job.joblongdescription}</p>
+                            <p><strong>Hardness:</strong> {job.jobhardness}</p>
+                            <p><strong>Credit:</strong> {job.jobcredit}</p>
+                            <p><strong>Complete:</strong> {job.jobcomplete ? 'Yes' : 'No'}</p>
+                            <p><strong>Booked:</strong> {job.jobbooked ? 'Yes' : 'No'}</p>
+                            <p><strong>Approved:</strong> {job.jobapproved ? 'Yes' : 'No'}</p>
+                        </div>
+                    ))}
+                </div>
+                <button
+                    type="button"
+                    className='button button-primary'
+                    onClick={() => history.push("/")}
+                >
+                    Return to first page
+                </button>
+            </div>
+            <ErrorModal message={error} onClose={closeModal} />
+            <SuccessModal message={success} onClose={closeSuccessModal} />
+        </div>
     );
-}
-export default function ShoppingList() {
-    const listItems = products.map(product =>
-        <li
-            key={product.id}
-            style={{
-                color: product.isFruit ? 'magenta' : product.isVeg ? 'darkgreen':'blueviolet'
-            }}
-        >
-            {product.title}
-        </li>
-    );
+};
+
+// 将 ApprovedJobQueryPage 作为默认导出
+const ApprovedJobQueryPage: React.FC = () => {
     return (
-        <ul>{listItems}</ul>
+        <div style={{ background: 'lightgrey', opacity: '90%' }}>
+            <ApprovedJobQuery />
+        </div>
     );
-}
-export function AnotherPage(){
-    const history=useHistory()
-    const handleClick=()=>{window.location.href="https://chatglm.cn"}
-    const handleChick=()=>{alert("There flies a Guinea fowl.")}
+};
 
-    return (<div>
-        <h1 style={{marginTop:'30px',marginLeft:'40px'}}>
-            Hahaha!
-        </h1>
-        <hr></hr>
-        <h2>
-            This is naive front end, Kuru!<br />
-            If you see this page, you know you are a banteng!<br />
-        </h2>
-        This primitive page is still under development, though, banteng!<br />
-        For more information, see <br />
-        <button onClick={handleClick}>
-          this.
-        </button>
-        <button onClick={handleChick}>
-            something else
-        </button>
-        <h2>Local Image Example</h2>
-        <img src={myImage}
-            alt={'Cracking reactor in Baki.'}
-             style={{marginLeft:'10px',width:626,height:700}}></img>
-        <h1>
-            False!
-        </h1>
-        <p>How come you made such a monstrous mistake!<br />
-            Plough your fields on Java, banteng! Your species is under threat there in Java, so why not go back and
-            contribute to your race, banteng!
-        </p>
-        <button onClick={() => history.push("..")}>
-            back to the last page
-        </button>
-        <button onClick={() => history.push("/library")}>
-            to the next page
-        </button>
-        <ShoppingList></ShoppingList>
-        You banteng! Quit now!<br />
-    </div>)
-}
-
-
+export default ApprovedJobQueryPage;

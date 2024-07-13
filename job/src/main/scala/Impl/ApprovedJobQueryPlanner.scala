@@ -6,33 +6,26 @@ import io.circe.syntax._
 import Common.API.{PlanContext, Planner}
 import Common.DBAPI.readDBRows
 import Common.ServiceUtils.schemaName
-import APIs.JobAPI.{JobInfo, ApprovedJobQueryResponse, ApprovedJobQueryMessage}
+import APIs.JobAPI.JobInfo
 
-case class ApprovedJobQueryPlanner(message: ApprovedJobQueryMessage, override val planContext: PlanContext) extends Planner[String] {
+case class ApprovedJobQueryPlanner(override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     readDBRows(
-      s"""
-         |SELECT jobId, jobStudentId, jobShortDescription, jobLongDescription, jobHardness, jobCredit, jobComplete, jobBooked, jobApproved 
-         |FROM ${schemaName}.jobs 
-         |WHERE jobBooked = 'TRUE' AND jobComplete = 'TRUE' AND jobApproved = 'TRUE'
-         |ORDER BY jobId
-         """.stripMargin,
+      s"SELECT jobid, jobshortdescription, joblongdescription, jobhardness, jobcredit, jobcurrent, jobrequired FROM ${schemaName}.jobs WHERE jobbooked = FALSE ORDER BY jobid",
       List()
-    ).map { rows =>
+    ).flatMap { rows =>
       val jobs = rows.map { row =>
         JobInfo(
-          row.hcursor.get[BigInt]("jobId").getOrElse(BigInt(0)),
-          row.hcursor.get[String]("jobStudentId").getOrElse(""),
-          row.hcursor.get[String]("jobShortDescription").getOrElse(""),
-          row.hcursor.get[String]("jobLongDescription").getOrElse(""),
-          row.hcursor.get[String]("jobHardness").getOrElse(""),
-          row.hcursor.get[String]("jobCredit").getOrElse(""),
-          row.hcursor.get[String]("jobComplete").getOrElse("FALSE"),
-          row.hcursor.get[String]("jobBooked").getOrElse("FALSE"),
-          row.hcursor.get[String]("jobApproved").getOrElse("FALSE")
+          row.hcursor.get[Int]("jobid").getOrElse(0),
+          row.hcursor.get[String]("jobshortdescription").getOrElse(""),
+          row.hcursor.get[String]("joblongdescription").getOrElse(""),
+          row.hcursor.get[Int]("jobhardness").getOrElse(0),
+          row.hcursor.get[Int]("jobcredit").getOrElse(0),
+          row.hcursor.get[Int]("jobcurrent").getOrElse(0),
+          row.hcursor.get[Int]("jobrequired").getOrElse(0)
         )
       }.toList
-      ApprovedJobQueryResponse(jobs).asJson.noSpaces
+      IO.pure(jobs.asJson.noSpaces)
     }
   }
 }

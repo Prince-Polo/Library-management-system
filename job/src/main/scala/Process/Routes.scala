@@ -19,25 +19,35 @@ object Routes:
           .flatMap{m=>
             m.fullPlan.map(_.asJson.toString)
           }
-    case "AvailableJobQueryMessage" =>
+/*    case "AvailableJobQueryMessage" =>
       IO(decode[AvailableJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for AvailableJobQuery")))
         .flatMap{m=>
           m.fullPlan.map(_.asJson.toString)
         }
     case "BookedCompletedUnapprovedJobQueryMessage" =>
-      IO(decode[BookedUnapprovedJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for BookedCompletedUnapprovedJobQueryMessage")))
+      IO(decode[BookedCompletedUnapprovedJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for BookedCompletedUnapprovedJobQueryMessage")))
+        .flatMap{m=>
+          m.fullPlan.map(_.asJson.toString)
+        }*/
+    case "ApprovedJobMessage" =>
+      IO(decode[ApprovedJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for ApprovedJobMessage")))
         .flatMap{m=>
           m.fullPlan.map(_.asJson.toString)
         }
-    case "ApprovedJobQueryMessage" =>
-      IO(decode[ApprovedJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for ApprovedJobQueryMessage")))
-        .flatMap{m=>
+    case "DeleteJobMessage" =>
+      IO(decode[DeleteJobPlanner](str).getOrElse(throw new Exception("Invalid JSON for DeleteJobMessage")))
+        .flatMap { m=>
           m.fullPlan.map(_.asJson.toString)
         }
-
     case _ =>
-        IO.raiseError(new Exception(s"Unknown type: $messageType"))
+      IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }
+/*    case "BookedIncompleteJobMessage" =>
+      IO(decode[BookedIncompleteJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for BookedIncompleteJobMessage")))
+        .flatMap{m=>
+          m.fullPlan.map(_.asJson.toString)
+        } */
+
 
   val service: HttpRoutes[IO] = HttpRoutes.of[IO]:
     case req @ POST -> Root / "api" / name =>

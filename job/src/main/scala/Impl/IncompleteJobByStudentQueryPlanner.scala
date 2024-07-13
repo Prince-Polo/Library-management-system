@@ -1,3 +1,4 @@
+/*
 package Impl
 
 import cats.effect.IO
@@ -21,18 +22,19 @@ case class IncompleteJobByStudentQueryPlanner(message: IncompleteJobByStudentQue
     ).map { rows =>
       val jobs = rows.map { row =>
         JobInfo(
-          row.hcursor.get[BigInt]("jobId").getOrElse(BigInt(0)),
+    /*      row.hcursor.get[String]("jobId").getOrElse(""),*/
           row.hcursor.get[String]("jobStudentId").getOrElse(""),
           row.hcursor.get[String]("jobShortDescription").getOrElse(""),
           row.hcursor.get[String]("jobLongDescription").getOrElse(""),
           row.hcursor.get[String]("jobHardness").getOrElse(""),
           row.hcursor.get[String]("jobCredit").getOrElse(""),
-          row.hcursor.get[String]("jobComplete").getOrElse("FALSE"),
-          row.hcursor.get[String]("jobBooked").getOrElse("FALSE"),
-          row.hcursor.get[String]("jobApproved").getOrElse("TRUE")
+     /*     row.hcursor.get[Boolean]("jobComplete").getOrElse(false),
+          row.hcursor.get[Boolean]("jobBooked").getOrElse(false),
+          row.hcursor.get[Boolean]("jobApproved").getOrElse(false)*/
         )
       }.toList
       IncompleteJobByStudentQueryResponse(jobs).asJson.noSpaces
     }
   }
 }
+*/

@@ -33,9 +33,9 @@ export const SuccessModal: React.FC<{ message: string | null; onClose: () => voi
 };
 
 export const sendPostRequest = async (
-    message:API,
+    message: API,
     setError: (error: string | null) => void,
-    onSuccess?: () => void
+    onSuccess?: (response: any) => void
 ) => {
     try {
         const response = await axios.post(message.getURL(), JSON.stringify(message), {
@@ -43,8 +43,9 @@ export const sendPostRequest = async (
         });
         console.log('Response status:', response.status);
         console.log('Response body:', response.data);
+        console.log(message.getURL());
         if (response.status === 200 && onSuccess) {
-            onSuccess();
+            onSuccess(response.data);
         }
     } catch (error) {
         if (isAxiosError(error)) {
