@@ -18,7 +18,7 @@ case class CreditStudentPlanner(number: String, volunteerHours: String, override
         SqlParameter("String", number)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         CreditStudentResponse(success = true, message = s"Updated volunteer hours for student with number: $number").asJson.noSpaces
       } else {
         CreditStudentResponse(success = false, message = s"Failed to update volunteer hours for student with number: $number").asJson.noSpaces

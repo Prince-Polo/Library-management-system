@@ -32,7 +32,7 @@ case class SeatReportPlanner(
         SqlParameter("String", seatNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         SeatReportResponse(success = true, s"Seat at position $floor-$section-$seatNumber reported successfully with feedback: $feedback").asJson.noSpaces
       } else {
         SeatReportResponse(success = false, s"Failed to report seat at position $floor-$section-$seatNumber").asJson.noSpaces

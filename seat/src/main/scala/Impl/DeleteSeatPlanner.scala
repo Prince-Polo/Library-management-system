@@ -22,7 +22,7 @@ case class DeleteSeatPlanner(
         SqlParameter("String", seatNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected != "") {
         s"Seat deleted successfully at position: $floor-$section-$seatNumber"
       } else {
         s"Failed to delete seat at position: $floor-$section-$seatNumber"

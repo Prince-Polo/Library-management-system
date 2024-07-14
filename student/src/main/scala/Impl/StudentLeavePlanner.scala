@@ -23,7 +23,7 @@ case class StudentLeavePlanner(
         SqlParameter("String", studentNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         StudentLeaveResponse(success = true, message = s"Student seat cleared successfully for student: $studentNumber").asJson.noSpaces
       } else {
         StudentLeaveResponse(success = false, message = s"Failed to clear seat for student: $studentNumber").asJson.noSpaces

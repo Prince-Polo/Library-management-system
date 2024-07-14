@@ -52,14 +52,14 @@ case class StudentLoginMessagePlanner(
             ).map { rows =>
               rows.headOption match {
                 case Some(row) =>
-                  val userName = row.hcursor.get[String]("user_name").getOrElse("")
+                  val userName = row.hcursor.get[String]("userName").getOrElse("")
                   val number = row.hcursor.get[String]("number").getOrElse("")
-                  val volunteerStatus = row.hcursor.get[String]("volunteer_status").getOrElse("false")
+                  val volunteerStatus = row.hcursor.get[String]("volunteerStatus").getOrElse("false")
                   val floor = row.hcursor.get[String]("floor").getOrElse("0")
-                  val sectionNumber = row.hcursor.get[String]("section_number").getOrElse("0")
-                  val seatNumber = row.hcursor.get[String]("seat_number").getOrElse("0")
-                  val violationCount = row.hcursor.get[String]("violation_count").getOrElse("0")
-                  val volunteerHours = row.hcursor.get[String]("volunteer_hours").getOrElse("0")
+                  val sectionNumber = row.hcursor.get[String]("sectionNumber").getOrElse("0")
+                  val seatNumber = row.hcursor.get[String]("seatNumber").getOrElse("0")
+                  val violationCount = row.hcursor.get[String]("violationCount").getOrElse("0")
+                  val volunteerHours = row.hcursor.get[String]("volunteerHours").getOrElse("0")
                   StudentLoginResponse(
                     valid = true,
                     userName,

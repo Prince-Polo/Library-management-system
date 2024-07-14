@@ -32,7 +32,7 @@ case class SeatConfirmPlanner(
         SqlParameter("String", seatNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         SeatConfirmResponse(success = true, s"Seat at position $floor-$section-$seatNumber confirmed successfully with feedback: $feedback").asJson.noSpaces
       } else {
         SeatConfirmResponse(success = false, s"Failed to confirm seat at position $floor-$section-$seatNumber").asJson.noSpaces

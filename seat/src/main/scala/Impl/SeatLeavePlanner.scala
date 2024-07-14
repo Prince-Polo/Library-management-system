@@ -26,7 +26,7 @@ case class SeatLeavePlanner(
         SqlParameter("String", studentNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected != "") {
         SeatLeaveResponse(success = true, message = s"Seat status cleared successfully at position: $floor-$section-$seatNumber").asJson.noSpaces
       } else {
         SeatLeaveResponse(success = false, message = s"Failed to clear seat status at position: $floor-$section-$seatNumber").asJson.noSpaces

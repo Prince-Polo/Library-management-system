@@ -20,7 +20,7 @@ case class StudentReservationPlanner(studentNumber: String, floor: String, secti
         SqlParameter("String", studentNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         StudentReservationResponse(success = true, message = s"Student seat updated successfully for student: $studentNumber").asJson.noSpaces
       } else {
         StudentReservationResponse(success = false, message = s"Failed to update seat for student: $studentNumber").asJson.noSpaces

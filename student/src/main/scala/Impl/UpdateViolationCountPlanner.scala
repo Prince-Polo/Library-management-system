@@ -19,7 +19,7 @@ case class UpdateViolationCountPlanner(number: String, violationCount: String, o
         SqlParameter("String", number)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         UpdateViolationCountResponse(success = true, message = s"Updated violation count for student with number: $number").asJson.noSpaces
       } else {
         UpdateViolationCountResponse(success = false, message = s"Failed to update violation count for student with number: $number").asJson.noSpaces

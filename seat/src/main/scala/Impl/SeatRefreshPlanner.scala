@@ -31,7 +31,7 @@ case class SeatRefreshPlanner(
         SqlParameter("String", seatNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         SeatRefreshResponse(success = true, s"Seat at position $floor-$section-$seatNumber refreshed successfully").asJson.noSpaces
       } else {
         SeatRefreshResponse(success = false, s"Failed to refresh seat at position $floor-$section-$seatNumber").asJson.noSpaces

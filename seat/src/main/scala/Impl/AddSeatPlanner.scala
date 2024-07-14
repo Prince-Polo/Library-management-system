@@ -24,7 +24,7 @@ case class AddSeatPlanner(
         SqlParameter("String", seatNumber)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected != "") {
         AddSeatResponse(success = true, s"Seat added successfully at position: $floor-$section-$seatNumber").asJson.noSpaces
       } else {
         AddSeatResponse(success = false, s"Failed to add seat at position: $floor-$section-$seatNumber").asJson.noSpaces
