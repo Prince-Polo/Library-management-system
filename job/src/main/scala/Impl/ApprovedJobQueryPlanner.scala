@@ -11,7 +11,7 @@ import APIs.JobAPI.JobInfo
 case class ApprovedJobQueryPlanner(override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     readDBRows(
-      s"SELECT jobid, jobshortdescription, joblongdescription, jobhardness, jobcredit, jobcurrent, jobrequired FROM ${schemaName}.jobs WHERE jobbooked = FALSE ORDER BY jobid",
+      s"SELECT jobid, jobshortdescription, joblongdescription, jobhardness, jobcredit, jobcurrent, jobrequired, jobenrolled FROM ${schemaName}.jobs WHERE jobbooked = FALSE ORDER BY jobid",
       List()
     ).flatMap { rows =>
       val jobs = rows.map { row =>
@@ -22,10 +22,12 @@ case class ApprovedJobQueryPlanner(override val planContext: PlanContext) extend
           row.hcursor.get[Int]("jobhardness").getOrElse(0),
           row.hcursor.get[Int]("jobcredit").getOrElse(0),
           row.hcursor.get[Int]("jobcurrent").getOrElse(0),
-          row.hcursor.get[Int]("jobrequired").getOrElse(0)
+          row.hcursor.get[Int]("jobrequired").getOrElse(0),
+          row.hcursor.get[Int]("jobenrolled").getOrElse(0) // 新增字段
         )
       }.toList
       IO.pure(jobs.asJson.noSpaces)
     }
   }
 }
+

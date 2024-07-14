@@ -7,7 +7,7 @@ import Common.DBAPI.{writeDB, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 
-case class AdminRegisterMessagePlanner(AdminName: String, AdminPassword: String, AdminID: String, override val planContext: PlanContext) extends Planner[String]:
+case class AdminRegisterMessagePlanner(AdminName: String, AdminPassword: String, AdminId: String, override val planContext: PlanContext) extends Planner[String]:
   override def plan(using planContext: PlanContext): IO[String] = {
     // Check if the administrator is already registered
     val checkExists = readDBBoolean(
@@ -21,8 +21,8 @@ case class AdminRegisterMessagePlanner(AdminName: String, AdminPassword: String,
       } else {
         // Insert new administrator into the database
         writeDB(
-          s"INSERT INTO ${schemaName}.admin (AdminName, AdminPassword, AdminEmail, AdminID) VALUES (?, ?, ?, ?)",
-          List(SqlParameter("String", AdminName), SqlParameter("String", AdminPassword), SqlParameter("String", AdminID))
+          s"INSERT INTO ${schemaName}.admin (AdminName, AdminPassword, AdminID) VALUES (?, ?, ?)",
+          List(SqlParameter("String", AdminName), SqlParameter("String", AdminPassword), SqlParameter("String", AdminId))
         ).map(_ => "Registration successful")
       }
     }

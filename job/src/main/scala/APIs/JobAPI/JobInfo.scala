@@ -7,6 +7,7 @@ case class JobInfo(
                     jobHardness: Int,
                     jobCredit: Int,
                     jobCurrent: Int,
-                    jobRequired: Int
+                    jobRequired: Int,
+                    jobEnrolled:Int
                   )
 

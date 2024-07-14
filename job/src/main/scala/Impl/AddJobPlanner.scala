@@ -10,10 +10,17 @@ import Common.ServiceUtils.schemaName
 import APIs.JobAPI.{AddJobMessage, AddJobResponse}
 
 // 管理员发布任务
-case class AddJobPlanner(JobShortDescription: String, JobLongDescription: String, JobHardness: Int, JobCredit: Int, JobRequired: Int, override val planContext: PlanContext) extends Planner[String] {
+case class AddJobPlanner(
+                          JobShortDescription: String,
+                          JobLongDescription: String,
+                          JobHardness: Int,
+                          JobCredit: Int,
+                          JobRequired: Int,
+                          override val planContext: PlanContext
+                        ) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     writeDB(
-      s"INSERT INTO $schemaName.jobs ( jobShortDescription, jobLongDescription, jobHardness, jobCredit, jobRequired, jobCurrent) VALUES (?, ?, ?, ?, ?, ?)",
+      s"INSERT INTO $schemaName.jobs ( jobShortDescription, jobLongDescription, jobHardness, jobCredit, jobRequired, jobCurrent, jobEnrolled) VALUES (?, ?, ?, ?, ?, ?, ?)",
       List(
         SqlParameter("String", JobShortDescription),
         SqlParameter("String", JobLongDescription),
@@ -21,7 +28,7 @@ case class AddJobPlanner(JobShortDescription: String, JobLongDescription: String
         SqlParameter("Int", JobCredit.toString),
         SqlParameter("Int", JobRequired.toString),
         SqlParameter("Int", "0"), // 初始预约人数为 0
-      //  SqlParameter("String2DArray", "{}") // 初始二维数组为空
+        SqlParameter("Int", "0") // 添加新的参数
       )
     ).map { rowsAffected =>
       if (rowsAffected.toInt > 0) {

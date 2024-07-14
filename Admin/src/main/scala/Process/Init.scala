@@ -23,6 +23,22 @@ object Init {
       _ <- API.init(config.maximumClientConnection)
       _ <- initSchema(schemaName)
       _ <- writeDB(s"CREATE TABLE IF NOT EXISTS ${schemaName}.admin (AdminName TEXT, AdminPassword TEXT, AdminID TEXT)", List())
+      _ <- writeDB(
+        s"""
+           |CREATE TABLE IF NOT EXISTS ${schemaName}.job (
+           |  jobId TEXT,
+           |  jobStudentId TEXT,
+           |  jobShortDescription TEXT,
+           |  jobLongDescription TEXT,
+           |  jobHardness TEXT,
+           |  jobCredit TEXT,
+           |  jobComplete BOOLEAN DEFAULT FALSE,
+           |  jobBooked BOOLEAN DEFAULT FALSE,
+           |  jobApproved BOOLEAN DEFAULT FALSE
+           |)
+         """.stripMargin,
+        List()
+      )
       _ <- writeDB(s"INSERT INTO ${schemaName}.admin (AdminName, AdminPassword, AdminID) VALUES (?, ?, ?)", List(adminName, adminPassword, adminID))
     } yield ()
 

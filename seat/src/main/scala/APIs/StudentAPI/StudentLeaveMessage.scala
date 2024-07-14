@@ -3,7 +3,7 @@ package APIs.StudentAPI
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
-case class StudentLeaveMessage(studentNumber: String, floor: String, section: String, seatNumber: String)
+case class StudentLeaveMessage(studentNumber: String, floor: String, section: String, seatNumber: String) extends StudentMessage[String]
 
 object StudentLeaveMessage {
   implicit val encoder: Encoder[StudentLeaveMessage] = deriveEncoder[StudentLeaveMessage]

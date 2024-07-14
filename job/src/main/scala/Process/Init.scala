@@ -37,7 +37,7 @@ object Init {
       _ <- writeDB(
         s"""
            |CREATE TABLE IF NOT EXISTS ${schemaName}.tasks (
-           |  taskId SERIAL PRIMARY KEY,
+           |  taskId INT,
            |  studentId TEXT,
            |  status INT CHECK (status IN (0, 1, 2))
            |)

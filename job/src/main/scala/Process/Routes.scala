@@ -39,6 +39,23 @@ object Routes:
         .flatMap { m=>
           m.fullPlan.map(_.asJson.toString)
         }
+    case "UpdateJobCurrentMessage"
+    =>
+      IO(decode[UpdateJobCurrentPlanner](str).getOrElse(throw new Exception("Invalid JSON for UpdateJobCurrentMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
+    case "CreateTaskMessage"
+    =>
+      IO(decode[CreateTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for CreateTaskMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
+    case "CheckTask" =>
+      IO(decode[CheckTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for CheckTask")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
     case _ =>
       IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }
@@ -47,6 +64,7 @@ object Routes:
         .flatMap{m=>
           m.fullPlan.map(_.asJson.toString)
         } */
+
 
 
   val service: HttpRoutes[IO] = HttpRoutes.of[IO]:
