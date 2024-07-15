@@ -23,6 +23,9 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "log4cats-slf4j"   % "2.3.1",
   "org.apache.pdfbox" % "pdfbox" % "2.0.24",  // Replace "2.0.24" with the latest version available
   "ch.qos.logback" % "logback-classic" % "1.2.10", // SLF4J Backend Implementation
-  "joda-time" % "joda-time" % "2.12.7" // Use the latest version available
+  "joda-time" % "joda-time" % "2.12.7", // Use the latest version available
+  "com.pauldijou" %% "jwt-core" % "9.0.5",
+  "com.pauldijou" %% "jwt-circe" % "9.0.5"
 )
+
 scalacOptions ++= Seq("-feature", "-language:implicitConversions")

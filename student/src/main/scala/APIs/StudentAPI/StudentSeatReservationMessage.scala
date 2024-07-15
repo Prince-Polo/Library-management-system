@@ -4,7 +4,7 @@ import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 case class StudentSeatReservationMessage(
-                                          studentNumber: String,
+                                          token: String,
                                           floor: String,
                                           section: String,
                                           seatNumber: String

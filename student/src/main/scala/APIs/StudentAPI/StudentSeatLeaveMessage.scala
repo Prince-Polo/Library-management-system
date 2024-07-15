@@ -1,10 +1,10 @@
 package APIs.StudentAPI
 
 import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto._
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 case class StudentSeatLeaveMessage(
-                                    studentNumber: String,
+                                    token: String,
                                     floor: String,
                                     section: String,
                                     seatNumber: String

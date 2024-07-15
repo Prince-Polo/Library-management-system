@@ -13,17 +13,28 @@ import io.circe.KeyEncoder.encodeKeyInt
 // 管理员删除任务
 case class DeleteJobPlanner(jobId: Int, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
-    writeDB(
-      s"DELETE FROM $schemaName.jobs WHERE jobid = ?",
-      List(
-        SqlParameter("Int", jobId.toString)
+    for {
+      // 删除 tasks 表中的相关条目
+      tasksDeleted <- writeDB(
+        s"DELETE FROM $schemaName.tasks WHERE taskid = ?",
+        List(
+          SqlParameter("Int", jobId.toString)
+        )
       )
-    ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+
+      // 删除 jobs 表中的条目
+      jobsDeleted <- writeDB(
+        s"DELETE FROM $schemaName.jobs WHERE jobid = ?",
+        List(
+          SqlParameter("Int", jobId.toString)
+        )
+      )
+
+      response = if (jobsDeleted.toInt > 0) {
         DeleteJobResponse(success = true, "Job deleted successfully").asJson.noSpaces
       } else {
         DeleteJobResponse(success = false, "Failed to delete job").asJson.noSpaces
       }
-    }
+    } yield response
   }
 }

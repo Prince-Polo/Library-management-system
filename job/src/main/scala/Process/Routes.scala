@@ -45,6 +45,11 @@ object Routes:
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }
+    case "UpdateTaskStatusMessage" =>
+      IO(decode[UpdateTaskStatusPlanner](str).getOrElse(throw new Exception("Invalid JSON for UpdateTaskStatusMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.noSpaces)
+        }
     case "CreateTaskMessage"
     =>
       IO(decode[CreateTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for CreateTaskMessage")))
@@ -53,6 +58,11 @@ object Routes:
         }
     case "CheckTask" =>
       IO(decode[CheckTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for CheckTask")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
+    case "JobStudentsQuery" =>
+      IO(decode[JobStudentsQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for JobStudentsQuery")))
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }

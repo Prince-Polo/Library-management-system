@@ -1,9 +1,12 @@
 package APIs.StudentAPI
 
 import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto._
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
-case class StudentSeatLeaveResponse(success: Boolean, message: String)
+case class StudentSeatLeaveResponse(
+                                     success: Boolean,
+                                     message: String
+                                   )
 
 object StudentSeatLeaveResponse {
   implicit val encoder: Encoder[StudentSeatLeaveResponse] = deriveEncoder[StudentSeatLeaveResponse]
