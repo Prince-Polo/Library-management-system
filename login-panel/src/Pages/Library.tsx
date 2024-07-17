@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory } from 'react-router'
-import myImage from './background.png'
+import myImage from './Images/background.png'
 import { Button, Card, Input, Select, Pagination } from 'antd';
-import './app.css';
+import './Styles/app.css';
 
 export function Library(){
     const history=useHistory()

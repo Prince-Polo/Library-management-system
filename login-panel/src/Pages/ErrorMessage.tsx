@@ -1,41 +1,12 @@
-import React,{ ChangeEvent, FormEvent, useState }  from 'react';
-import axios, { isAxiosError } from 'axios';
-import { API } from 'Plugins/CommonUtils/API';
-import {useHistory} from 'react-router'
-import './app.css'
-
-
-
-export const ErrorModal:React.FC<{ message: string | null; onClose: () => void; }> = ({ message, onClose }) => {
-    if (!message) return null;
-
-    return (
-        <div className={'overlay'}>
-            <div className="modal-content">
-                <span className="close" onClick={onClose}>&times;</span>
-                <p>{message}</p>
-            </div>
-        </div>
-    );
-};
-export const SuccessModal: React.FC<{ message: string | null; onClose: () => void }> = ({ message, onClose }) => {
-    if (!message) return null;
-
-    return (
-        <div className="modal">
-            <div className={'overlay'}>
-                <div className="modal-content">
-                    <span className="close" onClick={onClose}>&times;</span>
-                    <p>{message}</p>
-            </div></div>
-        </div>
-    );
-};
+import React,{useEffect}  from 'react';
+import './Styles/app.css'
+import { API } from 'Plugins/CommonUtils/API'
+import axios, { isAxiosError } from 'axios'
 
 export const sendPostRequest = async (
-    message: API,
+    message:API,
     setError: (error: string | null) => void,
-    onSuccess?: (response: any) => void
+    onSuccess?: (successMsg:any) => void
 ) => {
     try {
         const response = await axios.post(message.getURL(), JSON.stringify(message), {
@@ -43,7 +14,6 @@ export const sendPostRequest = async (
         });
         console.log('Response status:', response.status);
         console.log('Response body:', response.data);
-        console.log(message.getURL());
         if (response.status === 200 && onSuccess) {
             onSuccess(response.data);
         }
@@ -62,5 +32,38 @@ export const sendPostRequest = async (
         }
     }
 };
+
+export const ErrorModal:React.FC<{ message: string | null; onClose: () => void; }> = ({ message, onClose }) => {
+    if (!message) return null;
+    return (
+        <div className={'overlay'}>
+            <div className="modal-content">
+                <span className="close" onClick={onClose}>&times;</span>
+                <p>{message}</p>
+            </div>
+        </div>
+    );
+};
+export const SuccessModal: React.FC<{ message: string | null; onClose: () => void }> = ({ message, onClose }) => {
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+                onClose();
+            }, 1900); // 1.9 seconds
+
+            return () => clearTimeout(timer); // Cleanup the timer on unmount
+        }
+    }, [message, onClose]);
+    if (!message) return null;
+    return (
+            <div className={'overlay'}>
+                <div className="modal-content">
+                    <span className="close" onClick={onClose}>&times;</span>
+                    <p>{message}</p>
+                </div>
+        </div>
+    );
+};
+
 
 

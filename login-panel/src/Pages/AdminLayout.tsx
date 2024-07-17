@@ -1,5 +1,3 @@
-// src/Pages/AdminLayout.tsx
-
 import React, { ReactNode } from 'react';
 import { useHistory } from 'react-router';
 
@@ -18,6 +16,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 </button>
                 <button style={buttonStyle} onClick={() => history.push('/BrowseJobs')}>
                     Browse Jobs
+                </button>
+                <button style={buttonStyle} onClick={() => history.push('/CheckSeats')}>
+                    Check Seats
                 </button>
                 <button style={buttonStyle} onClick={() => history.push('/AdminLogin')}>
                     Logout

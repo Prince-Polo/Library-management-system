@@ -1,33 +1,22 @@
 import React, { useState } from 'react';
-import myImage from './background.png'; // 将此行替换为您上传的图片路径
 import { useHistory } from 'react-router';
-import './app.css';
-import { CSSProperties } from 'react';
+import './Styles/app.css';
+import myImage from '../assets/images/background.png'; // 根据你的文件夹结构调整路径
 
 export function Main() {
     const history = useHistory();
-    const backgroundStyle: CSSProperties = {
+    const backgroundStyle: React.CSSProperties = {
         backgroundImage: `url(${myImage})`,
-        backgroundSize: 'contain',
+        backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        width: '100%',
-        height: '100%',
-        maxWidth: '900px', // 限制最大宽度
-        maxHeight: '1600px', // 限制最大高度，确保9:16比例
-        position: 'relative',
-    };
-    const contentStyle: CSSProperties = {
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%',
+        height: '100vh',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        flexDirection: 'column' as 'column',  // 类型断言
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent',
+        color: '#fff',
+        textAlign: 'center',
     };
     const [showModal, setShowModal] = useState(false);
     const [showModal1, setShowModal1] = useState(false);
@@ -46,67 +35,74 @@ export function Main() {
     };
 
     return (
-        <div className="App" style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-            <div style={backgroundStyle}>
-                <div style={contentStyle}>
-                    <header className="App-header">
-                        <div className="title-container">
-                            <div className="title-box">
-                                <h1>华清图书馆</h1>
-                            </div>
-                        </div>
-                    </header>
-                    <main className="App-main">
-                        <div className="button-group">
-                            <button className="button button-primary" onClick={handleRegisterClick}>
-                                我是学生
-                            </button>
-                            <button className="button button-primary" onClick={handleRegisterClick1}>
-                                我是管理员
-                            </button>
-                            <button className="button button-secondary" onClick={() => history.push('/another')}>
-                                关于图书馆
-                            </button>
-                        </div>
-                    </main>
+        <div className="App" style={backgroundStyle}>
+            <header className="App-header">
+                <h1>预约系统</h1>
+            </header>
+            <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className="button-group">
+                    <button className="button button-student" onClick={handleRegisterClick}>
+                        I am a student.
+                    </button>
+                    <button className="button button-admin" onClick={handleRegisterClick1}>
+                        I am an administrator.
+                    </button>
+                    <button className="button button-about" onClick={() => history.push('/another')}>
+                        About our library.
+                    </button>
                 </div>
-                {showModal && (
-                    <div className="overlay">
-                        <div className="modal">
-                            <h1>注册/登录?</h1>
-                            <div className="buttons">
-                                <button className="button button-primary" onClick={() => history.push("/StudentRegister")}>
-                                    注册
-                                </button>
-                                <button className="button button-primary" onClick={() => history.push("/StudentLogin")}>
-                                    登录
-                                </button>
-                                <button className="button button-secondary" onClick={handleCloseModal}>
-                                    关闭
-                                </button>
-                            </div>
+            </main>
+            {showModal && (
+                <div className="overlay">
+                    <div className="modal">
+                        <h1 style={{ marginBottom: '20px' }}>Register/Login?</h1>
+                        <div className="buttons">
+                            <button className="button button-primary" onClick={() => history.push('/StudentRegister')}>
+                                Register
+                            </button>
+                            <button className="button button-primary" onClick={() => history.push('/StudentLogin')}>
+                                Login
+                            </button>
+                            <button className="button button-primary" onClick={handleCloseModal}>
+                                Close
+                            </button>
                         </div>
                     </div>
-                )}
-                {showModal1 && (
-                    <div className="overlay">
-                        <div className="modal">
-                            <h1>注册/登录?</h1>
-                            <div className="buttons">
-                                <button className="button button-primary" onClick={() => history.push("/AdminRegister")}>
-                                    注册
-                                </button>
-                                <button className="button button-primary" onClick={() => history.push("/AdminLogin")}>
-                                    登录
-                                </button>
-                                <button className="button button-secondary" onClick={handleCloseModal}>
-                                    关闭
-                                </button>
-                            </div>
+                </div>
+            )}
+            {showModal1 && (
+                <div className="overlay">
+                    <div className="modal">
+                        <h1 style={{ marginBottom: '20px' }}>Register/Login?</h1>
+                        <div className="buttons">
+                            <button
+                                className="button button-primary"
+                                style={{ color: 'yellow', background: 'blueviolet' }}
+                                onClick={() => history.push('/AdminRegister')}
+                            >
+                                Register
+                            </button>
+                            <button
+                                className="button button-primary"
+                                style={{ color: 'yellow', background: 'blueviolet' }}
+                                onClick={() => history.push('/AdminLogin')}
+                            >
+                                Login
+                            </button>
+                            <button
+                                className="button button-primary"
+                                style={{ color: 'yellow', background: 'blueviolet' }}
+                                onClick={handleCloseModal}
+                            >
+                                Close
+                            </button>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 }
+
+// 添加样式到 Styles/app.css 文件中
+

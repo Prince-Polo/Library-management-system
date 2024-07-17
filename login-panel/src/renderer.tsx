@@ -10,6 +10,13 @@ import { StudentRegister, StudentLogin, AdminLogin, AdminRegister } from 'Pages/
 import AddJobPage from 'Pages/AddJobPage';
 import BrowseJobsPage from 'Pages/BrowseJobsPage';
 import StudentPage from 'Pages/StudentPage';
+import {MyCenter} from 'Pages/MyCenter'
+import {AreaSelection} from 'Pages/AreaSelection'
+import {ReportIssue} from 'Pages/ReportPage'
+import VolunteerApplication from 'Pages/VolunteerApplication';
+import CheckSeatsPage from 'Pages/CheckSeats';
+import "./Pages/Styles/app.css"
+import "./Pages/Styles/SeatSelection.css"
 
 const Layout = () => {
     return (
@@ -25,6 +32,11 @@ const Layout = () => {
                 <Route path="/AddJob" exact component={AddJobPage} />
                 <Route path="/BrowseJobs" exact component={BrowseJobsPage} />
                 <Route path="/Student" exact component={StudentPage} />
+                <Route path={"/mycenter"} component={MyCenter}/>
+                <Route path={"/areas/:library"} component={AreaSelection}/>
+                <Route path={"/Report"} exact component={ReportIssue}/>
+                <Route path="/CheckSeats" component={CheckSeatsPage} />
+                <Route path="/VolunteerApplication" exact component={VolunteerApplication} />
             </Switch>
         </HashRouter>
     );
