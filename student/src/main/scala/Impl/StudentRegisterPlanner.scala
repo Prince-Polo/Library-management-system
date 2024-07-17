@@ -8,6 +8,7 @@ import Common.DBAPI.{writeDB, readDBBoolean}
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 import APIs.StudentAPI.{StudentRegisterResponse}
+import Utils.JWTUtil.createToken
 
 case class StudentRegisterPlanner(
                                    userName: String,
@@ -25,6 +26,9 @@ case class StudentRegisterPlanner(
       if (exists) {
         IO.raiseError(new Exception("Student already registered"))
       } else {
+        // Create a token for the student
+        val token = createToken(number)
+
         writeDB(
           s"INSERT INTO ${schemaName}.students (user_name, password, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
           List(
@@ -38,17 +42,25 @@ case class StudentRegisterPlanner(
             SqlParameter("String", "0"),  // initial violation_count as string
             SqlParameter("String", "0")  // initial volunteer_hours as string
           )
-        ).map { _ =>
-          StudentRegisterResponse(
-            userName = userName,
-            number = number,
-            volunteerStatus = "false",  // keeping boolean representation
-            floor = "0",
-            sectionNumber = "0",
-            seatNumber = "0",
-            violationCount = "0",
-            volunteerHours = "0"
-          ).asJson.noSpaces
+        ).flatMap { _ =>
+          writeDB(
+            s"INSERT INTO ${schemaName}.student_tokens (number, token) VALUES (?, ?)",
+            List(
+              SqlParameter("String", number),
+              SqlParameter("String", token)
+            )
+          ).map { _ =>
+            StudentRegisterResponse(
+              userName = userName,
+              volunteerStatus = "false",  // keeping boolean representation
+              floor = "0",
+              sectionNumber = "0",
+              seatNumber = "0",
+              violationCount = "0",
+              volunteerHours = "0",
+              token = token  // return the generated token
+            ).asJson.noSpaces
+          }
         }
       }
     }

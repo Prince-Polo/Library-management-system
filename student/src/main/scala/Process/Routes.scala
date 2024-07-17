@@ -79,6 +79,46 @@ object Routes:
           .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
+      case "AcceptJobMessage" =>
+        IO(decode[AcceptJobPlanner](str).getOrElse(throw new Exception("Invalid JSON for AcceptJobMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "StudentDeleteMessage" =>
+        IO(decode[StudentDeletePlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentDeleteMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "VolunteerStatusTrueMessage" =>
+        IO(decode[VolunteerStatusTruePlanner](str).getOrElse(throw new Exception("Invalid JSON for VolunteerStatusTrueMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "VolunteerStatusFalseMessage" =>
+        IO(decode[VolunteerStatusFalsePlanner](str).getOrElse(throw new Exception("Invalid JSON for VolunteerStatusFalseMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "StudentSpecificAcceptedJobMessage" =>
+        IO(decode[StudentSpecificAcceptedJobPlanner](str).getOrElse(throw new Exception("Invalid JSON for StudentSpecificAcceptedJobMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "VolunteerStatusFalseUsingTokenMessage" =>
+        IO(decode[VolunteerStatusFalseUsingTokenPlanner](str).getOrElse(throw new Exception("Invalid JSON for VolunteerStatusFalseUsingTokenMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "SubmitJobMessage" =>
+        IO(decode[SubmitJobPlanner](str).getOrElse(throw new Exception("Invalid JSON for SubmitJobMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
+      case "VolunteerCheckUsingTokenMessage" =>
+        IO(decode[VolunteerCheckUsingTokenPlanner](str).getOrElse(throw new Exception("Invalid JSON for VolunteerCheckUsingTokenMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
       case _ =>
         IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }

@@ -37,7 +37,7 @@ object Init {
       _ <- writeDB(
         s"""
            |CREATE TABLE IF NOT EXISTS $schemaName.student_tokens (
-           |  student_id TEXT PRIMARY KEY,
+           |  number TEXT PRIMARY KEY,
            |  token TEXT
            |)
            |""".stripMargin, List()

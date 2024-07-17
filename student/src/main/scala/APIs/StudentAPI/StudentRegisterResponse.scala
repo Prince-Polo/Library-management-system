@@ -5,13 +5,13 @@ import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 case class StudentRegisterResponse(
                                     userName: String,
-                                    number: String,
-                                    volunteerStatus: String,
-                                    floor: String,
-                                    sectionNumber: String,
-                                    seatNumber: String,
-                                    violationCount: String,
-                                    volunteerHours: String
+                                    volunteerStatus: String,  // 改为字符串类型
+                                    floor: String,            // 改为字符串类型
+                                    sectionNumber: String,    // 改为字符串类型
+                                    seatNumber: String,       // 改为字符串类型
+                                    violationCount: String,   // 改为字符串类型
+                                    volunteerHours: String,   // 改为字符串类型
+                                    token: String             // 新增字段
                                   )
 
 object StudentRegisterResponse {

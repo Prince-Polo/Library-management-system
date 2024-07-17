@@ -23,21 +23,11 @@ case class StudentSeatLeavePlanner(
   override def plan(using planContext: PlanContext): IO[String] = {
     startTransaction {
       for {
-        // Validate token and retrieve student ID
-        userNameOpt <- IO(JWTUtil.getUserName(token))
-        userName <- userNameOpt match {
-          case Some(name) => IO.pure(name)
+        // Validate token and retrieve student number
+        studentNumberOpt <- IO(JWTUtil.getNumber(token))
+        studentNumber <- studentNumberOpt match {
+          case Some(number) => IO.pure(number)
           case None => IO.raiseError(new Exception("Invalid token"))
-        }
-
-        // Retrieve student number from the database
-        studentNumberRows <- readDBRows(
-          s"SELECT number FROM ${schemaName}.students WHERE user_name = ?",
-          List(SqlParameter("String", userName))
-        )
-        studentNumber <- studentNumberRows.headOption match {
-          case Some(row) => IO.pure(row.hcursor.get[String]("number").getOrElse(""))
-          case None => IO.raiseError(new Exception("Student not found"))
         }
 
         // Call student leave planner

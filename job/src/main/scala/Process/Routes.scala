@@ -66,6 +66,11 @@ object Routes:
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }
+    case "FetchTasksMessage" =>
+      IO(decode[FetchTasksPlanner](str).getOrElse(throw new Exception("Invalid JSON for FetchTasksMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
     case _ =>
       IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }

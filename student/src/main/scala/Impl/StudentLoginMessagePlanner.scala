@@ -61,12 +61,12 @@ case class StudentLoginMessagePlanner(
                   val violationCount = row.hcursor.get[String]("violationCount").getOrElse("0")
                   val volunteerHours = row.hcursor.get[String]("volunteerHours").getOrElse("0")
 
-                  val token = JWTUtil.createToken(userName)
+                  val token = JWTUtil.createToken(number)
 
                   // Store token in the database
                   writeDB(
-                    s"INSERT INTO ${schemaName}.user_tokens (user_name, token) VALUES (?, ?) ON CONFLICT(user_name) DO UPDATE SET token = EXCLUDED.token",
-                    List(SqlParameter("String", userName), SqlParameter("String", token))
+                    s"INSERT INTO ${schemaName}.student_tokens (number, token) VALUES (?, ?) ON CONFLICT(number) DO UPDATE SET token = EXCLUDED.token",
+                    List(SqlParameter("String", number), SqlParameter("String", token))
                   ).map { _ =>
                     StudentLoginResponse(
                       valid = true,

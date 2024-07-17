@@ -13,21 +13,21 @@ import Utils.JWTUtil
 case class StudentInfoUsingTokenPlanner(token: String, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     for {
-      // Validate token and retrieve user name
-      userNameOpt <- IO(JWTUtil.getUserName(token))
-      userName <- userNameOpt match {
-        case Some(name) => IO.pure(name)
+      // Validate token and retrieve student number
+      studentNumberOpt <- IO(JWTUtil.getNumber(token))
+      studentNumber <- studentNumberOpt match {
+        case Some(number) => IO.pure(number)
         case None => IO.raiseError(new Exception("Invalid token"))
       }
 
       // Retrieve student info from the database
       rows <- readDBRows(
         s"""
-           |SELECT user_name, number, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours
+           |SELECT user_name, volunteer_status, floor, section_number, seat_number, violation_count, volunteer_hours
            |FROM $schemaName.students
-           |WHERE user_name = ?
+           |WHERE number = ?
            |""".stripMargin,
-        List(SqlParameter("String", userName))
+        List(SqlParameter("String", studentNumber))
       )
 
       response <- rows.headOption match {
