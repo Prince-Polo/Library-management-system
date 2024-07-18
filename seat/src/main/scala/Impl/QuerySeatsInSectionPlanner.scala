@@ -29,11 +29,11 @@ case class QuerySeatsInSectionPlanner(floor: String, section: String, override v
         SeatInfo(
           floor = row.hcursor.get[String]("floor").getOrElse(""),
           section = row.hcursor.get[String]("section").getOrElse(""),
-          seatNumber = row.hcursor.get[String]("seat_number").getOrElse(""),
+          seatNumber = row.hcursor.get[String]("seatNumber").getOrElse(""),
           status = row.hcursor.get[String]("status").getOrElse(""),
           feedback = row.hcursor.get[String]("feedback").getOrElse(""),
           occupied = row.hcursor.get[String]("occupied").getOrElse(""),
-          studentNumber = row.hcursor.get[String]("student_number").getOrElse("")
+          studentNumber = row.hcursor.get[String]("studentNumber").getOrElse("")
         )
       }.toList
       val totalSeats = seats.size.toString

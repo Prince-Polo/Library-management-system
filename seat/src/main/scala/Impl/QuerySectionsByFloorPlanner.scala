@@ -16,7 +16,7 @@ case class QuerySectionsByFloorPlanner(floor: String, override val planContext: 
     readDBRows(
       s"""
          |SELECT section, COUNT(seat_number) as total_seats,
-         |SUM(CASE WHEN occupied = 'false' THEN 1 ELSE 0 END) as free_seats
+         |SUM(CASE WHEN occupied = 'false' AND status!='Confirmed' THEN 1 ELSE 0 END) as free_seats
          |FROM $schemaName.seats
          |WHERE floor = ?
          |GROUP BY section
@@ -25,10 +25,11 @@ case class QuerySectionsByFloorPlanner(floor: String, override val planContext: 
       List(SqlParameter("String", floor))
     ).map { rows =>
       val sections = rows.map { row =>
+        println(row);
         SectionInfo(
           section = row.hcursor.get[String]("section").getOrElse(""),
-          totalSeats = row.hcursor.get[String]("total_seats").getOrElse(""),
-          freeSeats = row.hcursor.get[String]("free_seats").getOrElse("")
+          totalSeats = row.hcursor.get[Int]("totalSeats").getOrElse(0).toString,
+          freeSeats = row.hcursor.get[Int]("freeSeats").getOrElse(0).toString,
         )
       }.toList
       QuerySectionsByFloorResponse(sectionCount = sections.size.toString, sections).asJson.noSpaces

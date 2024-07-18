@@ -20,7 +20,7 @@ case class ReportedSeatQueryPlanner(override val planContext: PlanContext) exten
         SeatInfo(
           row.hcursor.get[String]("floor").getOrElse("0"),
           row.hcursor.get[String]("section").getOrElse("0"),
-          row.hcursor.get[String]("seat_number").getOrElse("0"),
+          row.hcursor.get[String]("seatNumber").getOrElse("0"),
           row.hcursor.get[String]("status").getOrElse("Normal"),
           row.hcursor.get[String]("feedback").getOrElse(""),
           row.hcursor.get[String]("occupied").getOrElse("false"),

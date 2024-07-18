@@ -12,7 +12,7 @@ object ServiceCenter {
   val adminServiceCode    = "A000002"
   val studentServiceCode   = "A000003"
   val portalServiceCode    = "A000004"
-  val seatServiceCode      = "A000005"
+  val seatServiceCode      = "A000007"
 
   val fullNameMap: Map[String, String] = Map(
     dbManagerServiceCode ->  "数据库管理（DB_Manager）",

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8745fd29-0e32-4816-81bb-9bebfcf90ddf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../project/build.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.bsp/sbt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/library-management-system.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules/library-management-system.library-management-system-build.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/sample-project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/scala_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Global/ServiceCenter.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Global/ServiceCenter.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/QueryAllFloorsPlanner.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Impl/QueryAllFloorsPlanner.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/QuerySeatsInSectionPlanner.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Impl/QuerySeatsInSectionPlanner.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/QuerySectionsByFloorPlanner.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Impl/QuerySectionsByFloorPlanner.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Impl/ReportedSeatQueryPlanner.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Impl/ReportedSeatQueryPlanner.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatResponse.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AddSeatResponse.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryResponse.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/AvailableSeatQueryResponse.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryResponse.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ConfirmedSeatQueryResponse.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatResponse.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/DeleteSeatResponse.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryResponse.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/OccupiedSeatQueryResponse.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryResponse.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/ReportedSeatQueryResponse.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryResponse.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/APIs/SeatAPI/SeatQueryResponse.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API$package.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API$package.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API$package.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API$package.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/API.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer$package.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer$package.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer$package.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer$package.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/MessageSerializer.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/PlanContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/PlanContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/PlanContext.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/PlanContext.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/Planner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/Planner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/Planner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/Planner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/TraceID.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/TraceID.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/TraceID.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/API/TraceID.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/DidRollbackException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/DidRollbackException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/DidRollbackException.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/DidRollbackException.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/EndTransactionMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/EndTransactionMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/EndTransactionMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/EndTransactionMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/InitSchemaMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/InitSchemaMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/InitSchemaMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/InitSchemaMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBRowsMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBRowsMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBRowsMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBRowsMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBValueMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBValueMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBValueMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/ReadDBValueMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/RollbackException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/RollbackException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/RollbackException.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/RollbackException.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/StartTransactionMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/StartTransactionMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/StartTransactionMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/StartTransactionMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBListMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBListMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBListMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBListMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBMessage.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/WriteDBMessage.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/package.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/package.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/package.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/DBAPI/package.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/IOUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/IOUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/IOUtils.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/IOUtils.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/ParameterList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/ParameterList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/ParameterList.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/ParameterList.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/SqlParameter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/SqlParameter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/SqlParameter.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/Object/SqlParameter.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatInfo.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatInfo.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatPosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatPosition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatPosition.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SeatPosition.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/ServiceUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/ServiceUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/ServiceUtils.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/ServiceUtils.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SqlUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SqlUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SqlUtils.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Common/SqlUtils.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/GlobalVariables.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/GlobalVariables.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/GlobalVariables.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/GlobalVariables.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServerConfig.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServerConfig.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServiceCenter$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServiceCenter$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServiceCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServiceCenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServiceCenter.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Global/ServiceCenter.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AddSeatPlanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AddSeatPlanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AddSeatPlanner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AddSeatPlanner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AvailableSeatQueryPlanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AvailableSeatQueryPlanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AvailableSeatQueryPlanner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/AvailableSeatQueryPlanner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ConfirmedSeatQueryPlanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ConfirmedSeatQueryPlanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ConfirmedSeatQueryPlanner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ConfirmedSeatQueryPlanner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/DeleteSeatPlanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/DeleteSeatPlanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/DeleteSeatPlanner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/DeleteSeatPlanner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/OccupiedSeatQueryPlanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/OccupiedSeatQueryPlanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/OccupiedSeatQueryPlanner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/OccupiedSeatQueryPlanner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ReportedSeatQueryPlanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ReportedSeatQueryPlanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ReportedSeatQueryPlanner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/ReportedSeatQueryPlanner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/SeatQueryPlanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/SeatQueryPlanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/SeatQueryPlanner.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Impl/SeatQueryPlanner.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Init.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Init.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Init.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Init.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Routes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Routes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Routes.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Routes.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Server.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Server.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Utils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Utils.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.4.0/classes/Process/Utils.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../student.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/scala-2.12/update/update_cache_2.12/inputs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/scala-2.12/update/update_cache_2.12/output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/_global/csrLogger/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/_global/dumpStructure/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/csrConfiguration/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/csrProject/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/dependencyPositions/_global/streams/update_cache_2.12/input_dsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/dependencyPositions/_global/streams/update_cache_2.12/output_dsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/ivyConfiguration/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/ivySbt/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/moduleSettings/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/projectDescriptors/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/update/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/updateClassifiers/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/updateClassifiers/_global/streams/update_cache_2.12/inputs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/_global/updateClassifiers/_global/streams/update_cache_2.12/output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/compile/externalDependencyClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/compile/managedClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/compile/scalacOptions/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/compile/unmanagedClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/compile/unmanagedClasspath/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/compile/unmanagedJars/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/runtime/externalDependencyClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/runtime/managedClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/runtime/unmanagedClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/runtime/unmanagedClasspath/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/runtime/unmanagedJars/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/test/externalDependencyClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/test/managedClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/test/unmanagedClasspath/_global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/test/unmanagedClasspath/_global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/streams/test/unmanagedJars/_global/streams/export" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/..">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Prince-Polo&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Prince-Polo/Library-management-system.git&quot;,
+    &quot;accountId&quot;: &quot;35910ac6-dfb8-4f7c-9112-23084c739e03&quot;
+  }
+}</component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2jExSAGabaSaI3WMYa2wstsxw78" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Seat.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "backend",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Documents/GitHub/Library-management-system/seat",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Seat" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Process.Server" />
+      <module name="Seat" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ScalaProjectSettings">
+    <option name="migrateConfigurationsNotificationShown" value="true" />
+    <option name="scala3DisclaimerShown" value="true" />
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8745fd29-0e32-4816-81bb-9bebfcf90ddf" name="Changes" comment="" />
+      <created>1720966034495</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720966034495</updated>
+      <workItem from="1720966035582" duration="1071000" />
+      <workItem from="1721008485752" duration="1514000" />
+      <workItem from="1721033027238" duration="2594000" />
+      <workItem from="1721047841278" duration="769000" />
+      <workItem from="1721106631224" duration="586000" />
+      <workItem from="1721185901880" duration="1354000" />
+      <workItem from="1721226892160" duration="688000" />
+      <workItem from="1721279372212" duration="202000" />
+      <workItem from="1721279587219" duration="15000" />
+      <workItem from="1721279615193" duration="71000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
