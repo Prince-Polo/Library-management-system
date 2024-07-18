@@ -45,11 +45,11 @@ object Routes:
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }
-    case "UpdateTaskStatusMessage" =>
+/*    case "UpdateTaskStatusMessage" =>
       IO(decode[UpdateTaskStatusPlanner](str).getOrElse(throw new Exception("Invalid JSON for UpdateTaskStatusMessage")))
         .flatMap { m =>
           m.fullPlan.map(_.asJson.noSpaces)
-        }
+        }*/
     case "CreateTaskMessage"
     =>
       IO(decode[CreateTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for CreateTaskMessage")))
@@ -71,6 +71,28 @@ object Routes:
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }
+    case "SubmitTaskMessage" =>
+      IO(decode[SubmitTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for SUbmitTaskMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
+    case "ForceEndMessage" =>
+      IO(decode[ForceEndTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for ForceEndMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
+    case "UpdateTaskStatusMessage" =>
+      IO(decode[UpdateTaskStatusPlanner](str).getOrElse(throw new Exception("Invalid JSON for UpdateTaskStatusMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
+    case "CheckStudentStatusMessage" =>
+      IO(decode[CheckStudentTaskStatusPlanner](str).getOrElse(throw new Exception("Invalid JSON for CheckStudentStatusMessage")))
+        .flatMap { m =>
+          m.fullPlan.map(_.asJson.toString)
+        }
+
+
     case _ =>
       IO.raiseError(new Exception(s"Unknown type: $messageType"))
     }

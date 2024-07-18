@@ -39,7 +39,7 @@ object Init {
            |CREATE TABLE IF NOT EXISTS ${schemaName}.tasks (
            |  taskId INT,
            |  studentId TEXT,
-           |  status INT CHECK (status IN (0, 1, 2))
+           |  status INT CHECK (status IN (0,1,2,3,4,5))
            |)
          """.stripMargin,
         List()

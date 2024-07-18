@@ -1,22 +1,11 @@
 package Impl
 
 import cats.effect.IO
-import io.circe.Json
-import io.circe.generic.auto.*
+import io.circe.generic.auto._
 import Common.API.{PlanContext, Planner}
-import Common.DBAPI.*
-import Common.Object.{ParameterList, SqlParameter}
-import Common.ServiceUtils.schemaName
-import cats.effect.IO
-import io.circe.generic.auto.*
-
-
-
-import io.circe.syntax._
-import io.circe.Json
-import Common.API.PlanContext
+import Common.DBAPI._
 import Common.Object.SqlParameter
-import cats.effect.IO
+import Common.ServiceUtils.schemaName
 
 case class AdminLoginMessagePlanner(AdminName: String, AdminPassword: String, override val planContext: PlanContext) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
@@ -37,15 +26,8 @@ case class AdminLoginMessagePlanner(AdminName: String, AdminPassword: String, ov
           if (!passwordExists) {
             IO.raiseError(new Exception("Wrong password"))
           } else {
-            val getAdminDetails =readDBRows(
-              s"SELECT * FROM ${schemaName}.admin WHERE AdminName = ?",
-              List(SqlParameter("String", AdminName))
-            )
-            getAdminDetails.map { adminList =>
-              adminList.map { json =>
-                json.noSpaces // Convert each Json object to a compact string representation
-              }.mkString("\n") // Combine all JSON strings with newline separator
-            }
+            // Successful login, return an empty response
+            IO.pure("")
           }
         }
       }
