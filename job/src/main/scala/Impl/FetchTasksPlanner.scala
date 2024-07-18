@@ -16,7 +16,7 @@ case class FetchTasksPlanner(studentId: String, override val planContext: PlanCo
          |SELECT t.taskId, t.status
          |FROM ${schemaName}.tasks t
          |JOIN ${schemaName}.jobs j ON t.taskid = j.jobId
-         |WHERE t.studentid = ? AND j.jobComplete = false
+         |WHERE t.studentid = ?
       """.stripMargin,
       List(SqlParameter("String", studentId))
     ).flatMap { rows =>

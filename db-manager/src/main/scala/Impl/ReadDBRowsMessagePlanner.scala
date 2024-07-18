@@ -24,6 +24,12 @@ case class ReadDBRowsMessagePlanner(sqlQuery: String, parameters: List[SqlParame
           case "boolean" => preparedStatement.setBoolean(index + 1, param.value.toBoolean)
           case "datetime" =>
             preparedStatement.setTimestamp(index + 1, new Timestamp(param.value.toLong)) // Convert DateTime to Timestamp
+          case "stringarray" =>
+            val array: Array[Object] = param.value.split(",").map(_.asInstanceOf[Object])
+            preparedStatement.setArray(index + 1, connection.createArrayOf("TEXT", array))
+          case "string2darray" =>
+            val arrayOfArrays: Array[Object] = param.value.split(";").map(subArray => connection.createArrayOf("TEXT", subArray.split(",").map(_.asInstanceOf[Object])))
+            preparedStatement.setArray(index + 1, connection.createArrayOf("TEXT", arrayOfArrays))
           // Add more type cases as needed
           case _ => throw new IllegalArgumentException("Unsupported data type")
         }
@@ -46,16 +52,18 @@ case class ReadDBRowsMessagePlanner(sqlQuery: String, parameters: List[SqlParame
 
           val processedValue: Json = value match {
             case null if columnType.startsWith("_") => Json.arr() // Handle null for array types as empty array
-            case array: PgArray => Json.arr(array.getArray.asInstanceOf[Array[_]].map {
-              case s: String => Json.fromString(s)
-              case i: Int => Json.fromInt(i)
-              case b: Boolean => Json.fromBoolean(b)
-              case l: Long => Json.fromLong(l)
-              case d: Double => Json.fromDoubleOrNull(d)
-              case _ => Json.Null
-            }: _*)
+            case array: PgArray =>
+              val arrayElements = array.getArray.asInstanceOf[Array[_]].map {
+                case s: String => Json.fromString(s)
+                case i: Int => Json.fromInt(i)
+                case b: Boolean => Json.fromBoolean(b)
+                case l: Long => Json.fromLong(l)
+                case d: Double => Json.fromDoubleOrNull(d)
+                case _ => Json.Null
+              }
+              Json.arr(arrayElements: _*)
             case v: Timestamp => Json.fromString(v.getTime.toString) // Convert Timestamp to String
-            case s: String if columnName.endsWith("_") => parser.parse(s).fold(throw _, a=>a)
+            case s: String if columnName.endsWith("_") => parser.parse(s).fold(throw _, identity)
             case s: String => Json.fromString(s)
             case i: Integer => Json.fromInt(i)
             case b: java.lang.Boolean => Json.fromBoolean(b)

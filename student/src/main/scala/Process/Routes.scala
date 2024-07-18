@@ -114,6 +114,11 @@ object Routes:
           .flatMap { planner =>
             planner.fullPlan.map(_.asJson.noSpaces)
           }
+      case "UpdateVolunteerHourMessage" =>
+        IO(decode[UpdateVolunteerHourPlanner](str).getOrElse(throw new Exception("Invalid JSON for UpdateTaskStatusMessage")))
+          .flatMap { planner =>
+            planner.fullPlan.map(_.asJson.noSpaces)
+          }
       case "VolunteerCheckUsingTokenMessage" =>
         IO(decode[VolunteerCheckUsingTokenPlanner](str).getOrElse(throw new Exception("Invalid JSON for VolunteerCheckUsingTokenMessage")))
           .flatMap { planner =>

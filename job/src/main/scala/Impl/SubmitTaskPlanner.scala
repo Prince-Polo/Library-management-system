@@ -18,7 +18,7 @@ case class SubmitTaskPlanner(jobId: Int, studentId: String, override val planCon
         SqlParameter("String", studentId)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         SubmitTaskResponse(success = true, message = "Task submitted successfully").asJson.noSpaces
       } else {
         SubmitTaskResponse(success = false, message = "Failed to submit task").asJson.noSpaces

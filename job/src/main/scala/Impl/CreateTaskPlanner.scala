@@ -22,7 +22,7 @@ case class CreateTaskPlanner(jobId: Int, studentId: String, override val planCon
         SqlParameter("Int", "0") // 初始状态为申请
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         "Task created successfully".asJson.noSpaces
       } else {
         "Failed to create task".asJson.noSpaces

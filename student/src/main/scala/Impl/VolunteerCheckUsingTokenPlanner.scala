@@ -9,7 +9,7 @@ import Common.DBAPI.readDBRows
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 import APIs.StudentAPI.{VolunteerCheckUsingTokenMessage, VolunteerCheckUsingTokenResponse}
-import APIs.JobAPI.VolunteerCheckMessage
+import APIs.JobAPI.CheckStudentTaskStatusMessage
 import Utils.JWTUtil
 
 case class VolunteerCheckUsingTokenPlanner(
@@ -26,7 +26,7 @@ case class VolunteerCheckUsingTokenPlanner(
       }
 
       // Call job service to check volunteer status
-      volunteerCheckMessage = VolunteerCheckMessage(studentNumber)
+      volunteerCheckMessage = CheckStudentTaskStatusMessage(studentNumber)
       volunteerCheckResult <- volunteerCheckMessage.send // Send the message and wait for a response
 
       // Decode the response

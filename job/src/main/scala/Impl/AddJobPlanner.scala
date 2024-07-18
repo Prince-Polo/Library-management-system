@@ -31,7 +31,7 @@ case class AddJobPlanner(
         SqlParameter("Int", "0") // 添加新的参数
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         AddJobResponse(success = true, "Job added successfully").asJson.noSpaces
       } else {
         AddJobResponse(success = false, "Failed to add job").asJson.noSpaces

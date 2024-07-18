@@ -51,7 +51,7 @@ case class UpdateTaskStatusPlanner(jobId: Int, studentId: String, status: Int, o
       rowsAffected <- updateStatusIO
       _ <- updateJobEnrolledIO
     } yield {
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         "Task status updated successfully".asJson.noSpaces
       } else {
         "Failed to update task status".asJson.noSpaces

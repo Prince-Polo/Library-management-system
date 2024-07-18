@@ -28,7 +28,7 @@ case class StudentUnregisterPlanner(number: String, override val planContext: Pl
 
             // Delete corresponding token
             _ <- writeDB(
-              s"DELETE FROM $schemaName.student_tokens WHERE number = ?",
+              s"DELETE FROM $schemaName.student_tokens WHERE student_id = ?",
               List(SqlParameter("String", number))
             )
 

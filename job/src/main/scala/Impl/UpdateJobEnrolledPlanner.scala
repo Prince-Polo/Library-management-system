@@ -17,7 +17,7 @@ case class UpdateJobEnrolledPlanner(jobId: Int, increment: Int, override val pla
         SqlParameter("Int", jobId.toString)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         "Job enrolled count updated successfully".asJson.noSpaces
       } else {
         "Failed to update job enrolled count".asJson.noSpaces

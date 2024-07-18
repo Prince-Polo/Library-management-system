@@ -22,7 +22,7 @@ case class DeleteJobPlanner(jobId: Int, override val planContext: PlanContext) e
         )
       )
 
-      response = if (jobsUpdated.toInt > 0) {
+      response = if (jobsUpdated!="") {
         DeleteJobResponse(success = true, "Job marked as complete successfully").asJson.noSpaces
       } else {
         DeleteJobResponse(success = false, "Failed to mark job as complete").asJson.noSpaces

@@ -24,7 +24,7 @@ case class SeatRefreshPlanner(
     writeDB(
       s"UPDATE $schemaName.seats SET status = ?, feedback = ? WHERE floor = ? AND section = ? AND seat_number = ?",
       List(
-        SqlParameter("String", "Normal"),
+        SqlParameter("String", "available"),
         SqlParameter("String", ""),
         SqlParameter("String", floor),
         SqlParameter("String", section),

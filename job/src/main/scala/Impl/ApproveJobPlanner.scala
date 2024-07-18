@@ -33,7 +33,7 @@ case class ApproveJobPlanner(message: ApproveJobMessage, override val planContex
         SqlParameter("BigInt", updatedJobMessage.jobId.toString)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected!="") {
         ApproveJobResponse(success = true, "Job approved successfully").asJson.noSpaces
       } else {
         ApproveJobResponse(success = false, "Failed to approve job").asJson.noSpaces

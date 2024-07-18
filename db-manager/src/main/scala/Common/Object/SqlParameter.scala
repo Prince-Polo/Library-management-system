@@ -19,11 +19,11 @@ object SqlParameter {
       dataType.toLowerCase match {
         case "string" => SqlParameter("String", value)
         case "int" => SqlParameter("Int", value)
-        case "double" => SqlParameter("Double", value)
         case "boolean" => SqlParameter("Boolean", value)
-        case "datetime" => SqlParameter("DateTime", value) // Add case for DateTime
-        // Add more type cases as needed
-        case _ => throw new Exception("Unsupported data type") //
+        case "datetime" => SqlParameter("DateTime", value)
+        case "stringarray" => SqlParameter("StringArray", value)
+        case "string2darray" => SqlParameter("String2DArray", value) // Add 2D Array type case
+        case _ => throw new Exception("Unsupported data type")
       }
     }
   }

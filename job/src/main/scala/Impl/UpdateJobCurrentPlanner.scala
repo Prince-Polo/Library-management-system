@@ -19,7 +19,7 @@ case class UpdateJobCurrentPlanner(jobId: Int, increment: Int, override val plan
         SqlParameter("Int", jobId.toString)
       )
     ).map { rowsAffected =>
-      if (rowsAffected.toInt > 0) {
+      if (rowsAffected !="") {
         "Job current count updated successfully".asJson.noSpaces
       } else {
         "Failed to update job current count".asJson.noSpaces

@@ -17,7 +17,7 @@ case class AddSeatPlanner(
                          ) extends Planner[String] {
   override def plan(using planContext: PlanContext): IO[String] = {
     writeDB(
-      s"INSERT INTO $schemaName.seats (floor, section, seat_number, status, feedback, occupied, student_number) VALUES (?, ?, ?, 'Normal', '', false, '')",
+      s"INSERT INTO $schemaName.seats (floor, section, seat_number, status, feedback, occupied, student_number) VALUES (?, ?, ?, 'available', '', false, '')",
       List(
         SqlParameter("String", floor),
         SqlParameter("String", section),
