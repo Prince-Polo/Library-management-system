@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import StudentLayout from './StudentLayout';
 import { useStore } from './store';
+import {useToMyCenter} from 'Pages/LibraryDataLinking'
 
 interface Job {
     jobId: number;
@@ -24,6 +25,7 @@ interface ApprovedJobQueryMessage {
 }
 
 const VolunteerApplication: React.FC = () => {
+    const {toMyCenter,err:clearToMyCenterError}=useToMyCenter()
     const [error, setError] = useState<string | null>(null);
     const [jobs, setJobs] = useState<Job[]>([]);
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -54,6 +56,7 @@ const VolunteerApplication: React.FC = () => {
             try {
                 parsedResult = JSON.parse(result);
                 parsedResult = JSON.parse(parsedResult); // 第二次解析
+                console.log('approve',parsedResult)
             } catch (e) {
                 console.error('Failed to parse response JSON:', e);
                 throw new Error('Failed to parse response JSON');
@@ -206,7 +209,27 @@ const VolunteerApplication: React.FC = () => {
                 body: JSON.stringify(submitTaskMessage)
             });
 
-            fetchTasks();
+            await fetchTasks();
+
+            // 检查是否还有状态为1的任务
+            const hasActiveTasks = tasks.some(task => task.jobId !== jobId &&task.status === 1);
+            console.log("hasActive",hasActiveTasks)
+
+            // 如果没有状态为1的任务，更新志愿者状态为false
+            if (!hasActiveTasks) {
+                const updateVolunteerStatusMessage = {
+                    type: 'UpdateVolunteerStatusMessage',
+                    token: token // Assuming token is the student ID or you might need to decode it to get the student ID
+                };
+
+                await fetch('http://127.0.0.1:10004/api/Student/VolunteerStatusFalseUsingTokenMessage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updateVolunteerStatusMessage)
+                });
+            }
 
         } catch (error) {
             setError('Failed to submit task');
@@ -217,7 +240,7 @@ const VolunteerApplication: React.FC = () => {
     const getStatusButton = (jobId: number) => {
         const task = tasks.find(task => task.jobId === jobId);
         if (!task) {
-            return <button onClick={() => handleEnrollClick(jobId)} style={enrollButtonStyle}>Enroll</button>;
+            return <button onClick={() => handleEnrollClick(jobId)} style={enrollButtonStyle} disabled={failCount >= 3}>Enroll</button>;
         }
         switch (task.status) {
             case 0:
@@ -233,9 +256,28 @@ const VolunteerApplication: React.FC = () => {
             case 5:
                 return <button style={failButtonStyle}>Fail</button>;
             default:
-                return <button onClick={() => handleEnrollClick(jobId)} style={enrollButtonStyle}>Enroll</button>;
+                return <button onClick={() => handleEnrollClick(jobId)} style={enrollButtonStyle} disabled={failCount >= 3}>Enroll</button>;
         }
     };
+
+    // Helper function to get the status for a job
+    const getStatusForJob = (jobId: number) => {
+        const task = tasks.find(task => task.jobId === jobId);
+        return task ? task.status : -1; // Return -1 if there's no status
+    };
+
+    // Calculate the number of fail tasks
+    const failCount = tasks.filter(task => task.status === 5).length;
+
+    // Sort jobs based on status
+    const sortedJobs = jobs.sort((a, b) => {
+        const statusA = getStatusForJob(a.jobId);
+        const statusB = getStatusForJob(b.jobId);
+        return statusA - statusB;
+    });
+
+    // Filter jobs where jobRequired is 0 and status is 0
+    const filteredJobs = sortedJobs.filter(job => !(job.jobRequired === 0 && (getStatusForJob(job.jobId) === 0 || getStatusForJob(job.jobId) === -1)));
 
     return (
         <StudentLayout>
@@ -252,7 +294,7 @@ const VolunteerApplication: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {jobs.map((job: Job) => (
+                {filteredJobs.map((job: Job) => (
                     <React.Fragment key={job.jobId}>
                         <tr onClick={() => handleRowClick(job.jobId)} style={trStyle}>
                             <td style={tdStyle}>{job.jobShortDescription}</td>
@@ -283,7 +325,7 @@ const VolunteerApplication: React.FC = () => {
                     </div>
                 </div>
             )}
-            <button onClick={() => history.push('/mycenter')} style={backButtonStyle}>Back to My Center</button>
+            <button onClick={toMyCenter} style={backButtonStyle}>Back to My Center</button>
         </StudentLayout>
     );
 };

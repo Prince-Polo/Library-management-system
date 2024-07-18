@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { AddJobMessage } from 'Plugins/JobAPI/AddJobMessage';
 import { sendPostRequest, ErrorModal, SuccessModal } from 'Pages/ErrorMessage';
 import AdminLayout from './AdminLayout';
@@ -13,24 +13,42 @@ const AddJobPage: React.FC = () => {
         jobHardness: number;
         jobCredit: number;
         jobRequired: number;
-    } | null>(null);
+    }>({
+        jobShortDescription: '',
+        jobLongDescription: '',
+        jobHardness: null,
+        jobCredit: null,
+        jobRequired: null
+    });
+
+    useEffect(() => {
+        // Reset the form inputs when jobData changes
+        console.log(success);
+            setJobData({
+                jobShortDescription: "",
+                jobLongDescription: "",
+                jobHardness: 0,
+                jobCredit: 0,
+                jobRequired: 0
+            });
+    }, []);
 
     const handleJobSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
 
-        const form = e.target as HTMLFormElement;
-        const formData = new FormData(form);
+        // const form = e.target as HTMLFormElement;
+        // const formData = new FormData(form);
 
-        const jobData = {
-            jobShortDescription: formData.get('jobShortDescription') as string,
-            jobLongDescription: formData.get('jobLongDescription') as string,
-            jobHardness: parseInt(formData.get('jobHardness') as string),
-            jobCredit: parseInt(formData.get('jobCredit') as string),
-            jobRequired: parseInt(formData.get('jobRequired') as string)
-        };
-
-        setJobData(jobData);
+        // const jobData = {
+        //     jobShortDescription: formData.get('jobShortDescription') as string,
+        //     jobLongDescription: formData.get('jobLongDescription') as string,
+        //     jobHardness: parseInt(formData.get('jobHardness') as string),
+        //     jobCredit: parseInt(formData.get('jobCredit') as string),
+        //     jobRequired: parseInt(formData.get('jobRequired') as string)
+        // };
+        //
+        // setJobData(jobData);
         setShowConfirmModal(true);
     };
 
@@ -49,9 +67,17 @@ const AddJobPage: React.FC = () => {
         sendPostRequest(message, setError, () => {
             setSuccess("Job successfully added");
             setTimeout(() => setSuccess(null), 2000);
+            setJobData({ jobShortDescription:"",jobLongDescription:"",jobCredit:0,jobHardness:0,jobRequired:0 });
         });
-
         setShowConfirmModal(false);
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setJobData({
+            ...jobData,
+            [name]: name === 'jobHardness' || name === 'jobCredit' || name === 'jobRequired' ? parseInt(value) : value
+        });
     };
 
     return (
@@ -60,23 +86,23 @@ const AddJobPage: React.FC = () => {
             <form onSubmit={handleJobSubmit}>
                 <div style={formGroupStyle}>
                     <label htmlFor="jobShortDescription" style={labelStyle}>Short Description:</label>
-                    <input type="text" id="jobShortDescription" name="jobShortDescription" required style={inputStyle} />
+                    <input type="text" id="jobShortDescription" name="jobShortDescription" value={jobData.jobShortDescription} required style={inputStyle} onChange={handleInputChange} />
                 </div>
                 <div style={formGroupStyle}>
                     <label htmlFor="jobLongDescription" style={labelStyle}>Long Description:</label>
-                    <input type="text" id="jobLongDescription" name="jobLongDescription" required style={inputStyle} />
+                    <input type="text" id="jobLongDescription" name="jobLongDescription" value={jobData.jobLongDescription} required style={inputStyle} onChange={handleInputChange} />
                 </div>
                 <div style={formGroupStyle}>
                     <label htmlFor="jobHardness" style={labelStyle}>Hardness:</label>
-                    <input type="number" id="jobHardness" name="jobHardness" required style={inputStyle} />
+                    <input type="number" id="jobHardness" name="jobHardness" value={jobData.jobHardness} required style={inputStyle} min={1} max={10} step={1} onChange={handleInputChange} />
                 </div>
                 <div style={formGroupStyle}>
                     <label htmlFor="jobCredit" style={labelStyle}>Credit:</label>
-                    <input type="number" id="jobCredit" name="jobCredit" required style={inputStyle} />
+                    <input type="number" id="jobCredit" name="jobCredit" value={jobData.jobCredit} required style={inputStyle} min={1} max={8} step={1} onChange={handleInputChange} />
                 </div>
                 <div style={formGroupStyle}>
                     <label htmlFor="jobRequired" style={labelStyle}>Required:</label>
-                    <input type="number" id="jobRequired" name="jobRequired" required style={inputStyle} />
+                    <input type="number" id="jobRequired" name="jobRequired" value={jobData.jobRequired} required style={inputStyle} min={1} step={1} onChange={handleInputChange} />
                 </div>
                 <button type="submit" style={submitButtonStyle}>Submit Job</button>
             </form>

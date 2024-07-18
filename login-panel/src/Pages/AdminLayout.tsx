@@ -20,6 +20,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 <button style={buttonStyle} onClick={() => history.push('/CheckSeats')}>
                     Check Seats
                 </button>
+                <button style={buttonStyle} onClick={() => history.push('/ViewSeats')}>
+                    View Seats
+                </button>
                 <button style={buttonStyle} onClick={() => history.push('/AdminLogin')}>
                     Logout
                 </button>

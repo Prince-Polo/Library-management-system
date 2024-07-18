@@ -15,6 +15,8 @@ import {AreaSelection} from 'Pages/AreaSelection'
 import {ReportIssue} from 'Pages/ReportPage'
 import VolunteerApplication from 'Pages/VolunteerApplication';
 import CheckSeatsPage from 'Pages/CheckSeats';
+import ViewSeatsPage from 'Pages/ViewSeatsPage';
+import {AreaPage} from 'Pages/AreaPage';
 import "./Pages/Styles/app.css"
 import "./Pages/Styles/SeatSelection.css"
 
@@ -37,6 +39,8 @@ const Layout = () => {
                 <Route path={"/Report"} exact component={ReportIssue}/>
                 <Route path="/CheckSeats" component={CheckSeatsPage} />
                 <Route path="/VolunteerApplication" exact component={VolunteerApplication} />
+                <Route path={"/area/:floor/:area"} component={AreaPage}/>
+                <Route path="/ViewSeats" component={ViewSeatsPage} />
             </Switch>
         </HashRouter>
     );

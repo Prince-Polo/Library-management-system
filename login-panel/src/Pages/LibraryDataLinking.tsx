@@ -1,21 +1,23 @@
-import { useState, useCallback } from 'react';
+import { useState,useCallback } from 'react';
 import { useHistory } from 'react-router';
 import { sendPostRequest } from 'Pages/ErrorMessage';
 import { useStore, useKeys } from 'Pages/store';
 import { StudentInfoUsingTokenMessage } from 'Plugins/StudentAPI/StudentInfoUsingTokenMessage';
-import { QueryAllFloorsMessage } from 'Plugins/SeatAPI/QueryAllFloorsMessage';
+import {QueryAllFloorsMessage} from 'Plugins/SeatAPI/QueryAllFloorsMessage'
 import { QuerySectionsByFloorMessage } from 'Plugins/SeatAPI/QuerySectionsByFloorMessage';
-import { QuerySeatsInSectionMessage } from 'Plugins/SeatAPI/QuerySeatsInSectionMessage';
+import {QuerySeatsInSectionMessage} from 'Plugins/SeatAPI/QuerySeatsInSectionMessage';
+import axios from 'axios'
+
 
 export const useToMyCenter = () => {
     const [error, setError] = useState<string | null>(null);
     const history = useHistory();
-    const setKeys = useKeys((state) => state.setKeys);
     const info = useStore((state) => state.info);
+    const setInfo = useStore((state) => state.setInfo);
     const token = info.token;
-    const clearError = () => {
+    const clearToMyCenterError=()=>{
         setError(null);
-    };
+    }
     const toMyCenter = () => {
         const message = new StudentInfoUsingTokenMessage(token);
         sendPostRequest(message, setError, (response) => {
@@ -23,23 +25,34 @@ export const useToMyCenter = () => {
             try {
                 const parsedResponse = JSON.parse(response);
                 console.log("Result:", parsedResponse);
-                if ("error" in parsedResponse && parsedResponse["error"] !== "") {
+                if ("error" in parsedResponse && parsedResponse["error"] != "") {
                     setError(parsedResponse.error);
                     console.log(parsedResponse);
-                    setTimeout(() => history.push('/'), 3000);
                     setError(error);
+                    setTimeout(() => history.push('/'), 3000);
                 } else {
-                    setKeys(parsedResponse.number);
+                    setInfo({valid: true,
+                        userName: parsedResponse.userName,
+                        token: info.token,
+                        volunteerStatus: parsedResponse.volunteerStatus,
+                        floor: parsedResponse.floor,
+                        sectionNumber: parsedResponse.sectionNumber,
+                        seatNumber: parsedResponse.seatNumber,
+                        violationCount: parsedResponse.violationCount,
+                        volunteerHours: parsedResponse.volunteerHours
+                    });
                     history.push("/mycenter");
                 }
-            } catch (error) {
+            }catch (error) {
                 setError(error);
                 setTimeout(() => history.push('/'), 3000);
             }
         });
     };
-    return { toMyCenter, error, clearError };
+    const err=error;
+    return { toMyCenter, err, clearToMyCenterError };
 };
+
 
 export interface FloorInfo {
     floor: string;
@@ -56,7 +69,7 @@ export interface FloorData {
 export const useFloorData = () => {
     const [floorData, setFloorData] = useState<FloorData | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [hasFetched, setHasFetched] = useState(false);
+    const [hasFetched,setHasFetched] = useState(false);
 
     const fetchFloorData = useCallback(() => {
         if (!hasFetched) {
@@ -96,7 +109,7 @@ export const useSectionData = () => {
     const [sections, setSections] = useState<SectionInfo[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchSections = useCallback((floor: string) => {
+    const fetchSections = useCallback(async(floor: string) => {
         const message = new QuerySectionsByFloorMessage(floor);
         sendPostRequest(message, setError, (response) => {
             const parsedResponse = JSON.parse(response);
@@ -115,7 +128,7 @@ export const useSeatData = () => {
     const [seats, setSeats] = useState<SeatInfo[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchSeats = useCallback((floor: string, section: string) => {
+    const fetchSeats = useCallback( (floor: string, section: string) => {
         const message = new QuerySeatsInSectionMessage(floor, section);
         sendPostRequest(message, setError, (response) => {
             const parsedResponse = JSON.parse(response);

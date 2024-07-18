@@ -16,6 +16,7 @@ const CheckSeatsPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [feedback, setFeedback] = useState<string>('');
     const [selectedSeat, setSelectedSeat] = useState<Seat | null>(null);
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [filterStatus, setFilterStatus] = useState<string>('All');
 
     const fetchReportedSeats = useCallback(async () => {
@@ -95,10 +96,17 @@ const CheckSeatsPage: React.FC = () => {
     };
 
     const handleRefresh = async (seat: Seat) => {
+        setSelectedSeat(seat);
+        setShowConfirmModal(true);
+    };
+
+    const confirmRefresh = async () => {
+        if (!selectedSeat) return;
+
         const message = {
-            floor: seat.floor,
-            section: seat.section,
-            seatNumber: seat.seatNumber
+            floor: selectedSeat.floor,
+            section: selectedSeat.section,
+            seatNumber: selectedSeat.seatNumber
         };
 
         try {
@@ -118,6 +126,9 @@ const CheckSeatsPage: React.FC = () => {
         } catch (error) {
             setError(error.message);
         }
+
+        setShowConfirmModal(false);
+        setSelectedSeat(null);
     };
 
     const filteredSeats = seats.filter(seat => filterStatus === 'All' || seat.status === filterStatus);
@@ -161,14 +172,20 @@ const CheckSeatsPage: React.FC = () => {
                         <td style={tdStyle}>{seat.occupied}</td>
                         <td style={tdStyle}>{getFeedbackContent(seat.feedback)}</td>
                         <td style={tdStyle}>
-                            <button onClick={() => handleConfirm(seat)} style={buttonStyle}>✔</button>
-                            <button onClick={() => handleRefresh(seat)} style={buttonStyle}>✖</button>
+                            {seat.status === 'Confirmed' ? (
+                                <button onClick={() => handleRefresh(seat)} style={buttonStyle}>Refresh</button>
+                            ) : (
+                                <>
+                                    <button onClick={() => handleConfirm(seat)} style={buttonStyle}>✔</button>
+                                    <button onClick={() => handleRefresh(seat)} style={buttonStyle}>✖</button>
+                                </>
+                            )}
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            {selectedSeat && (
+            {selectedSeat && !showConfirmModal && (
                 <div style={modalStyle}>
                     <div style={modalContentStyle}>
                         <h3>Submit Feedback for Seat {selectedSeat.seatNumber}</h3>
@@ -179,6 +196,15 @@ const CheckSeatsPage: React.FC = () => {
                         />
                         <button onClick={handleSubmitFeedback} style={submitButtonStyle}>Submit</button>
                         <button onClick={() => setSelectedSeat(null)} style={cancelButtonStyle}>Cancel</button>
+                    </div>
+                </div>
+            )}
+            {showConfirmModal && (
+                <div style={modalStyle}>
+                    <div style={modalContentStyle}>
+                        <h3>Are you sure you want to refresh seat {selectedSeat?.seatNumber}?</h3>
+                        <button onClick={confirmRefresh} style={submitButtonStyle}>Confirm</button>
+                        <button onClick={() => { setShowConfirmModal(false); setSelectedSeat(null); }} style={cancelButtonStyle}>Cancel</button>
                     </div>
                 </div>
             )}
@@ -285,6 +311,7 @@ const filterContainerStyle: React.CSSProperties = {
 
 const filterLabelStyle: React.CSSProperties = {
     marginRight: '10px',
+    fontWeight: 'bold',
 };
 
 const filterSelectStyle: React.CSSProperties = {

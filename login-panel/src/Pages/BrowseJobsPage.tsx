@@ -101,13 +101,39 @@ const BrowseJobsPage: React.FC = () => {
                 jobEnrolled: job.jobEnrolled,
                 jobRequired: job.jobRequired
             }));
-            setApprovedJobs(jobs);
+
+            // Automatically delete jobs with jobEnrolled and jobRequired both being 0
+            for (const job of jobs) {
+                if (job.jobEnrolled === 0 && job.jobRequired === 0) {
+                    await autoDeleteJob(job.jobId);
+                }
+            }
+
+            setApprovedJobs(jobs.filter(job => !(job.jobEnrolled === 0 && job.jobRequired === 0)));
 
         } catch (error) {
             setError('Failed to fetch jobs');
             console.error('Error fetching jobs:', error);
         }
     }, []);
+
+    const autoDeleteJob = async (jobId: number) => {
+        const message: DeleteJobMessage = {
+            jobId
+        };
+
+        try {
+            await fetch('http://127.0.0.1:10004/api/Job/DeleteJobMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message)
+            });
+        } catch (error) {
+            console.error('Error auto-deleting job:', error);
+        }
+    };
 
     const fetchJobStudents = useCallback(async (jobId: number) => {
         const message: JobStudentsQueryMessage = {
@@ -231,36 +257,55 @@ const BrowseJobsPage: React.FC = () => {
                 body: JSON.stringify(message)
             });
 
-            // 检查是否还有状态为1的任务
-            const checkMessage: CheckStudentTaskStatusMessage = {
-                studentId: selectedStudent.studentId
-            };
-
-            const checkResponse = await fetch('http://127.0.0.1:10004/api/Job/CheckStudentStatusMessage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(checkMessage)
-            });
-
-            if (checkResponse.ok) {
-                const checkResult: CheckStudentTaskStatusResponse = await checkResponse.json();
-
-                // 根据检查结果更新学生的volunteer_status
-                const updateVolunteerStatusMessage: UpdateVolunteerStatusMessage = {
-                    type: 'UpdateVolunteerStatusMessage',
-                    number: selectedStudent.studentId
+            // 如果状态从3变为4，更新志愿者小时数
+            if (selectedStudent.status === 3 && status === 4) {
+                const updateVolunteerHourMessage = {
+                    type: 'UpdateVolunteerHourMessage',
+                    jobId: selectedJobForStudent,
+                    studentId: selectedStudent.studentId
                 };
-                console.log(checkResult)
 
-                await fetch(`http://127.0.0.1:10004/api/Student/VolunteerStatus${checkResult ? 'True' : 'False'}Message`, {
+                await fetch('http://127.0.0.1:10004/api/Student/UpdateVolunteerHourMessage', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(updateVolunteerStatusMessage)
+                    body: JSON.stringify(updateVolunteerHourMessage)
                 });
+            }
+
+            // 检查并更新 volunteer_status
+            if ((selectedStudent.status === 0 && status === 1) || (selectedStudent.status === 1 && status === 5)) {
+                // 检查是否还有状态为 1 的任务
+                const checkMessage: CheckStudentTaskStatusMessage = {
+                    studentId: selectedStudent.studentId
+                };
+
+                const checkResponse = await fetch('http://127.0.0.1:10004/api/Job/CheckStudentStatusMessage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(checkMessage)
+                });
+
+                if (checkResponse.ok) {
+                    const checkResult: CheckStudentTaskStatusResponse = await checkResponse.json();
+
+                    // 根据检查结果更新学生的 volunteer_status
+                    const updateVolunteerStatusMessage: UpdateVolunteerStatusMessage = {
+                        type: 'UpdateVolunteerStatusMessage',
+                        number: selectedStudent.studentId
+                    };
+
+                    await fetch(`http://127.0.0.1:10004/api/Student/VolunteerStatus${checkResult ? 'True' : 'False'}Message`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(updateVolunteerStatusMessage)
+                    });
+                }
             }
 
             fetchJobStudents(selectedJobForStudent);
@@ -317,7 +362,7 @@ const BrowseJobsPage: React.FC = () => {
                     number: studentId
                 };
 
-                await fetch(`http://127.0.0.1:10004/api/Student/VolunteerStatus${checkResult.hasActiveTasks ? 'True' : 'False'}Message`, {
+                await fetch(`http://127.0.0.1:10004/api/Student/VolunteerStatus${checkResult ? 'True' : 'False'}Message`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -386,7 +431,7 @@ const BrowseJobsPage: React.FC = () => {
                                                         {student.status === 0 ? 'Pending' : student.status === 1 ? 'Approved' : student.status === 2 ? 'Rejected' : student.status === 3 ? 'Submitted' : student.status === 4 ? 'Completed (Passed)' : 'Completed (Failed)'}
                                                     </td>
                                                     <td style={tdStyle}>
-                                                        {student.status === 0 && (
+                                                        {student.status === 0 && job.jobRequired !== 0 && (
                                                             <button
                                                                 style={studentButtonStyle}
                                                                 onClick={() => handleUpdateStudentStatus(student, job.jobId)}
