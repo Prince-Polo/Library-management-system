@@ -1,12 +1,7 @@
-// File: APIs/StudentAPI/UpdateViolationCountMessage.scala
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
 
-case class UpdateViolationCountMessage(number: String, violationCount: String)
+case class UpdateViolationCountMessage(number: String, violationCount: Int)
 
-object UpdateViolationCountMessage {
-  implicit val encoder: Encoder[UpdateViolationCountMessage] = deriveEncoder[UpdateViolationCountMessage]
-  implicit val decoder: Decoder[UpdateViolationCountMessage] = deriveDecoder[UpdateViolationCountMessage]
-}
+case class UpdateViolationCountResponse(success: Boolean, message: String)

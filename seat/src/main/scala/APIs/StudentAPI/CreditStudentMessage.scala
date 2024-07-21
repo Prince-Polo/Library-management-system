@@ -1,11 +1,7 @@
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._  // Import generic auto
 
-case class CreditStudentMessage(number: String, volunteerHours: String)
+case class CreditStudentMessage(token: String, volunteerHours: String)
 
-object CreditStudentMessage {
-  implicit val encoder: Encoder[CreditStudentMessage] = deriveEncoder[CreditStudentMessage]
-  implicit val decoder: Decoder[CreditStudentMessage] = deriveDecoder[CreditStudentMessage]
-}
+case class CreditStudentResponse(success: Boolean, message: String)

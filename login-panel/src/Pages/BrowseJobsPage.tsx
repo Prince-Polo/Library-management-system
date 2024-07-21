@@ -10,6 +10,8 @@ interface Job {
     jobCurrent: number;
     jobEnrolled: number;
     jobRequired: number;
+    jobComplete: boolean;
+    hasPendingOrSubmittedStudents?: boolean;
 }
 
 interface ApprovedJobQueryMessage {
@@ -61,6 +63,46 @@ const BrowseJobsPage: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
     const [isPassFailModal, setIsPassFailModal] = useState(false);
 
+    const fetchJobStudentsForCheck = async (jobId: number): Promise<Student[]> => {
+        const message: JobStudentsQueryMessage = {
+            type: 'JobStudentsQueryMessage',
+            jobId
+        };
+
+        try {
+            const response = await fetch('http://127.0.0.1:10004/api/Job/JobStudentsQuery', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message)
+            });
+
+            let result = await response.text();
+            let parsedResult;
+            try {
+                parsedResult = JSON.parse(result);
+                parsedResult = JSON.parse(parsedResult);
+            } catch (e) {
+                console.error('Failed to parse response JSON:', e);
+                throw new Error('Failed to parse response JSON');
+            }
+
+            if (!Array.isArray(parsedResult)) {
+                throw new Error('Invalid data format received: expected an array');
+            }
+
+            return parsedResult.map((student: any) => ({
+                studentId: student.studentId,
+                status: student.status
+            }));
+
+        } catch (error) {
+            console.error('Error fetching job students:', error);
+            return [];
+        }
+    };
+
     const fetchApprovedJobs = useCallback(async () => {
         setError(null);
 
@@ -69,7 +111,7 @@ const BrowseJobsPage: React.FC = () => {
         };
 
         try {
-            const response = await fetch('http://127.0.0.1:10004/api/Job/ApprovedJobMessage', {
+            const response = await fetch('http://127.0.0.1:10004/api/Job/ApprovedJobQueryMessage', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +141,8 @@ const BrowseJobsPage: React.FC = () => {
                 jobCredit: job.jobCredit,
                 jobCurrent: job.jobCurrent,
                 jobEnrolled: job.jobEnrolled,
-                jobRequired: job.jobRequired
+                jobRequired: job.jobRequired,
+                jobComplete: job.jobComplete
             }));
 
             // Automatically delete jobs with jobEnrolled and jobRequired both being 0
@@ -109,7 +152,13 @@ const BrowseJobsPage: React.FC = () => {
                 }
             }
 
-            setApprovedJobs(jobs.filter(job => !(job.jobEnrolled === 0 && job.jobRequired === 0)));
+            const jobsWithStatus = await Promise.all(jobs.map(async (job: Job) => {
+                const jobStudents = await fetchJobStudentsForCheck(job.jobId);
+                const hasPendingOrSubmittedStudents = jobStudents.some(student => student.status === 0 || student.status === 3);
+                return { ...job, hasPendingOrSubmittedStudents };
+            }));
+
+            setApprovedJobs(jobsWithStatus.filter(job => !(job.jobEnrolled === 0 && job.jobRequired === 0) && !job.jobComplete));
 
         } catch (error) {
             setError('Failed to fetch jobs');
@@ -168,6 +217,12 @@ const BrowseJobsPage: React.FC = () => {
                 studentId: student.studentId,
                 status: student.status
             }));
+
+            // Sort students by status: submitted -> pending -> approved -> completed (passed) -> completed (failed)
+            jobStudents.sort((a, b) => {
+                const statusOrder = { 3: 1, 0: 2, 1: 3, 4: 4, 5: 5 };
+                return (statusOrder[a.status] || 6) - (statusOrder[b.status] || 6);
+            });
 
             setStudents(prev => new Map(prev).set(jobId, jobStudents.filter(s => s.status !== 2)));
 
@@ -398,7 +453,7 @@ const BrowseJobsPage: React.FC = () => {
                 {approvedJobs.map((job: Job) => (
                     <React.Fragment key={job.jobId}>
                         <tr onClick={() => handleRowClick(job.jobId)} style={trStyle}>
-                            <td style={tdStyle}>{job.jobShortDescription}</td>
+                            <td style={{ ...tdStyle, color: job.hasPendingOrSubmittedStudents ? 'red' : 'inherit' }}>{job.jobShortDescription}</td>
                             <td style={tdStyle}>{job.jobHardness}</td>
                             <td style={tdStyle}>{job.jobCredit}</td>
                             <td style={tdStyle}>{job.jobCurrent} / {job.jobEnrolled} / {job.jobRequired}</td>

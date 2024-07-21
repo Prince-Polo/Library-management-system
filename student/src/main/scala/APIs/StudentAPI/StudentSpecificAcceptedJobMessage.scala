@@ -1,11 +1,8 @@
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
+import APIs.JobAPI.TaskInfo
 
 case class StudentSpecificAcceptedJobMessage(token: String)
 
-object StudentSpecificAcceptedJobMessage {
-  implicit val encoder: Encoder[StudentSpecificAcceptedJobMessage] = deriveEncoder[StudentSpecificAcceptedJobMessage]
-  implicit val decoder: Decoder[StudentSpecificAcceptedJobMessage] = deriveDecoder[StudentSpecificAcceptedJobMessage]
-}
+case class StudentSpecificAcceptedJobResponse(success: Boolean, message: String, tasks: Option[List[TaskInfo]])

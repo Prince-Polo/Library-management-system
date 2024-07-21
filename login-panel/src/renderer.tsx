@@ -6,7 +6,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Main } from 'Pages/Main';
 import AnotherPage from 'Pages/AnotherPage';
 import { Library } from 'Pages/Library';
-import { StudentRegister, StudentLogin, AdminLogin, AdminRegister } from 'Pages/Register';
+import { StudentRegister, StudentLogin, AdminLogin, AdminRegister } from 'Pages/RegisterLogin'
 import AddJobPage from 'Pages/AddJobPage';
 import BrowseJobsPage from 'Pages/BrowseJobsPage';
 import StudentPage from 'Pages/StudentPage';
@@ -19,6 +19,7 @@ import ViewSeatsPage from 'Pages/ViewSeatsPage';
 import {AreaPage} from 'Pages/AreaPage';
 import "./Pages/Styles/app.css"
 import "./Pages/Styles/SeatSelection.css"
+
 
 const Layout = () => {
     return (

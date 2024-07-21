@@ -16,19 +16,19 @@ object Init {
     for {
       _ <- API.init(config.maximumClientConnection)
       _ <- initSchema(schemaName)
-      // 创建或更新 students 表，包含所有必要的字段
+      // 创建或更新 students 表
       _ <- writeDB(
         s"""
            |CREATE TABLE IF NOT EXISTS $schemaName.students (
            |  user_name TEXT,
            |  password TEXT,
            |  number TEXT,
-           |  volunteer_status TEXT,  -- 改为字符串类型
-           |  floor TEXT,             -- 改为字符串类型
-           |  section_number TEXT,    -- 改为字符串类型
-           |  seat_number TEXT,       -- 改为字符串类型
-           |  violation_count TEXT,   -- 改为字符串类型
-           |  volunteer_hours TEXT,   -- 改为字符串类型
+           |  volunteer_status BOOLEAN,                 -- 修改为 BOOLEAN 类型
+           |  floor TEXT,
+           |  section_number TEXT,
+           |  seat_number TEXT,
+           |  violation_count INT,                      -- 使用 INT 类型
+           |  volunteer_hours FLOAT,                    -- 使用 FLOAT 类型
            |  PRIMARY KEY (number)
            |)
            |""".stripMargin, List()

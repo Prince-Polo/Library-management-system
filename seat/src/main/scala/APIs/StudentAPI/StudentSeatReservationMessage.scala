@@ -1,16 +1,7 @@
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
 
-case class StudentSeatReservationMessage(
-                                          studentNumber: String,
-                                          floor: String,
-                                          section: String,
-                                          seatNumber: String
-                                        )
+case class StudentSeatReservationMessage(token: String, floor: String, section: String, seatNumber: String)
 
-object StudentSeatReservationMessage {
-  implicit val encoder: Encoder[StudentSeatReservationMessage] = deriveEncoder[StudentSeatReservationMessage]
-  implicit val decoder: Decoder[StudentSeatReservationMessage] = deriveDecoder[StudentSeatReservationMessage]
-}
+case class StudentSeatReservationResponse(success: Boolean, message: String)

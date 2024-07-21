@@ -34,6 +34,11 @@ object Routes:
         .flatMap{m=>
           m.fullPlan.map(_.asJson.toString)
         }
+    case "ApprovedJobQueryMessage" =>
+      IO(decode[ApprovedJobPlanner](str).getOrElse(throw new Exception("Invalid JSON for ApprovedJobMessage")))
+        .flatMap{m=>
+          m.fullPlan.map(_.asJson.toString)
+        }
     case "DeleteJobMessage" =>
       IO(decode[DeleteJobPlanner](str).getOrElse(throw new Exception("Invalid JSON for DeleteJobMessage")))
         .flatMap { m=>

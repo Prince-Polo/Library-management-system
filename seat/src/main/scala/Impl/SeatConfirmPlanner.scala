@@ -1,3 +1,4 @@
+// Impl.SeatConfirmPlanner.scala
 package Impl
 
 import cats.effect.IO
@@ -7,21 +8,10 @@ import Common.API.{PlanContext, Planner}
 import Common.DBAPI.writeDB
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
-import APIs.SeatAPI.{SeatConfirmResponse}
+import APIs.SeatAPI.SeatConfirmResponse
 
-// 添加缺失的导入包
-import io.circe.Encoder
-import io.circe.generic.auto._
-import Common.DBAPI.WriteDBMessage
-
-case class SeatConfirmPlanner(
-                               floor: String,
-                               section: String,
-                               seatNumber: String,
-                               feedback: String,
-                               override val planContext: PlanContext
-                             ) extends Planner[String] {
-  override def plan(using planContext: PlanContext): IO[String] = {
+case class SeatConfirmPlanner(floor: String, section: String, seatNumber: String, feedback: String, override val planContext: PlanContext) extends Planner[String] {
+  override def plan(using planContext: PlanContext): IO[String] =
     writeDB(
       s"UPDATE $schemaName.seats SET status = ?, feedback = ? WHERE floor = ? AND section = ? AND seat_number = ?",
       List(
@@ -31,12 +21,10 @@ case class SeatConfirmPlanner(
         SqlParameter("String", section),
         SqlParameter("String", seatNumber)
       )
-    ).map { rowsAffected =>
-      if (rowsAffected!="") {
-        SeatConfirmResponse(success = true, s"Seat at position $floor-$section-$seatNumber confirmed successfully with feedback: $feedback").asJson.noSpaces
-      } else {
-        SeatConfirmResponse(success = false, s"Failed to confirm seat at position $floor-$section-$seatNumber").asJson.noSpaces
-      }
-    }
-  }
+    ).map(rowsAffected =>
+      SeatConfirmResponse(
+        success = rowsAffected.nonEmpty,
+        message = if (rowsAffected.nonEmpty) s"Seat at position $floor-$section-$seatNumber confirmed successfully with feedback: $feedback" else s"Failed to confirm seat at position $floor-$section-$seatNumber"
+      ).asJson.noSpaces
+    ).handleError(error => SeatConfirmResponse(success = false, message = error.getMessage).asJson.noSpaces)
 }

@@ -1,15 +1,7 @@
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
 
-case class StudentRegisterMessage(
-                                   userName: String,
-                                   password: String,
-                                   number: String
-                                 )
+case class StudentRegisterMessage(userName: String, password: String, number: String)
 
-object StudentRegisterMessage {
-  implicit val encoder: Encoder[StudentRegisterMessage] = deriveEncoder[StudentRegisterMessage]
-  implicit val decoder: Decoder[StudentRegisterMessage] = deriveDecoder[StudentRegisterMessage]
-}
+case class StudentRegisterResponse(userName: String, volunteerStatus: Boolean, floor: String, sectionNumber: String, seatNumber: String, violationCount: Int, volunteerHours: Float, token: String)

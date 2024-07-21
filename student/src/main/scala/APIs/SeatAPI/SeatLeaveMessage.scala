@@ -1,11 +1,10 @@
+// APIs.SeatAPI.SeatLeaveMessage.scala
 package APIs.SeatAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import APIs.SeatAPI.SeatMessage
+import Common.SeatInfo
+import io.circe.generic.auto.*
 
 case class SeatLeaveMessage(floor: String, section: String, seatNumber: String, studentNumber: String) extends SeatMessage[String]
 
-object SeatLeaveMessage {
-  implicit val encoder: Encoder[SeatLeaveMessage] = deriveEncoder[SeatLeaveMessage]
-  implicit val decoder: Decoder[SeatLeaveMessage] = deriveDecoder[SeatLeaveMessage]
-}
+case class SeatLeaveResponse(success: Boolean, message: String)

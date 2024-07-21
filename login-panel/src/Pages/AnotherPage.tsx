@@ -1,282 +1,111 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { sendPostRequest, ErrorModal, SuccessModal } from 'Pages/ErrorMessage';
-import AdminLayout from './AdminLayout';
+import React from 'react';
+import { useHistory } from 'react-router';
+import myImage from '../Images/FrontPage.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import BrowseJobsPage from 'Pages/BrowseJobsPage'
 
-interface Job {
-    jobId: number;
-    jobShortDescription: string;
-    jobLongDescription: string;
-    jobHardness: number;
-    jobCredit: number;
-    jobCurrent: number;
-    jobEnrolled: number;
-    jobRequired: number;
-}
+export function AnotherPage() {
+    const history = useHistory();
 
-interface ApprovedJobQueryMessage {
-    type: string;
-}
-
-interface CheckTaskMessage {
-    jobId: number;
-    studentId: string;
-}
-
-const TasksPage: React.FC = () => {
-    const [error, setError] = useState<string | null>(null);
-    const [jobs, setJobs] = useState<Job[]>([]);
-    const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
-    const studentId = "333"; // 假设的学生ID
-
-    const fetchJobs = useCallback(async () => {
-        setError(null);
-
-        const message: ApprovedJobQueryMessage = {
-            type: 'ApprovedJobQuery'
-        };
-
-        try {
-            const response = await fetch('http://127.0.0.1:10004/api/Job/ApprovedJobMessage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(message)
-            });
-
-            let result = await response.text(); // Fetch as text
-            let parsedResult;
-            try {
-                parsedResult = JSON.parse(result);
-                parsedResult = JSON.parse(parsedResult);
-            } catch (e) {
-                console.error('Failed to parse response JSON:', e);
-                throw new Error('Failed to parse response JSON');
-            }
-
-            if (!Array.isArray(parsedResult)) {
-                throw new Error('Invalid data format received: expected an array');
-            }
-
-            const jobs = parsedResult.map((job: any) => ({
-                jobId: job.jobId,
-                jobShortDescription: job.jobShortDescription,
-                jobLongDescription: job.jobLongDescription,
-                jobHardness: job.jobHardness,
-                jobCredit: job.jobCredit,
-                jobCurrent: job.jobCurrent,
-                jobEnrolled: job.jobEnrolled,
-                jobRequired: job.jobRequired
-            }));
-            setJobs(jobs);
-
-        } catch (error) {
-            setError('Failed to fetch jobs');
-            console.error('Error fetching jobs:', error);
-        }
-    }, []);
-
-    useEffect(() => {
-        fetchJobs();
-    }, [fetchJobs]);
-
-    const handleEnrollClick = (jobId: number) => {
-        setSelectedJobId(jobId);
+    const backgroundStyle: React.CSSProperties = {
+        backgroundImage: `url(${myImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#fff',
+        textAlign: 'center',
     };
 
-    const confirmEnroll = async () => {
-        if (selectedJobId === null) return;
+    const boxStyle: React.CSSProperties = {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        padding: '30px',
+        borderRadius: '20px',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+        width: '80%',
+    };
 
-        const checkTaskMessage: CheckTaskMessage = {
-            jobId: selectedJobId,
-            studentId
-        };
+    const headerStyle: React.CSSProperties = {
+        color: 'rgba(225,168,88,0.82)',
+        marginBottom: '20px',
+        fontFamily: 'Georgia, serif',
+        fontSize: '2em',
+        fontWeight: 'bold',
+    };
 
-        try {
-            // 发送请求检查任务表中是否存在相同的 studentId
-            const checkResponse = await fetch('http://127.0.0.1:10004/api/Job/CheckTask', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(checkTaskMessage)
-            });
+    const textStyle: React.CSSProperties = {
+        color: 'white',
+        fontSize: '18px',
+        fontFamily: 'Arial, sans-serif',
+        marginBottom: '20px',
+        textAlign: 'left',
+    };
 
-            const checkResult = await checkResponse.json();
-            console.log("Check Result:", checkResult);
+    const buttonStyle: React.CSSProperties = {
+        cursor: 'pointer',
+        fontFamily: 'Times New Roman, Times, serif',
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxSizing: 'border-box',
+        padding: '20px',
+        backgroundColor: '#6A5ACD',
+        color: 'white',
+        border: 'none',
+        height: '100px',
+        fontSize: '20px',
+        borderRadius: '5px',
+        transition: 'background-color 0.3s ease',
+        marginBottom: '10px',
+        width: '30%',
+        margin: '0 10px',
+    };
 
-            if (checkResult) {
-                setError('You are already enrolled in this job');
-                setSelectedJobId(null);
-                return;
-            }
+    const buttonPrimaryHoverStyle: React.CSSProperties = {
+        backgroundColor: '#483D8B',
+    };
 
-            // 如果不存在相同的 studentId，则继续进行更新和创建任务的操作
-            const updateJobMessage = {
-                type:'UpdateJobCurrentMessage',
-                jobId: selectedJobId,
-                increment: 1
-            };
-
-            const createTaskMessage = {
-                type:'CreateTaskMessage',
-                jobId: selectedJobId,
-                studentId
-            };
-
-            // Send request to update job
-            await fetch('http://127.0.0.1:10004/api/Job/UpdateJobCurrentMessage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updateJobMessage)
-            });
-            console.log(updateJobMessage)
-
-            // Send request to create task
-            await fetch('http://127.0.0.1:10004/api/Job/CreateTaskMessage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(createTaskMessage)
-            });
-            console.log(createTaskMessage)
-
-            fetchJobs();
-
-        } catch (error) {
-            setError('Failed to enroll in job');
-            console.error('Error enrolling in job:', error);
-        }
-
-        setSelectedJobId(null);
+    const iconStyle: React.CSSProperties = {
+        marginBottom: '10px',
+        fontSize: '40px',
     };
 
     return (
-        <AdminLayout>
-            <h2 style={headingStyle}>Available Jobs</h2>
-            {error && <p style={errorMessageStyle}>{error}</p>}
-            <table style={jobsTableStyle}>
-                <thead>
-                <tr>
-                    <th style={thStyle}>Short Description</th>
-                    <th style={thStyle}>Hardness</th>
-                    <th style={thStyle}>Credit</th>
-                    <th style={thStyle}>Current / Enrolled / Required</th>
-                    <th style={thStyle}>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {jobs.map((job: Job) => (
-                    <React.Fragment key={job.jobId}>
-                        <tr style={trStyle}>
-                            <td style={tdStyle}>{job.jobShortDescription}</td>
-                            <td style={tdStyle}>{job.jobHardness}</td>
-                            <td style={tdStyle}>{job.jobCredit}</td>
-                            <td style={tdStyle}>{job.jobCurrent} / {job.jobEnrolled} / {job.jobRequired}</td>
-                            <td style={tdStyle}>
-                                <button onClick={() => handleEnrollClick(job.jobId)} style={enrollButtonStyle}>Enroll</button>
-                            </td>
-                        </tr>
-                    </React.Fragment>
-                ))}
-                </tbody>
-            </table>
-            {selectedJobId !== null && (
-                <div style={modalStyle}>
-                    <div style={modalContentStyle}>
-                        <h3>Are you sure you want to enroll in this job?</h3>
-                        <button onClick={confirmEnroll} style={confirmButtonStyle}>Yes</button>
-                        <button onClick={() => setSelectedJobId(null)} style={cancelButtonStyle}>No</button>
-                    </div>
-                </div>
-            )}
-        </AdminLayout>
+        <div style={backgroundStyle}>
+            <div style={boxStyle}>
+                <header style={headerStyle}>
+                    <h1>About Java Banteng Library</h1>
+                </header>
+                <p style={textStyle}>
+                    Welcome to the Java Banteng Library! Why Java Banteng, you ask? Well, we love a good pun, and what's better than combining the strength of a banteng (that's a wild cow for the uninitiated) with the versatility of Java? Here, we bring together the best of both worlds: a robust collection of books and resources, and a dynamic, engaging environment that fosters learning and creativity.
+                </p>
+                <p style={textStyle}>
+                    Our library isn't just about books, though we do have plenty of those. It's a hub for community, a place where you can explore new ideas, collaborate on projects, and even catch a nap between classes (we won't tell). Whether you're here to study hard or hardly study, the Java Banteng Library is your go-to spot for all things academic and beyond.
+                </p>
+                <p style={textStyle}>
+                    So, charge in like a banteng, grab a book, a bean bag, and maybe a cup of coffee, and make the Java Banteng Library your second home. Happy reading!
+                </p>
+                <button
+                    style={buttonStyle}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = buttonPrimaryHoverStyle.backgroundColor!)}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor!)}
+                    onClick={() => history.push('/')}
+                >
+                    <FontAwesomeIcon icon={faArrowLeft} style={iconStyle} />
+                    Back to Main
+                </button>
+            </div>
+        </div>
     );
-};
+}
 
-const headingStyle: React.CSSProperties = {
-    marginBottom: '20px',
-    fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-    color: '#333',
-};
-
-const jobsTableStyle: React.CSSProperties = {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginTop: '20px',
-};
-
-const thStyle: React.CSSProperties = {
-    border: '1px solid #ddd',
-    padding: '8px',
-    background: '#f0f8ff',
-    fontWeight: 'bold',
-};
-
-const trStyle: React.CSSProperties = {
-    cursor: 'pointer',
-};
-
-const tdStyle: React.CSSProperties = {
-    border: '1px solid #ddd',
-    padding: '8px',
-};
-
-const enrollButtonStyle: React.CSSProperties = {
-    background: '#32cd32',
-    color: 'white',
-    border: 'none',
-    padding: '5px 10px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-};
-
-const errorMessageStyle: React.CSSProperties = {
-    color: 'red',
-    fontWeight: 'bold',
-};
-
-const modalStyle: React.CSSProperties = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    background: 'rgba(0, 0, 0, 0.5)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-};
-
-const modalContentStyle: React.CSSProperties = {
-    background: 'white',
-    padding: '20px',
-    borderRadius: '10px',
-    textAlign: 'center',
-};
-
-const confirmButtonStyle: React.CSSProperties = {
-    background: '#32cd32',
-    color: 'white',
-    border: 'none',
-    padding: '10px 15px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    margin: '10px',
-};
-
-const cancelButtonStyle: React.CSSProperties = {
-    background: '#ff6347',
-    color: 'white',
-    border: 'none',
-    padding: '10px 15px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    margin: '10px',
-};
-
-export default TasksPage;
-
+export default AnotherPage;

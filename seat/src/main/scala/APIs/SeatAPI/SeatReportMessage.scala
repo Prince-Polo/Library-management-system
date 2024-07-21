@@ -1,11 +1,9 @@
+// APIs.SeatAPI.SeatReportMessage.scala
 package APIs.SeatAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
+import APIs.SeatAPI.SeatMessage
 
-case class SeatReportMessage(floor: String, section: String, seatNumber: String, feedback: String)
+case class SeatReportMessage(floor: String, section: String, seatNumber: String, feedback: String) extends SeatMessage[String]
 
-object SeatReportMessage {
-  implicit val encoder: Encoder[SeatReportMessage] = deriveEncoder[SeatReportMessage]
-  implicit val decoder: Decoder[SeatReportMessage] = deriveDecoder[SeatReportMessage]
-}
+case class SeatReportResponse(success: Boolean, message: String)

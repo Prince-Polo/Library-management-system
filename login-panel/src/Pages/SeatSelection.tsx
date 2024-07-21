@@ -151,7 +151,7 @@ export const SeatReservationModal: React.FC<SeatReservationModalProps> = ({ isOp
                 {!success ? (
                     <>
                         <p>{message}</p>
-                        <p style={{color:'red', fontSize:'16px', marginTop:'-10px'}}>{reported&&!confirmed?`The seat probably has issues, do you still want to select it?`:``}</p>
+                        <p style={{color:'red', fontSize:'16px', marginTop:'-10px'}}>{reported && !confirmed && !occupied && info.seatNumber==='0'?`The seat probably has issues, do you still want to select it?`:``}</p>
                         <button
                             style={cancelButtonStyle}
                             onClick={handleCancel}

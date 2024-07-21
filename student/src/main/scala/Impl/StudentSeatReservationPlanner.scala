@@ -1,62 +1,29 @@
 package Impl
 
 import Common.API.{PlanContext, Planner}
-import Common.DBAPI.{startTransaction, writeDB, readDBRows}
+import Common.DBAPI.startTransaction
 import cats.effect.IO
 import io.circe.generic.auto._
 import io.circe.syntax._
-import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 
-import APIs.StudentAPI.{StudentSeatReservationMessage, StudentSeatReservationResponse, StudentReservationMessage, StudentReservationResponse}
+import APIs.StudentAPI.{StudentSeatReservationResponse, StudentReservationMessage, StudentReservationResponse}
 import APIs.SeatAPI.{SeatReservationMessage, SeatReservationResponse}
 import io.circe.parser.decode
 import Utils.JWTUtil
 
-case class StudentSeatReservationPlanner(
-                                          token: String,
-                                          floor: String,
-                                          section: String,
-                                          seatNumber: String,
-                                          override val planContext: PlanContext
-                                        ) extends Planner[String] {
-  override def plan(using planContext: PlanContext): IO[String] = {
-    startTransaction {
-      for {
-        // Validate token and retrieve student number
-        studentNumberOpt <- IO(JWTUtil.getNumber(token))
-        studentNumber <- studentNumberOpt match {
-          case Some(number) => IO.pure(number)
-          case None => IO.raiseError(new Exception("Invalid token"))
-        }
-
-        // Call student reservation planner
-        studentReservationResult <- StudentReservationMessage(
-          studentNumber,
-          floor,
-          section,
-          seatNumber
-        ).send
-
-        studentResponse <- IO.fromEither(decode[StudentReservationResponse](studentReservationResult))
-        _ <- if (studentResponse.success) IO.unit else IO.raiseError(new Exception(studentResponse.message))
-
-        // Call seat reservation planner
-        seatReservationResult <- SeatReservationMessage(
-          floor,
-          section,
-          seatNumber,
-          studentNumber
-        ).send
-
-        seatResponse <- IO.fromEither(decode[SeatReservationResponse](seatReservationResult))
-        _ <- if (seatResponse.success) IO.unit else IO.raiseError(new Exception(seatResponse.message))
-
-      } yield {
-        StudentSeatReservationResponse(success = true, message = "Reservation successful").asJson.noSpaces
-      }
-    }.handleErrorWith { error =>
-      IO.pure(StudentSeatReservationResponse(success = false, message = error.getMessage).asJson.noSpaces)
-    }
-  }
+case class StudentSeatReservationPlanner(token: String, floor: String, section: String, seatNumber: String, override val planContext: PlanContext) extends Planner[String] {
+  override def plan(using planContext: PlanContext): IO[String] =
+    startTransaction(
+      IO.fromOption(JWTUtil.getNumber(token))(new Exception("Invalid token"))
+        .flatMap(studentNumber =>
+          StudentReservationMessage(studentNumber, floor, section, seatNumber).send
+            .flatMap(result => IO.fromEither(decode[StudentReservationResponse](result)))
+            .flatMap(studentResponse => IO.raiseWhen(!studentResponse.success)(new Exception(studentResponse.message)))
+            .flatMap(_ => SeatReservationMessage(floor, section, seatNumber, studentNumber).send)
+            .flatMap(result => IO.fromEither(decode[SeatReservationResponse](result)))
+            .flatMap(seatResponse => IO.raiseWhen(!seatResponse.success)(new Exception(seatResponse.message)))
+            .as(StudentSeatReservationResponse(success = true, message = "Reservation successful").asJson.noSpaces)
+        )
+    ).handleError(error => StudentSeatReservationResponse(success = false, message = error.getMessage).asJson.noSpaces)
 }

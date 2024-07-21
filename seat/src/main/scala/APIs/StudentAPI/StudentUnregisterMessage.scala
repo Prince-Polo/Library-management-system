@@ -1,11 +1,7 @@
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
 
 case class StudentUnregisterMessage(number: String)
 
-object StudentUnregisterMessage {
-  implicit val encoder: Encoder[StudentUnregisterMessage] = deriveEncoder[StudentUnregisterMessage]
-  implicit val decoder: Decoder[StudentUnregisterMessage] = deriveDecoder[StudentUnregisterMessage]
-}
+case class StudentUnregisterResponse(success: Boolean, message: String)

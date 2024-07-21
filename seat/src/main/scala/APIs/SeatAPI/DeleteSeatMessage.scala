@@ -1,12 +1,8 @@
 package APIs.SeatAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import Common.SeatPosition
+import io.circe.generic.auto._
+import APIs.SeatAPI.SeatMessage
 
-case class DeleteSeatMessage(floor: String, section: String, seatNumber: String) // 删除座位的请求信息
+case class DeleteSeatMessage(floor: String, section: String, seatNumber: String) extends SeatMessage[String]
 
-object DeleteSeatMessage {
-  implicit val encoder: Encoder[DeleteSeatMessage] = deriveEncoder[DeleteSeatMessage]
-  implicit val decoder: Decoder[DeleteSeatMessage] = deriveDecoder[DeleteSeatMessage]
-}
+case class DeleteSeatResponse(success: Boolean, message: String)

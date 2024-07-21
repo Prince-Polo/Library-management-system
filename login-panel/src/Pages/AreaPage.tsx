@@ -42,7 +42,8 @@ export const AreaPage: React.FC = () => {
 
     const handleCloseModal = useCallback(() => {
         setIsModalOpen(false);
-    }, []);
+        fetchSeats(index.toString(), area);
+    }, [index,area,fetchSeats]);
 
     const getImage = useCallback(() => {
         return images[`F${index}${area}.png`] || images[`cracking.png`];

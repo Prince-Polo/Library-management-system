@@ -8,26 +8,21 @@ import Common.DBAPI.readDBRows
 import Common.Object.SqlParameter
 import Common.ServiceUtils.schemaName
 import APIs.SeatAPI.ConfirmedSeatQueryResponse
-import Common.SeatInfo
+import Common.{SeatInfo, SeatStatus}
 
 case class ConfirmedSeatQueryPlanner(override val planContext: PlanContext) extends Planner[String] {
-  override def plan(using planContext: PlanContext): IO[String] = {
-    readDBRows(
-      s"SELECT floor, section, seat_number, status, feedback, occupied, student_number FROM $schemaName.seats WHERE status = 'Confirmed' ORDER BY floor, section, seat_number",
-      List()
-    ).map { rows =>
-      val seats = rows.map { row =>
-        SeatInfo(
+  override def plan(using planContext: PlanContext): IO[String] =
+    readDBRows(s"SELECT floor, section, seat_number, status, feedback, occupied, student_number FROM $schemaName.seats WHERE status = 'Confirmed' ORDER BY floor, section, seat_number", List())
+      .map(rows => ConfirmedSeatQueryResponse(
+        rows.map(row => SeatInfo(
           floor = row.hcursor.get[String]("floor").getOrElse(""),
           section = row.hcursor.get[String]("section").getOrElse(""),
           seatNumber = row.hcursor.get[String]("seat_number").getOrElse(""),
-          status = row.hcursor.get[String]("status").getOrElse(""),
+          status = row.hcursor.get[String]("status").flatMap(SeatStatus.fromString).getOrElse(SeatStatus.Available),
           feedback = row.hcursor.get[String]("feedback").getOrElse(""),
-          occupied = row.hcursor.get[String]("occupied").getOrElse(""),
+          occupied = row.hcursor.get[Boolean]("occupied").getOrElse(false),
           studentNumber = row.hcursor.get[String]("student_number").getOrElse("")
-        )
-      }.toList
-      ConfirmedSeatQueryResponse(seats).asJson.noSpaces
-    }
-  }
+        )).toList
+      ).asJson.noSpaces)
+      .handleError(error => ConfirmedSeatQueryResponse(List()).asJson.noSpaces)
 }

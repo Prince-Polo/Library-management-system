@@ -1,11 +1,9 @@
 package APIs.SeatAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import Common.SeatInfo
+import APIs.SeatAPI.SeatMessage
+import io.circe.generic.auto._
 
-case class OccupiedSeatQueryMessage()
+case class OccupiedSeatQueryMessage() extends SeatMessage[String]
 
-object OccupiedSeatQueryMessage {
-  implicit val encoder: Encoder[OccupiedSeatQueryMessage] = deriveEncoder[OccupiedSeatQueryMessage]
-  implicit val decoder: Decoder[OccupiedSeatQueryMessage] = deriveDecoder[OccupiedSeatQueryMessage]
-}
+case class OccupiedSeatQueryResponse(seats: List[SeatInfo])

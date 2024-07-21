@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import { sendPostRequest, ErrorModal, SuccessModal } from 'Pages/ErrorMessage';
 import { useStoreSelected } from 'Pages/LibrarySetting';
 import { SeatReportMessage } from 'Plugins/SeatAPI/SeatReportMessage';
+import myImage from '../Images/FrontPage.png'; // 请根据你的路径调整
 
 export const ReportIssue: React.FC = () => {
     const history = useHistory();
@@ -21,10 +22,10 @@ export const ReportIssue: React.FC = () => {
     const [electricalText, setElectricalText] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
-    const checkString=(inputString:string)=>{
-        return inputString.charCodeAt(0)-48;
+    const checkString = (inputString: string) => {
+        return inputString.charCodeAt(0) - 48;
     }
-    const floornum=checkString(floor);
+    const floornum = checkString(floor);
 
     const handleCheckboxChange = (option: string) => {
         setCheckedOptions(prevState => ({ ...prevState, [option]: !prevState[option] }));
@@ -70,74 +71,78 @@ export const ReportIssue: React.FC = () => {
 
     return (
         <div style={containerStyle}>
-            <div style={headerStyle}>
-                <button style={backButtonStyle} onClick={() => history.push('/Student')}>
-                    &lt;
-                </button>
-                <h2>Report an Issue</h2>
+            <div style={overlayStyle}>
+                <div style={boxStyle}>
+                    <div style={headerStyle}>
+                        <button style={backButtonStyle} onClick={() => history.push('/Student')}>
+                            &lt;
+                        </button>
+                        <h2 style={titleStyle}>Report an Issue</h2>
+                    </div>
+                    <h3 style={subTitleStyle}>Report an issue for seat {seat} in area {area} on floor {floor} of {library} library</h3>
+                    <div style={checkboxContainerStyle}>
+                        <div style={inputContainerStyle}>
+                            <label style={inputLabelStyle}>
+                                <span style={checkboxLabelStyle}>Seat Damage</span>
+                                <input type="checkbox" checked={checkedOptions.seatDamage} onChange={() => handleCheckboxChange('seatDamage')} />
+                            </label>
+                            {checkedOptions.seatDamage && (
+                                <textarea
+                                    style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
+                                    rows={5}
+                                    value={seatText}
+                                    onChange={handleSeatChange}
+                                />
+                            )}
+                        </div>
+                        <div style={inputContainerStyle}>
+                            <label style={inputLabelStyle}>
+                                <span style={checkboxLabelStyle}>Desk Damage</span>
+                                <input type="checkbox" checked={checkedOptions.deskDamage} onChange={() => handleCheckboxChange('deskDamage')} />
+                            </label>
+                            {checkedOptions.deskDamage && (
+                                <textarea
+                                    style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
+                                    rows={5}
+                                    value={deskText}
+                                    onChange={handleDeskChange}
+                                />
+                            )}
+                        </div>
+                        <div style={inputContainerStyle}>
+                            <label style={inputLabelStyle}>
+                                <span style={checkboxLabelStyle}>Electrical Issue</span>
+                                <input type="checkbox" checked={checkedOptions.electricalIssue} onChange={() => handleCheckboxChange('electricalIssue')} />
+                            </label>
+                            {checkedOptions.electricalIssue && (
+                                <textarea
+                                    style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
+                                    rows={5}
+                                    value={electricalText}
+                                    onChange={handleElectricalChange}
+                                />
+                            )}
+                        </div>
+                        <div style={inputContainerStyle}>
+                            <label style={inputLabelStyle}>
+                                <span style={checkboxLabelStyle}>Other</span>
+                                <input type="checkbox" checked={checkedOptions.other} onChange={() => handleCheckboxChange('other')} />
+                            </label>
+                            {checkedOptions.other && (
+                                <textarea
+                                    style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
+                                    rows={5}
+                                    value={otherIssueText}
+                                    onChange={handleTextareaChange}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    <button style={submitButtonStyle} onClick={handleSubmit}>
+                        Submit
+                    </button>
+                </div>
             </div>
-            <h3 style={titleStyle}>Report an issue for seat {seat} in area {area} on floor {floor} of {library} library</h3>
-            <div style={checkboxContainerStyle}>
-                <div style={inputContainerStyle}>
-                    <label style={inputLabelStyle}>
-                        <span style={checkboxLabelStyle}>Seat Damage</span>
-                        <input type="checkbox" checked={checkedOptions.seatDamage} onChange={() => handleCheckboxChange('seatDamage')} />
-                    </label>
-                    {checkedOptions.seatDamage && (
-                        <textarea
-                            style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
-                            rows={5}
-                            value={seatText}
-                            onChange={handleSeatChange}
-                        />
-                    )}
-                </div>
-                <div style={inputContainerStyle}>
-                    <label style={inputLabelStyle}>
-                        <span style={checkboxLabelStyle}>Desk Damage</span>
-                        <input type="checkbox" checked={checkedOptions.deskDamage} onChange={() => handleCheckboxChange('deskDamage')} />
-                    </label>
-                    {checkedOptions.deskDamage && (
-                        <textarea
-                            style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
-                            rows={5}
-                            value={deskText}
-                            onChange={handleDeskChange}
-                        />
-                    )}
-                </div>
-                <div style={inputContainerStyle}>
-                    <label style={inputLabelStyle}>
-                        <span style={checkboxLabelStyle}>Electrical Issue</span>
-                        <input type="checkbox" checked={checkedOptions.electricalIssue} onChange={() => handleCheckboxChange('electricalIssue')} />
-                    </label>
-                    {checkedOptions.electricalIssue && (
-                        <textarea
-                            style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
-                            rows={5}
-                            value={electricalText}
-                            onChange={handleElectricalChange}
-                        />
-                    )}
-                </div>
-                <div style={inputContainerStyle}>
-                    <label style={inputLabelStyle}>
-                        <span style={checkboxLabelStyle}>Other</span>
-                        <input type="checkbox" checked={checkedOptions.other} onChange={() => handleCheckboxChange('other')} />
-                    </label>
-                    {checkedOptions.other && (
-                        <textarea
-                            style={{ ...textareaStyle, display: 'block', resize: 'vertical' }}
-                            rows={5}
-                            value={otherIssueText}
-                            onChange={handleTextareaChange}
-                        />
-                    )}
-                </div>
-            </div>
-            <button style={submitButtonStyle} onClick={handleSubmit}>
-                Submit
-            </button>
             <ErrorModal message={error} onClose={closeModal} />
             <SuccessModal message={success} onClose={closeSuccessModal} />
         </div>
@@ -147,21 +152,47 @@ export const ReportIssue: React.FC = () => {
 const containerStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    padding: '20px',
     alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
     width: '100%',
+    backgroundImage: `url(${myImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+};
+
+const overlayStyle: React.CSSProperties = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1100,
+};
+
+const boxStyle: React.CSSProperties = {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    padding: '40px',
+    borderRadius: '10px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    textAlign: 'center',
+    width: '60%',
 };
 
 const headerStyle: React.CSSProperties = {
-    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: 'purple',
     color: 'white',
     padding: '10px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    fontSize: '20px',
-    width: '100%',
+    fontSize: '24px',
+    borderRadius:'10px',
+    marginBottom: '20px',
 };
 
 const backButtonStyle: React.CSSProperties = {
@@ -173,24 +204,30 @@ const backButtonStyle: React.CSSProperties = {
 };
 
 const titleStyle: React.CSSProperties = {
+    flex: 1,
+    textAlign: 'center',
+};
+
+const subTitleStyle: React.CSSProperties = {
     textAlign: 'center',
     margin: '20px 0',
-    fontSize: '24px',
+    fontSize: '20px',
 };
 
 const checkboxContainerStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     marginBottom: '20px',
-    fontSize: '24px',
+    fontSize: '18px',
     width: '100%',
 };
 
 const textareaStyle: React.CSSProperties = {
-    width: '100%',
+    width: '90%', // 增加宽度
     padding: '10px',
     margin: '10px 0',
-    fontSize: '18px',
+    fontSize: '16px',
     display: 'none', // Initially hidden
 };
 
@@ -201,28 +238,30 @@ const submitButtonStyle: React.CSSProperties = {
     borderRadius: '5px',
     padding: '10px 20px',
     cursor: 'pointer',
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
+    fontSize: '18px',
 };
 
 const inputContainerStyle: React.CSSProperties = {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '100%',
-    marginLeft:'10px',
-    marginRight:'auto',
-    marginBottom: '10px', // Added margin to separate the checkboxes
+    marginBottom: '10px',
 };
 
 const inputLabelStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    fontSize: '16px', // Adjust the font size for the input labels
-    width: '100%',
-    justifyContent: 'space-between', // Space out the label and the checkbox
+    fontSize: '18px',
+    width: '60%', // 增加宽度
+    justifyContent: 'flex-end',
+    marginRight: '10px',
 };
 
 const checkboxLabelStyle: React.CSSProperties = {
-    marginRight: '10px',
-    whiteSpace: 'nowrap', // Ensure the text does not wrap to a new line
+    marginLeft: '10px',
+    whiteSpace: 'nowrap',
 };
+
+export default ReportIssue;

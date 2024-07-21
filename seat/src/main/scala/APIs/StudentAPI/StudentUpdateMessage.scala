@@ -1,16 +1,7 @@
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
 
-case class StudentUpdateMessage(
-                                 userName: String,
-                                 password: String,
-                                 number: String,
-                                 newPassword: Option[String] = None
-                               )
+case class StudentUpdateMessage(userName: String, password: String, number: String, newPassword: Option[String])
 
-object StudentUpdateMessage {
-  implicit val encoder: Encoder[StudentUpdateMessage] = deriveEncoder[StudentUpdateMessage]
-  implicit val decoder: Decoder[StudentUpdateMessage] = deriveDecoder[StudentUpdateMessage]
-}
+case class StudentUpdateResponse(success: Boolean, message: String)

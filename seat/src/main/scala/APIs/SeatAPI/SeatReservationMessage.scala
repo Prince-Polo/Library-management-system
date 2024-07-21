@@ -1,12 +1,9 @@
+// APIs.SeatAPI.SeatReservationMessage.scala
 package APIs.SeatAPI
 
-import APIs.StudentAPI.StudentMessage
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
+import APIs.SeatAPI.SeatMessage
 
 case class SeatReservationMessage(floor: String, section: String, seatNumber: String, studentNumber: String) extends SeatMessage[String]
 
-object SeatReservationMessage {
-  implicit val encoder: Encoder[SeatReservationMessage] = deriveEncoder[SeatReservationMessage]
-  implicit val decoder: Decoder[SeatReservationMessage] = deriveDecoder[SeatReservationMessage]
-}
+case class SeatReservationResponse(success: Boolean, message: String)

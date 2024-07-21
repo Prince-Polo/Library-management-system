@@ -7,9 +7,9 @@ case class SeatInfo(
                      floor: String,
                      section: String,
                      seatNumber: String,
-                     status: String, // 使用字符串类型
+                     status: SeatStatus,
                      feedback: String,
-                     occupied: String, // 使用字符串类型
+                     occupied: Boolean,
                      studentNumber: String
                    )
 

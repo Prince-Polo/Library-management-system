@@ -1,12 +1,9 @@
-// APIs.SeatAPI.QueryAllFloorsMessage.scala
 package APIs.SeatAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import APIs.SeatAPI.SeatMessage
+import Common.FloorInfo
+import io.circe.generic.auto.*
 
-case class QueryAllFloorsMessage()
+case class QueryAllFloorsMessage() extends SeatMessage[String]
 
-object QueryAllFloorsMessage {
-  implicit val encoder: Encoder[QueryAllFloorsMessage] = deriveEncoder[QueryAllFloorsMessage]
-  implicit val decoder: Decoder[QueryAllFloorsMessage] = deriveDecoder[QueryAllFloorsMessage]
-}
+case class QueryAllFloorsResponse(floorCount: String, floors: List[FloorInfo])

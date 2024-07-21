@@ -1,12 +1,10 @@
 // APIs.SeatAPI.QuerySectionsByFloorMessage.scala
 package APIs.SeatAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import Common.SectionInfo
+import APIs.SeatAPI.SeatMessage
+import io.circe.generic.auto._
 
-case class QuerySectionsByFloorMessage(floor: String)
+case class QuerySectionsByFloorMessage(floor: String) extends SeatMessage[String]
 
-object QuerySectionsByFloorMessage {
-  implicit val encoder: Encoder[QuerySectionsByFloorMessage] = deriveEncoder[QuerySectionsByFloorMessage]
-  implicit val decoder: Decoder[QuerySectionsByFloorMessage] = deriveDecoder[QuerySectionsByFloorMessage]
-}
+case class QuerySectionsByFloorResponse(sectionCount: String, sections: List[SectionInfo])

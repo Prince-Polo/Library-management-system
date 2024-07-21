@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useStore, Info } from './store';
 import { StudentSeatLeaveMessage } from 'Plugins/StudentAPI/StudentSeatLeaveMessage';
 import { UpdateViolationCountMessage } from 'Plugins/StudentAPI/UpdateViolationCountMessage';
-import { ErrorModal, sendPostRequest, SuccessModal } from 'Pages/ErrorMessage'
+import { ErrorModal, sendPostRequest, SuccessModal } from 'Pages/ErrorMessage';
 
 interface ReservationPaneProps {
     info: Info;
@@ -12,41 +12,15 @@ interface ReservationPaneProps {
 
 export const ReservationPane: React.FC<ReservationPaneProps> = ({ info, setInfo }) => {
     const history = useHistory();
-    const [showTempLeaveModal, setShowTempLeaveModal] = useState(false);
     const [showFullLeaveModal, setShowFullLeaveModal] = useState(false);
-    const [tempLeaveTime, setTempLeaveTime] = useState<number | null>(null);
-    const [error,setError] = useState<string | null>(null);
-    const [success,setSuccess] = useState<string | null>(null);
-
-    useEffect(() => {
-        let interval: NodeJS.Timeout;
-        if (tempLeaveTime !== null) {
-            interval = setInterval(() => {
-                setTempLeaveTime((prevTime) => {
-                    if (prevTime && prevTime > 0) {
-                        return prevTime - 1;
-                    } else {
-                        clearInterval(interval);
-                        handleSeatRelease();
-                        return null;
-                    }
-                });
-            }, 1000);
-        }
-        return () => clearInterval(interval);
-    }, [tempLeaveTime]);
-
-    const handleTempLeave = () => {
-        setShowTempLeaveModal(true);
-        setTempLeaveTime(60); // 1 minute in seconds
-    };
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     const handleFullLeave = () => {
         setShowFullLeaveModal(true);
     };
 
     const handleSeatRelease = () => {
-        // Send messages to release seat and update violation count
         const studentLeaveMessage = new StudentSeatLeaveMessage(info.token, info.floor, info.sectionNumber, info.seatNumber);
         const updateViolationCountMessage = new UpdateViolationCountMessage(info.token, info.violationCount.toString());
         sendPostRequest(studentLeaveMessage, setError, (response) => {
@@ -62,11 +36,9 @@ export const ReservationPane: React.FC<ReservationPaneProps> = ({ info, setInfo 
                 seatNumber: "0"
             });
         });
-        setShowTempLeaveModal(false);
     };
 
     const handleConfirmFullLeave = () => {
-        // Send messages to release seat
         const studentLeaveMessage = new StudentSeatLeaveMessage(info.token, info.floor, info.sectionNumber, info.seatNumber);
         sendPostRequest(studentLeaveMessage, setError, (response) => {
             console.log('Student leave message sent:', response);
@@ -80,73 +52,48 @@ export const ReservationPane: React.FC<ReservationPaneProps> = ({ info, setInfo 
         setShowFullLeaveModal(false);
     };
 
-    const handleSignIn = () => {
-        setTempLeaveTime(null);
-        console.log('Signed in');
-    };
-
-    const formatTime = (seconds: number) => {
-        const minutes = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${minutes} minutes ${secs} seconds`;
-    };
-
-    const handleClose=()=>{
+    const handleClose = () => {
         setError(null);
-    }
+    };
 
-    const handleCloseSucess=()=>{
+    const handleCloseSuccess = () => {
         setSuccess(null);
-    }
+    };
 
     return (
         <div style={paneStyle}>
-            <h3>Reservation Record</h3>
-            <p>Floor: {info.floor}</p>
-            <p>Section: {info.sectionNumber}</p>
-            <p>Seat: {info.floor==='0'?'G':`F${info.floor}`}{info.sectionNumber}{info.seatNumber.padStart(3,'0')}</p>
-            <div style={buttonsContainerStyle}>
-                <button style={leaveButtonStyle} onClick={handleTempLeave}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'lightgreen'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#32CD32'}>
-                    Temporary Leave
-                </button>
-                <button style={leaveButtonStyle} onClick={handleFullLeave}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'lightgreen'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#32CD32'}>
-                    Full Leave
-                </button>
-            </div>
-            {tempLeaveTime !== null && (
-                <div style={signOutContainerStyle}>
-                    <p>Temporary leave remaining: {formatTime(tempLeaveTime)}</p>
-                    <button style={signOutButtonStyle} onClick={handleSignIn}
+            <h3 style={reservationHeaderStyle}>Reservation Record</h3>
+            {info.floor === '0' && info.sectionNumber === '0' && info.seatNumber === '0' ? (
+                <p style={reservationHeaderStyle}>已离开</p>
+            ) : (
+                <>
+                        <p style={reservationDetailStyle}><strong>Floor:</strong> {info.floor}</p>
+                        <p style={reservationDetailStyle}><strong>Section:</strong> {info.sectionNumber}</p>
+                        <p style={reservationDetailStyle}><strong>Seat:</strong> {info.floor === '0' ? 'G' : `F${info.floor}`}{info.sectionNumber}{info.seatNumber.padStart(3, '0')}</p>
+       </>
+            )}
+            {info.floor !== '0' && (
+                <div style={buttonsContainerStyle}>
+                    <button style={leaveButtonStyle} onClick={handleFullLeave}
                             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'lightgreen'}
                             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#32CD32'}>
-                        Sign In
+                        Leave
                     </button>
                 </div>
             )}
             <>
-                {showTempLeaveModal && (
-                    <div style={overlayStyle} onClick={() => setShowTempLeaveModal(false)}>
-                        <div style={modalStyle}>
-                            <h2>Temporary Leave Successful</h2>
-                            <button style={buttonStyle} onClick={() => setShowTempLeaveModal(false)}>OK</button>
-                        </div>
-                    </div>
-                )}
                 {showFullLeaveModal && (
                     <div style={overlayStyle} onClick={() => setShowFullLeaveModal(false)}>
                         <div style={modalStyle}>
-                            <h2>{info.userName}, you have successfully left seat {info.floor==='0'?'G':`F${info.floor}`}{info.sectionNumber}{info.seatNumber.padStart(3,'0')}</h2>
+                            <h2>{info.userName}, you have successfully left
+                                seat {info.floor === '0' ? 'G' : `F${info.floor}`}{info.sectionNumber}{info.seatNumber.padStart(3, '0')}</h2>
                             <button style={buttonStyle} onClick={handleConfirmFullLeave}>OK</button>
                         </div>
                     </div>
                 )}
             </>
-            <ErrorModal message={error} onClose={handleClose}/>
-            <SuccessModal message={success} onClose={handleCloseSucess}/>
+            <ErrorModal message={error} onClose={handleClose} />
+            <SuccessModal message={success} onClose={handleCloseSuccess} />
         </div>
     );
 };
@@ -156,15 +103,35 @@ const paneStyle: React.CSSProperties = {
     border: '1px solid #ddd',
     borderRadius: '8px',
     padding: '20px',
-    marginBottom: '20px',
+    margin: '20px 0px',
     textAlign: 'left',
+    width: '95%',
 };
+
+const reservationHeaderStyle: React.CSSProperties = {
+    textAlign: 'center',
+    fontSize: '28px', // Increase the font size
+    margin: '0 0px',
+    fontWeight: 'bold', // Make font bold
+};
+
+const reservationInfoStyle: React.CSSProperties = {
+    textAlign: 'left',
+    padding: '0 20px',
+};
+
+const reservationDetailStyle: React.CSSProperties = {
+    fontSize: '24px', // Increase the font size
+    margin: '10px 0px',
+    fontWeight: 'bold', // Make font bold
+};
+
+
 
 const buttonsContainerStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
-    gap: '10px',
-    marginBottom: '20px',
+    marginTop: '20px',
 };
 
 const leaveButtonStyle: React.CSSProperties = {
@@ -175,17 +142,8 @@ const leaveButtonStyle: React.CSSProperties = {
     borderRadius: '5px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
-};
-
-const signOutContainerStyle: React.CSSProperties = {
-    textAlign: 'left',
-    marginTop: '10px',
-};
-
-const signOutButtonStyle: React.CSSProperties = {
-    ...leaveButtonStyle,
-    backgroundColor: '#32CD32',
-    marginTop: '10px',
+    fontSize: '18px', // 设置字体大小
+    fontWeight: 'bold', // 设置字体粗细
 };
 
 const modalStyle: React.CSSProperties = {
@@ -217,3 +175,5 @@ const buttonStyle: React.CSSProperties = {
     backgroundColor: 'white',
     transition: 'background-color 0.3s',
 };
+
+export default ReservationPane;

@@ -1,11 +1,16 @@
 package APIs.StudentAPI
 
-import io.circe.{Decoder, Encoder}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.generic.auto._
 
-case class StudentInfoMessage(number: String)
+case class StudentInfoMessage(token: String)
 
-object StudentInfoMessage {
-  implicit val encoder: Encoder[StudentInfoMessage] = deriveEncoder[StudentInfoMessage]
-  implicit val decoder: Decoder[StudentInfoMessage] = deriveDecoder[StudentInfoMessage]
-}
+case class StudentInfoResponse(
+                                userName: String,
+                                number: String,
+                                volunteerStatus: Boolean,
+                                floor: String,
+                                sectionNumber: String,
+                                seatNumber: String,
+                                violationCount: Int,       // 更改为 Int 类型
+                                volunteerHours: Float      // 更改为 Float 类型
+                              )
