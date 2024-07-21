@@ -28,11 +28,11 @@ case class QuerySeatsInSectionPlanner(floor: String, section: String, override v
           SeatInfo(
             floor = row.hcursor.get[String]("floor").getOrElse(""),
             section = row.hcursor.get[String]("section").getOrElse(""),
-            seatNumber = row.hcursor.get[String]("seat_number").getOrElse(""),
+            seatNumber = row.hcursor.get[String]("seatNumber").getOrElse(""),
             status = row.hcursor.get[String]("status").flatMap(SeatStatus.fromString).getOrElse(SeatStatus.Available),
             feedback = row.hcursor.get[String]("feedback").getOrElse(""),
             occupied = row.hcursor.get[Boolean]("occupied").getOrElse(false),
-            studentNumber = row.hcursor.get[String]("student_number").getOrElse("")
+            studentNumber = row.hcursor.get[String]("studentNumber").getOrElse("")
           )
         ).toList
       ).asJson.noSpaces

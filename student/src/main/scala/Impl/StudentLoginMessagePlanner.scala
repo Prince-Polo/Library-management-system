@@ -24,14 +24,14 @@ case class StudentLoginMessagePlanner(userName: String, password: String, number
               writeDB(s"INSERT INTO ${schemaName}.student_tokens (number, token) VALUES (?, ?) ON CONFLICT(number) DO UPDATE SET token = EXCLUDED.token", List(SqlParameter("String", number), SqlParameter("String", JWTUtil.createToken(number))))
                 .as(StudentLoginResponse(
                   valid = true,
-                  userName = cursor.get[String]("user_name").getOrElse(""),
+                  userName = cursor.get[String]("userName").getOrElse(""),
                   token = JWTUtil.createToken(number),
-                  volunteerStatus = cursor.get[Boolean]("volunteer_status").getOrElse(false),
+                  volunteerStatus = cursor.get[Boolean]("volunteerStatus").getOrElse(false),
                   floor = cursor.get[String]("floor").getOrElse("0"),
-                  sectionNumber = cursor.get[String]("section_number").getOrElse("0"),
-                  seatNumber = cursor.get[String]("seat_number").getOrElse("0"),
-                  violationCount = cursor.get[Int]("violation_count").getOrElse(0),
-                  volunteerHours = cursor.get[Float]("volunteer_hours").getOrElse(0.0f)
+                  sectionNumber = cursor.get[String]("sectionNumber").getOrElse("0"),
+                  seatNumber = cursor.get[String]("seatNumber").getOrElse("0"),
+                  violationCount = cursor.get[Int]("violationCount").getOrElse(0),
+                  volunteerHours = cursor.get[Float]("volunteerHours").getOrElse(0.0f)
                 ).asJson.noSpaces)
             )
         )

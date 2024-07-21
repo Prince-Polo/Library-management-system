@@ -1,3 +1,3 @@
 package APIs.JobAPI
 
-case class UpdateTaskStatusMessage(jobId: Int, studentId: Int, status: Int)
+case class UpdateTaskStatusMessage(jobId: Int, studentId: String, status: Int)

@@ -19,16 +19,6 @@ object Routes:
           .flatMap{m=>
             m.fullPlan.map(_.asJson.toString)
           }
-/*    case "AvailableJobQueryMessage" =>
-      IO(decode[AvailableJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for AvailableJobQuery")))
-        .flatMap{m=>
-          m.fullPlan.map(_.asJson.toString)
-        }
-    case "BookedCompletedUnapprovedJobQueryMessage" =>
-      IO(decode[BookedCompletedUnapprovedJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for BookedCompletedUnapprovedJobQueryMessage")))
-        .flatMap{m=>
-          m.fullPlan.map(_.asJson.toString)
-        }*/
     case "ApprovedJobMessage" =>
       IO(decode[ApprovedJobQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for ApprovedJobMessage")))
         .flatMap{m=>
@@ -66,7 +56,7 @@ object Routes:
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }
-    case "JobStudentsQuery" =>
+    case "JobStudentsQueryMessage" =>
       IO(decode[JobStudentsQueryPlanner](str).getOrElse(throw new Exception("Invalid JSON for JobStudentsQuery")))
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
@@ -81,7 +71,7 @@ object Routes:
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }
-    case "ForceEndMessage" =>
+    case "ForceEndTaskMessage" =>
       IO(decode[ForceEndTaskPlanner](str).getOrElse(throw new Exception("Invalid JSON for ForceEndMessage")))
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
@@ -91,7 +81,7 @@ object Routes:
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)
         }
-    case "CheckStudentStatusMessage" =>
+    case "CheckStudentTaskStatusMessage" =>
       IO(decode[CheckStudentTaskStatusPlanner](str).getOrElse(throw new Exception("Invalid JSON for CheckStudentStatusMessage")))
         .flatMap { m =>
           m.fullPlan.map(_.asJson.toString)

@@ -40,13 +40,13 @@ case class StudentInfoUsingTokenPlanner(token: String, override val planContext:
           IO.raiseWhen(rows.isEmpty)(new Exception("Student not found")).map { _ =>
             val cursor = rows.head.hcursor
             StudentInfoUsingTokenResponse(
-              userName = cursor.get[String]("user_name").getOrElse(""),
-              volunteerStatus = cursor.get[Boolean]("volunteer_status").getOrElse(false),
+              userName = cursor.get[String]("userName").getOrElse(""),
+              volunteerStatus = cursor.get[Boolean]("volunteerStatus").getOrElse(false),
               floor = cursor.get[String]("floor").getOrElse("0"),
-              sectionNumber = cursor.get[String]("section_number").getOrElse("0"),
-              seatNumber = cursor.get[String]("seat_number").getOrElse("0"),
-              violationCount = cursor.get[Int]("violation_count").getOrElse(0),
-              volunteerHours = cursor.get[Float]("volunteer_hours").getOrElse(0.0f)
+              sectionNumber = cursor.get[String]("sectionNumber").getOrElse("0"),
+              seatNumber = cursor.get[String]("seatNumber").getOrElse("0"),
+              violationCount = cursor.get[Int]("violationCount").getOrElse(0),
+              volunteerHours = cursor.get[Float]("volunteerHours").getOrElse(0.0f)
             ).asJson.noSpaces
           }
         }

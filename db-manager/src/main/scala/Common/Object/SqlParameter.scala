@@ -20,6 +20,7 @@ object SqlParameter {
         case "string" => SqlParameter("String", value)
         case "int" => SqlParameter("Int", value)
         case "boolean" => SqlParameter("Boolean", value)
+        case "float" => SqlParameter("Float", value)
         case "datetime" => SqlParameter("DateTime", value)
         case "stringarray" => SqlParameter("StringArray", value)
         case "string2darray" => SqlParameter("String2DArray", value) // Add 2D Array type case

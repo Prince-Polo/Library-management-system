@@ -28,8 +28,8 @@ case class QueryAllFloorsPlanner(override val planContext: PlanContext) extends 
           FloorInfo(
             floor = row.hcursor.get[String]("floor").getOrElse(""),
             sections = row.hcursor.get[Int]("sections").getOrElse(0).toString,
-            totalSeats = row.hcursor.get[Int]("total_seats").getOrElse(0).toString,
-            freeSeats = row.hcursor.get[Int]("free_seats").getOrElse(0).toString
+            totalSeats = row.hcursor.get[Int]("totalSeats").getOrElse(0).toString,
+            freeSeats = row.hcursor.get[Int]("freeSeats").getOrElse(0).toString
           )
         ).toList
       ).asJson.noSpaces

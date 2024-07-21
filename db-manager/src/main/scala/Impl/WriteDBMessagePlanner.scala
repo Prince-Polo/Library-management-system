@@ -39,6 +39,7 @@ case class WriteDBMessagePlanner(sqlStatement: String, parameters: List[SqlParam
       case "string" => statement.setString(index, sqlParameter.value)
       case "int" => statement.setInt(index, sqlParameter.value.toInt)
       case "boolean" => statement.setBoolean(index, sqlParameter.value.toBoolean)
+      case "float" => statement.setFloat(index, sqlParameter.value.toFloat)
       case "datetime" => statement.setTimestamp(index, Timestamp.valueOf(sqlParameter.value))
       case "stringarray" =>
         val array = statement.getConnection.createArrayOf("TEXT", sqlParameter.value.stripPrefix("{").stripSuffix("}").split(",").map(_.trim))

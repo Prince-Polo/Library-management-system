@@ -1,12 +1,12 @@
 import { StudentMessage } from 'Plugins/StudentAPI/StudentMessage'
 
 export class StudentDeleteMessage extends StudentMessage {
-    number: string;
+    token: string;
     password: string;
 
-    constructor( number: string, password: string )  {
+    constructor( token: string, password: string )  {
         super();
-        this.number = number;
+        this.token = token;
         this.password = password;
     }
 }

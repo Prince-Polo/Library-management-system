@@ -29,8 +29,8 @@ case class QuerySectionsByFloorPlanner(floor: String, override val planContext: 
         sections = rows.map(row =>
           SectionInfo(
             section = row.hcursor.get[String]("section").getOrElse(""),
-            totalSeats = row.hcursor.get[Int]("total_seats").getOrElse(0).toString,
-            freeSeats = row.hcursor.get[Int]("free_seats").getOrElse(0).toString
+            totalSeats = row.hcursor.get[Int]("totalSeats").getOrElse(0).toString,
+            freeSeats = row.hcursor.get[Int]("freeSeats").getOrElse(0).toString
           )
         ).toList
       ).asJson.noSpaces

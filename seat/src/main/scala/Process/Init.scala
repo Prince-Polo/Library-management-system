@@ -34,7 +34,7 @@ object Init {
     val F4C = newList("4", "C", 1, 12)
     val F4D = newList("4", "D", 1, 32)
     val F5A = newList("5", "A", 1, 9)
-    val F5B = newList("5", "B", 1, 20)
+    val F5B = newList("5", "B", 1, 29)
     val seatData = F0A ++ F1C ++ F1D ++ F2A ++ F2B ++ F2C ++ F2D ++ F3A ++ F3B ++ F3C ++ F3D ++ F4A ++ F4B ++ F4C ++ F4D ++ F5A ++ F5B
 
     for {
